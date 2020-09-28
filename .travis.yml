@@ -1,0 +1,16 @@
+language: php
+
+php:
+  - 7.3
+
+before_script:
+  - cp .env.travis .env
+  - composer install --no-interaction
+  - npm install
+  - npm run dev
+  - php artisan key:generate
+
+cache:
+  directories:
+    - vendor
+    - node_modules
