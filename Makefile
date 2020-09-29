@@ -5,7 +5,7 @@ down:
 	docker-compose down
 
 test:
-	vendor/bin/phpunit
+	vendor/bin/phpunit --testdox
 
 test-unit:
 	vendor/bin/phpunit --filter=unit
