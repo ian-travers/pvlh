@@ -6,12 +6,12 @@
         <div class="ml-3">
             <div class="card mb-3">
                 <div class="card-header lead">Форма для восстановления пароля</div>
+                @if (session('status'))
+                    <div class="alert alert-success rounded-0" role="alert">
+                        На ваш email-адрес отправлено письмо для восстановления пароля
+                    </div>
+                @endif
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
                     <form method="post" action="{{ route('password.email') }}">
                         @csrf
                         <div class="form-group">

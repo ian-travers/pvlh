@@ -1,10 +1,16 @@
 {
-
-    "Whoops!": "Упс!",
-    "Hello!": "Здавствуйте!",
-    "Regards": "С уважением",
-    "Verify Email Address": "Подтвердите ваш адрес email",
-    "Please click the button below to verify your email address.": "Кликните на кнопку ниже, чтобы подтвердить ваш адрес email.",
+    "Dashboard": "Главная",
     "If you did not create an account, no further action is required.": "Если вы не создавали учетную запись, то никаких дополнительных действий не требуется. Игнорируйте это письмо или удалите его.",
-    "If you’re having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:": "Если у Вас возникли проблемы с кликом по кнопке \":actionText\", скопируйте и вставьте адрес\nв адресную строку браузера:"
+    "If you did not request a password reset, no further action is required.": "Если Вы не запрашивали сброс пароля, то дополнительных действий не требуется.",
+    "If you’re having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:": "Если у Вас возникли проблемы с кликом по кнопке \":actionText\", скопируйте и вставьте адрес\nв адресную строку браузера:",
+    "Hello!": "Здавствуйте!",
+    "Please click the button below to verify your email address.": "Кликните на кнопку ниже, чтобы подтвердить ваш адрес email.",
+    "Regards": "С уважением",
+    "Reset Password Notification": "Уведомление сброса пароля",
+    "Reset Password": "Сбросить пароль",
+    "This password reset link will expire in :count minutes.": "Срок действия ссылки для сброса пароля истекает через :count минут.",
+    "Verify Email Address": "Подтвердите ваш адрес email",
+    "Whoops!": "Упс!",
+    "You are logged in!": "Вы вошли в систему!",
+    "You are receiving this email because we received a password reset request for your account.": "Вы получили это письмо, потому что мы получили запрос на сброс пароля для Вашей учетной записи."
 }
