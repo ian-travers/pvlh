@@ -1,28 +1,30 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Verify Your Email Address') }}</div>
-
-                <div class="card-body">
-                    @if (session('resent'))
-                        <div class="alert alert-success" role="alert">
-                            {{ __('A fresh verification link has been sent to your email address.') }}
-                        </div>
-                    @endif
-
-                    {{ __('Before proceeding, please check your email for a verification link.') }}
-                    {{ __('If you did not receive the email') }},
-                    <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
-                    </form>
+<x-layout-auth>
+    @if (session('resent'))
+        <div class="alert alert-success" role="alert">
+            Новое письмо с инструкцией по верификации отправлено на ваш адрес email.
+        </div>
+    @endif
+    <div class="card w-50 mx-auto">
+        <div class="card-header">
+            <h2 class="text-muted">Верификация адреса email</h2>
+        </div>
+        <div class="card-body">
+            @if (session('resent'))
+                <div class="alert alert-success" role="alert">
+                    Новое письмо с инструкцией по верификации отправлено на ваш адрес email.
                 </div>
-            </div>
+            @endif
+            На адрес email, указанный при регистрации, выслано письмо для подтверждения вашего адреса email. Это
+            процедура необходима для дальнейшей работе в системе. В настройках вашего профиля можно указать
+            рассылку уведомлений на события, происходящие в системе, которая будет посылаться на ваш адрес
+            email. Если вы не получили email, то
+            <form class="d-inline" method="post" action="{{ route('verification.resend') }}">
+                @csrf
+                <button type="submit"
+                        class="btn btn-link p-0 m-0 align-baseline">кликните сюда и система отправит вам новый
+                </button>
+                .
+            </form>
         </div>
     </div>
-</div>
-@endsection
+</x-layout-auth>
