@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,6 +13,7 @@ use Illuminate\Notifications\Notifiable;
  *
  * @property int $id
  * @property string $name
+ * @property string $position
  * @property string $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
@@ -31,9 +31,10 @@ use Illuminate\Notifications\Notifiable;
  * @method static Builder|User whereId($value)
  * @method static Builder|User whereName($value)
  * @method static Builder|User wherePassword($value)
+ * @method static Builder|User wherePosition($value)
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereUpdatedAt($value)
- * @mixin Eloquent
+ * @mixin \Eloquent
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -41,6 +42,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $fillable = [
         'name',
+        'position',
         'email',
         'password',
     ];
