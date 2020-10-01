@@ -30,13 +30,14 @@
                             При создании, согласовании, утверждении заявки система может рассылать уведомления своим
                             пользователям. Выберите уведомления, которые хотите получать:
                             <div class="form-check mt-2">
-                                <input type="checkbox" name="notifyBrowser" id="notify-browser"
-                                       class="form-check-input">
+                                <input type="checkbox" name="is_browser_notified" id="notify-browser"
+                                       class="form-check-input" {{ $user->hasBrowserNotifications() ? 'checked' : '' }}>
                                 <label for="notify-browser" class="font-weight-bolder">Получать уведомления в
                                     браузере</label>
                             </div>
                             <div class="form-check">
-                                <input type="checkbox" name="notifyEmail" id="notify-email" class="form-check-input">
+                                <input type="checkbox" name="is_email_notified" id="notify-email"
+                                       class="form-check-input" {{ $user->hasEmailNotifications() ? 'checked' : '' }}>
                                 <label for="notify-email" class="font-weight-bolder">Получать уведомления по электронной
                                     почте</label>
                             </div>

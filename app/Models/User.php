@@ -14,6 +14,8 @@ use Illuminate\Notifications\Notifiable;
  * @property int $id
  * @property string $name
  * @property string $position
+ * @property bool $is_browser_notified
+ * @property bool $is_email_notified
  * @property string $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
@@ -29,6 +31,8 @@ use Illuminate\Notifications\Notifiable;
  * @method static Builder|User whereEmail($value)
  * @method static Builder|User whereEmailVerifiedAt($value)
  * @method static Builder|User whereId($value)
+ * @method static Builder|User whereIsBrowserNotified($value)
+ * @method static Builder|User whereIsEmailNotified($value)
  * @method static Builder|User whereName($value)
  * @method static Builder|User wherePassword($value)
  * @method static Builder|User wherePosition($value)
@@ -54,5 +58,17 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_browser_notified' => 'boolean',
+        'is_email_notified' => 'boolean',
     ];
+
+    public function hasBrowserNotifications()
+    {
+        return $this->email_verified_at ? $this->is_browser_notified : false;
+    }
+
+    public function hasEmailNotifications()
+    {
+        return $this->email_verified_at ? $this->is_email_notified : false;
+    }
 }
