@@ -16,14 +16,11 @@ class ProfileController extends Controller
     /**
      * @param Request $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request)
     {
-        $request['is_browser_notified'] = request()->has('is_browser_notified') ? true : false;
-        $request['is_email_notified'] = request()->has('is_email_notified') ? true : false;
-
         $data = $this->validate($request, [
             'name' => 'required|string|max:255',
             'position' => 'required|string|max:50',
@@ -35,6 +32,13 @@ class ProfileController extends Controller
         $user = auth()->user();
 
         $user->update($data);
+
+        if (request()->wantsJson()) {
+            return response([
+                'title' => 'Успех',
+                'message' => 'Сохранено.',
+            ]);
+        }
 
         return back();
     }
