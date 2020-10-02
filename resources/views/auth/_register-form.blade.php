@@ -9,7 +9,7 @@
 </div>
 <div class="form-group">
     <label for="position" class="font-weight-bolder">Должность</label>
-    <input id="position" type="text"
+    <input id="position" type="text" maxlength="50"
            class="form-control @error('position') is-invalid @enderror" name="position"
            value="{{ old('position') }}" required autocomplete="position">
     @error('position')
