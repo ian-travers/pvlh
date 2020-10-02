@@ -27,21 +27,7 @@
                         </div>
                         <div class="card-body">
                             <p>Для изменения введите ниже новый адрес email и нажмите "Сохранить адрес email".</p>
-                            <form action="#" method="post">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="email">Адрес email</label>
-                                    <input typeof="text" name="email" id="email"
-                                           class="form-control @error('email') is-invalid @enderror"
-                                           value="{{ old('email', $user->email) }}" required
-                                    >
-                                    @error('email')
-                                    <span class="invalid-feedback"
-                                          role="alert"><strong>{{ $message }}</strong></span>
-                                    @enderror
-                                </div>
-                                <button type="submit" class="btn btn-primary float-right">Сохранить адрес email</button>
-                            </form>
+                            <change-email-form email="{{ $user->email }}"></change-email-form>
                         </div>
                     </div>
                     <div class="card mt-3">

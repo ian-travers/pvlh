@@ -20,6 +20,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('edit-profile-form', require('./components/User/EditProfileForm').default);
+Vue.component('change-email-form', require('./components/User/ChangeEmailForm').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

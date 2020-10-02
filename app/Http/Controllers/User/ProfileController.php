@@ -4,7 +4,6 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
@@ -14,14 +13,11 @@ class ProfileController extends Controller
     }
 
     /**
-     * @param Request $request
-     *
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request)
+    public function update()
     {
-        $data = $this->validate($request, [
+        $data = $this->validate(request(), [
             'name' => 'required|string|max:255',
             'position' => 'required|string|max:50',
             'is_browser_notified' => 'required|boolean',
@@ -35,9 +31,37 @@ class ProfileController extends Controller
 
         if (request()->wantsJson()) {
             return response([
-                'title' => 'Успех',
+                'title' => 'Успех!',
                 'message' => 'Сохранено.',
             ]);
+        }
+
+        return back();
+    }
+
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function changeEmail()
+    {
+        /** @var User $user */
+        $user = auth()->user();
+
+        $this->validate(request(), [
+            'email' => 'required|string|email:filter|max:255|unique:users,email,' . $user->id,
+        ]);
+
+        if (request('email') !== $user->email) {
+            $user->update([
+                'email' => request('email'),
+            ]);
+
+            if (request()->wantsJson()) {
+                return response([
+                    'title' => 'Успех!',
+                    'message' => 'Адрес email изменен.',
+                ]);
+            }
         }
 
         return back();
