@@ -13,3 +13,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
 Route::get('/profile', [App\Http\Controllers\User\ProfileController::class, 'show'])
     ->middleware(['auth', 'verified'])
     ->name('profile');
+
+Route::post('/profile', [App\Http\Controllers\User\ProfileController::class, 'update'])
+    ->middleware(['auth', 'verified'])
+    ->name('profile.update');
