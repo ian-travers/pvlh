@@ -16,7 +16,7 @@
     <div class="row mt-3">
         <div class="col-md-5 col-sm-12 mt-md-3">
             <h3 class="text-muted">Параметры учетной записи</h3>
-            <p class="text-muted">Здесть вы можете изменить адрес email, сменить пароль, удалить учетную запись </p>
+            <p class="text-muted">Здесть вы можете изменить адрес email, сменить пароль, удалить учетную запись.</p>
         </div>
         <div class="col-md-7 col-sm-12">
             <div class="card">
@@ -36,49 +36,7 @@
                         </div>
                         <div class="card-body">
                             <p>Воспользуйтесь кнопкой ниже, чтобы изменить пароль.</p>
-                            <button type="button" data-toggle="modal" data-target="#changePasswordForm"
-                                    class="btn btn-dark float-right">
-                                Изменить пароль...
-                            </button>
-                        </div>
-                    </div>
-                    <div id="changePasswordForm" class="modal fade" tabindex="-1" role="dialog">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Изменение пароля</h5>
-                                    <button type="button" class="close" data-dismiss="modal"
-                                            aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form method="post">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="password">Новый пароль</label>
-                                            <input type="password" name="password" id="password"
-                                                   class="form-control @error('password') is-invalid @enderror"
-                                                   required>
-                                            <span class="invalid-feedback" id="password-error"
-                                                  role="alert"><strong id="password-error-message"></strong></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="password-confirm">Повтор пароля</label>
-                                            <input type="password" name="password_confirmation" id="password-confirm"
-                                                   class="form-control"
-                                                   required>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer d-block">
-                                    <div class="text-center">
-                                        <button type="button" id="submitChangePasswordForm" class="btn btn-primary">
-                                            Сохранить новый пароль
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                            <change-password-form></change-password-form>
                         </div>
                     </div>
                     <div class="card mt-3">
@@ -150,4 +108,3 @@
         </div>
     </div>
 </x-layout-app>
-

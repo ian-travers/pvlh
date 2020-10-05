@@ -21,3 +21,7 @@ Route::post('/profile', [App\Http\Controllers\User\ProfileController::class, 'up
 Route::post('/profile/email', [App\Http\Controllers\User\ProfileController::class, 'changeEmail'])
     ->middleware(['auth'])
     ->name('profile.email');
+
+Route::post('/profile/password', [App\Http\Controllers\User\ProfileController::class, 'changePassword'])
+    ->middleware(['auth'])
+    ->name('profile.password');
