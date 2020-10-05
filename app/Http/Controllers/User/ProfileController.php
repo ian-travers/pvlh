@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Hash;
+use Illuminate\Http\Response;
 
 class ProfileController extends Controller
 {
@@ -93,5 +94,29 @@ class ProfileController extends Controller
         }
 
         return back();
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function remove()
+    {
+        /** @var User $user */
+        $user = auth()->user();
+
+        if ($user->isCanBeDeleted()) {
+            $this->validate(request(), [
+                'passwordCheck' => 'required|password',
+                'verifyPhrase' => 'required|regex:/^delete my account$/s'
+            ]);
+
+            auth()->logout();
+            $user->delete();
+
+            return response(['title' => 'Успех!', 'message' => 'Учетная запись удалена.']);
+        }
+
+        return response(['title' => 'Ошибка!', 'message' => 'Невозможно удалить учетную запись. Есть связанные объекты.'], Response::HTTP_CONFLICT);
     }
 }

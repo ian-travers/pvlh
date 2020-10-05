@@ -73,4 +73,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->email_verified_at ? $this->is_email_notified : false;
     }
+
+    public function isCanBeDeleted()
+    {
+        // TODO: Check for everything that might interfere...
+        return true;
+    }
 }

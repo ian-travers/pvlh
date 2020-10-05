@@ -25,3 +25,7 @@ Route::post('/profile/email', [App\Http\Controllers\User\ProfileController::clas
 Route::post('/profile/password', [App\Http\Controllers\User\ProfileController::class, 'changePassword'])
     ->middleware(['auth'])
     ->name('profile.password');
+
+Route::post('/profile/delete', [App\Http\Controllers\User\ProfileController::class, 'remove'])
+    ->middleware(['auth'])
+    ->name('profile.delete');

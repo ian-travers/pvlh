@@ -22,6 +22,7 @@ window.Vue = require('vue');
 Vue.component('edit-profile-form', require('./components/User/EditProfileForm').default);
 Vue.component('change-email-form', require('./components/User/ChangeEmailForm').default);
 Vue.component('change-password-form', require('./components/User/ChangePasswordForm').default);
+Vue.component('delete-account-form', require('./components/User/DeleteAccountForm').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

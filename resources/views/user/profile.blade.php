@@ -49,61 +49,7 @@
                         <div class="card-body">
                             <p>Важно понимать: как только вы удалите свою учетную запись, назад возврата не будет.
                                 Пожалуйста, будьте внимательны.</p>
-                            <button type="button" data-toggle="modal" data-target="#deleteAccountForm"
-                                    class="btn btn-danger float-right">
-                                Удалить вашу учетную запись...
-                            </button>
-                        </div>
-                    </div>
-                    <div id="deleteAccountForm" class="modal fade" tabindex="-1" role="dialog">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">{{ $user->name }}, уверены, что хотите сделать это?</h5>
-                                    <button type="button" class="close" data-dismiss="modal"
-                                            aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <form method="post">
-                                    @csrf
-                                    <div class="modal-body">
-                                        <div class="alert alert-danger" role="alert">
-                                            Это очень важно. После удаления отменить эту оперцию будет
-                                            невозможно!
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="password-check">Подтвердите своим паролем</label>
-                                            <input type="password" name="passwordCheck" id="password-check"
-                                                   class="form-control @error('passwordCheck') is-invalid @enderror"
-                                                   required>
-                                            <span class="invalid-feedback" id="password-check-error"
-                                                  role="alert"><strong
-                                                    id="password-check-error-message"></strong></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="verify-phrase">
-                                                Для проверки наберите
-                                                <em class="font-weight-normal">delete my account</em>
-                                                в строке ниже:
-                                            </label>
-                                            <input type="text" name="verifyPhrase" id="verify-phrase"
-                                                   class="form-control @error('verifyPhrase') is-invalid @enderror"
-                                                   required>
-                                            <span class="invalid-feedback" id="verify-phrase-error"
-                                                  role="alert"><strong id="verify-phrase-error-message"></strong></span>
-                                        </div>
-
-                                    </div>
-                                    <div class="modal-footer d-block">
-                                        <div class="text-center">
-                                            <button type="button" id="submitDeleteAccountForm" class="btn btn-primary">
-                                                Удалить аккаунт
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                            <delete-account-form name="{{ $user->name }}"></delete-account-form>
                         </div>
                     </div>
                 </div>
