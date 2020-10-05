@@ -1,5 +1,7 @@
 @php /** @var App\Models\User $user */ @endphp
+
 <x-layout-app title="Профиль">
+    @if($user->hasVerifiedEmail())
     <div class="row">
         <div class="col-md-5 col-sm-12 mt-md-3">
             <h3 class="text-muted">Настройки профиля</h3>
@@ -13,6 +15,7 @@
             </div>
         </div>
     </div>
+    @endif
     <div class="row mt-3">
         <div class="col-md-5 col-sm-12 mt-md-3">
             <h3 class="text-muted">Параметры учетной записи</h3>

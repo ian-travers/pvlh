@@ -18,13 +18,24 @@ class ProfileTest extends TestCase
     }
 
     /** @test */
-    function non_verified_user_cannot_view_a_profile_page()
+    function non_verified_user_cannot_view_a_edit_part_of_profile_page()
     {
         /** @var User $user */
         $user = User::factory()->create();
         $this->signIn($user);
 
         $this->get('/profile')
-            ->assertRedirect('/email/verify');
+            ->assertOk()
+            ->assertDontSeeText('Настройки профиля');
+    }
+
+    /** @test */
+    function verified_user_can_view_a_whole_profile_page()
+    {
+        $this->signIn();
+
+        $this->get('/profile')
+            ->assertOk()
+            ->assertSeeText('Настройки профиля');
     }
 }

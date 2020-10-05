@@ -11,7 +11,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
     ->name('home');
 
 Route::get('/profile', [App\Http\Controllers\User\ProfileController::class, 'show'])
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth'])
     ->name('profile');
 
 Route::post('/profile', [App\Http\Controllers\User\ProfileController::class, 'update'])
