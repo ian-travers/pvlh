@@ -19,10 +19,7 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('edit-profile-form', require('./components/User/EditProfileForm').default);
-Vue.component('change-email-form', require('./components/User/ChangeEmailForm').default);
-Vue.component('change-password-form', require('./components/User/ChangePasswordForm').default);
-Vue.component('delete-account-form', require('./components/User/DeleteAccountForm').default);
+Vue.component('profile', require('./components/User/Profile').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

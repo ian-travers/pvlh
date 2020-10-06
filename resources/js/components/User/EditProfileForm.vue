@@ -39,7 +39,7 @@
 
 <script>
     export default {
-        name: "EditProfileForm",
+        name: "edit-profile-form",
 
         props: ['user'],
 
