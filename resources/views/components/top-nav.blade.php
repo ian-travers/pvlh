@@ -1,3 +1,8 @@
+@php
+    /** @var \App\Models\User $user */
+    $user = auth()->user();
+@endphp
+
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-2">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
@@ -21,10 +26,18 @@
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ auth()->user()->name }}
+                        <div class="d-inline bg-secondary text-light p-2 rounded-circle">
+                            <strong>{{ $user->initials }}</strong></div>
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <div class="text-center bg-light text-black-50 my-n2">
+                            <div>{{ $user->name }}</div>
+                            <div>
+                                <small>{{ $user->position }}</small>
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item"
                            href="{{ route('profile') }}">Профиль</a>
                         <div class="dropdown-divider"></div>
