@@ -10,22 +10,20 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
     ->middleware('verified')
     ->name('home');
 
-Route::get('/profile', [App\Http\Controllers\User\ProfileController::class, 'show'])
-    ->middleware(['auth'])
-    ->name('profile');
-
-Route::post('/profile', [App\Http\Controllers\User\ProfileController::class, 'update'])
-    ->middleware(['auth', 'verified'])
-    ->name('profile.update');
-
-Route::post('/profile/email', [App\Http\Controllers\User\ProfileController::class, 'changeEmail'])
-    ->middleware(['auth'])
-    ->name('profile.email');
-
-Route::post('/profile/password', [App\Http\Controllers\User\ProfileController::class, 'changePassword'])
-    ->middleware(['auth'])
-    ->name('profile.password');
-
-Route::post('/profile/delete', [App\Http\Controllers\User\ProfileController::class, 'remove'])
-    ->middleware(['auth'])
-    ->name('profile.delete');
+Route::group([
+    'prefix' => 'profile',
+    'as' => 'profile',
+    'middleware' => 'auth',
+],
+    function () {
+    Route::get('/', [App\Http\Controllers\User\ProfileController::class, 'show']);
+    Route::post('/', [App\Http\Controllers\User\ProfileController::class, 'update'])
+        ->middleware('verified')
+        ->name('.update');
+    Route::post('/email', [App\Http\Controllers\User\ProfileController::class, 'changeEmail'])
+        ->name('.email');
+    Route::post('/password', [App\Http\Controllers\User\ProfileController::class, 'changePassword'])
+        ->name('.password');
+    Route::post('/delete', [App\Http\Controllers\User\ProfileController::class, 'remove'])
+        ->name('.delete');
+});
