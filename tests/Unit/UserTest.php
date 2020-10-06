@@ -3,10 +3,13 @@
 namespace Tests\Unit;
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     function not_verified_user_returns_valid_notifications_status()
     {
@@ -55,5 +58,20 @@ class UserTest extends TestCase
 
         $this->assertTrue($user->hasBrowserNotifications());
         $this->assertTrue($user->hasEmailNotifications());
+    }
+
+    /** @test */
+    function user_may_be_assigned_and_revoked_as_admin()
+    {
+        /** @var User $user */
+        $user = User::factory()->create();
+
+        $user->setAdminRights();
+
+        $this->assertTrue($user->fresh()->isAdmin());
+
+        $user->revokeAdminRights();
+
+        $this->assertFalse($user->fresh()->isAdmin());
     }
 }

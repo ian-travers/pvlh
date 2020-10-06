@@ -27,7 +27,7 @@ class RegisterTest extends TestCase
     }
 
     /** @test */
-    function register_a_new_users_not_verifies_their_email()
+    function register_new_users_not_verifies_their_email()
     {
         /** @var User $user */
         $user = User::factory()->create();
@@ -36,12 +36,21 @@ class RegisterTest extends TestCase
     }
 
     /** @test */
-    function register_a_new_users_not_set_their_notify_flags()
+    function register_new_users_not_set_their_notify_flags()
     {
         /** @var User $user */
         $user = User::factory()->create();
 
         $this->assertFalse($user->hasBrowserNotifications());
         $this->assertFalse($user->hasEmailNotifications());
+    }
+
+    /** @test */
+    function registration_a_new_user_not_make_him_an_admin()
+    {
+        /** @var User $user */
+        $user = User::factory()->create();
+
+        $this->assertFalse($user->isAdmin());
     }
 }

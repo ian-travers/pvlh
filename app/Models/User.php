@@ -55,6 +55,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'is_browser_notified',
         'is_email_notified',
+        'is_admin',
     ];
 
     protected $hidden = [
@@ -82,6 +83,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isAdmin(): bool
     {
         return $this->is_admin;
+    }
+
+    public function setAdminRights(): void
+    {
+        $this->update(['is_admin' => true]);
+    }
+
+    public function revokeAdminRights(): void
+    {
+        $this->update(['is_admin' => false]);
     }
 
     public function isCanBeDeleted()
