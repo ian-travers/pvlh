@@ -30,7 +30,7 @@
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        <div class="d-inline bg-secondary text-light p-2 rounded-circle">
+                        <div class="d-inline-block bg-secondary text-center text-light p-2 rounded-circle" style="min-width: 2.5rem">
                             <strong>{{ $user->initials }}</strong></div>
                     </a>
 
