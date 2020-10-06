@@ -19,7 +19,7 @@
             <ul class="navbar-nav mr-auto">
                 @if($user->isAdmin())
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Панель управления</a>
+                        <a class="nav-link" href="{{ route('backend') }}">Панель управления</a>
                     </li>
                 @endif
             </ul>
