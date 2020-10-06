@@ -17,6 +17,7 @@ use LasseRafn\Initials\Initials;
  * @property string $position
  * @property bool $is_browser_notified
  * @property bool $is_email_notified
+ * @property bool $is_admin
  * @property string $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
@@ -33,6 +34,7 @@ use LasseRafn\Initials\Initials;
  * @method static Builder|User whereEmail($value)
  * @method static Builder|User whereEmailVerifiedAt($value)
  * @method static Builder|User whereId($value)
+ * @method static Builder|User whereIsAdmin($value)
  * @method static Builder|User whereIsBrowserNotified($value)
  * @method static Builder|User whereIsEmailNotified($value)
  * @method static Builder|User whereName($value)
@@ -64,6 +66,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'is_browser_notified' => 'boolean',
         'is_email_notified' => 'boolean',
+        'is_admin' => 'boolean',
     ];
 
     public function hasBrowserNotifications()
@@ -74,6 +77,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function hasEmailNotifications()
     {
         return $this->email_verified_at ? $this->is_email_notified : false;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->is_admin;
     }
 
     public function isCanBeDeleted()

@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('position', 50);
             $table->boolean('is_browser_notified')->default(false);
             $table->boolean('is_email_notified')->default(false);
+            $table->boolean('is_admin')->default(false);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
