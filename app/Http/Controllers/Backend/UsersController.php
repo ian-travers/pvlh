@@ -7,6 +7,18 @@ use App\Models\User;
 
 class UsersController extends Controller
 {
+    public function index()
+    {
+        $users = User::paginate(10);
+
+        return view('backend.users.index', compact('users'));
+    }
+
+    public function create()
+    {
+        return view('backend.users.create');
+    }
+
     /**
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
@@ -23,6 +35,6 @@ class UsersController extends Controller
         User::createByAdmin($data);
         // TODO: Perhaps here it needs to notify the created user via email for example
 
-        return back();
+        return redirect()->route('backend.users');
     }
 }

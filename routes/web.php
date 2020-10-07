@@ -40,9 +40,12 @@ Route::group([
 
         Route::group([
             'prefix' => 'users',
-            'as' => 'users',
+            'as' => '.users',
         ],
             function () {
+                Route::get('/', [App\Http\Controllers\Backend\UsersController::class, 'index']);
+                Route::get('/create', [App\Http\Controllers\Backend\UsersController::class, 'create'])
+                    ->name('.create');
                 Route::post('/', [App\Http\Controllers\Backend\UsersController::class, 'store'])
                     ->name('.store');
             });
