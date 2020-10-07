@@ -2,7 +2,7 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('root');
 
 Auth::routes(['verify' => true]);
 
@@ -29,7 +29,7 @@ Route::group([
             ->name('.delete');
     });
 
-// Backend dashboard
+// Backend
 Route::group([
     'prefix' => 'a',
     'as' => 'backend',

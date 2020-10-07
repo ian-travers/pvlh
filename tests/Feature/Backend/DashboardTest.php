@@ -26,6 +26,7 @@ class DashboardTest extends TestCase
     /** @test */
     function authorized_users_can_visit_backend_dashboard()
     {
+        $this->withoutExceptionHandling();
         $this->signIn(User::factory()->admin()->create());
 
         $this->get('/a')

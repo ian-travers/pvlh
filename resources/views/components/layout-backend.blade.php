@@ -11,6 +11,8 @@
 <div id="app">
     <x-top-nav></x-top-nav>
     <main class="container-fluid">
+        @section('breadcrumbs', Breadcrumbs::render())
+        @yield('breadcrumbs')
         {{ $slot }}
     </main>
 </div>
