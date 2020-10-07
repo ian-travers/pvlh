@@ -37,4 +37,13 @@ Route::group([
 ],
     function () {
         Route::get('/', [App\Http\Controllers\Backend\DashboardController::class, 'show']);
+
+        Route::group([
+            'prefix' => 'users',
+            'as' => 'users',
+        ],
+            function () {
+                Route::post('/', [App\Http\Controllers\Backend\UsersController::class, 'store'])
+                    ->name('.store');
+            });
     });

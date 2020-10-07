@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Hash;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -109,5 +110,20 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getInitialsAttribute()
     {
         return $this->initials();
+    }
+
+    // Administrator's actions
+    public static function createByAdmin(array $data): self
+    {
+        $user = User::create([
+            'name' => $data['name'],
+            'position' => $data['position'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+
+        $user->markEmailAsVerified();
+
+        return $user;
     }
 }

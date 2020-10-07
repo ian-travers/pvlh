@@ -22,7 +22,7 @@ class RevokeAdminCommand extends Command
         }
 
         try {
-            $user->revokeAdminRights();;
+            $user->revokeAdminRights();
         } catch (\Exception $e) {
             $this->error($e->getMessage());
 
