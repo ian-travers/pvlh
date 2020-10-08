@@ -126,4 +126,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return $user;
     }
+
+    public function editByAdmin(array $data): self
+    {
+        $this->update($data);
+
+        return $this;
+    }
 }

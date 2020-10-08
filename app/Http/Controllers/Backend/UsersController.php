@@ -37,4 +37,23 @@ class UsersController extends Controller
 
         return redirect()->route('backend.users');
     }
+
+    /**
+     * @param User $user
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function update(User $user)
+    {
+        $data = $this->validate(request(), [
+            'name' => 'required|string|max:255',
+            'position' => 'required|string|max:50',
+            'email' => 'required|string|email:filter|max:255|unique:users,email,' . $user->id,
+        ]);
+
+        $user->editByAdmin($data);
+
+        return redirect()->route('backend.users');
+    }
 }

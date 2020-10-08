@@ -48,5 +48,7 @@ Route::group([
                     ->name('.create');
                 Route::post('/', [App\Http\Controllers\Backend\UsersController::class, 'store'])
                     ->name('.store');
+                Route::patch('/{user}', [App\Http\Controllers\Backend\UsersController::class, 'update'])
+                    ->name('.update');
             });
     });
