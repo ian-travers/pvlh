@@ -13,6 +13,11 @@
 // iziToast
 @import '~izitoast/dist/css/iziToast.min.css';
 
+// Fontawesome
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~@fortawesome/fontawesome-free/scss/brands";
+
 .active-nav-item {
     color: black;
     font-weight: 700;
