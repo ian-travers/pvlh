@@ -48,6 +48,8 @@ Route::group([
                     ->name('.create');
                 Route::post('/', [App\Http\Controllers\Backend\UsersController::class, 'store'])
                     ->name('.store');
+                Route::get('/{user}/edit', [App\Http\Controllers\Backend\UsersController::class, 'edit'])
+                    ->name('.edit');
                 Route::patch('/{user}', [App\Http\Controllers\Backend\UsersController::class, 'update'])
                     ->name('.update');
             });

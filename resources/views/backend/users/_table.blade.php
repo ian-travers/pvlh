@@ -37,11 +37,11 @@
             </td>
             <td class="text-center">{{ $user->email_verified_at ? $user->email_verified_at->diffForHumans() : '' }}</td>
             <td class="text-center">
-                <button
-                    type="button"
+                <a
+                    href="{{ route('backend.users.edit', $user) }}"
                     class="btn btn-sm btn-primary fa fa-user-edit"
                     title="Редактировать">
-                </button>
+                </a>
                 <button
                     type="button"
                     class="btn btn-sm btn-primary fa fa-user-check"

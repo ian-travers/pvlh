@@ -38,6 +38,11 @@ class UsersController extends Controller
         return redirect()->route('backend.users');
     }
 
+    public function edit(User $user)
+    {
+        return view('backend.users.edit', compact('user'));
+    }
+
     /**
      * @param User $user
      *

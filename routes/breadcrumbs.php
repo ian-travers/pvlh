@@ -23,3 +23,8 @@ Breadcrumbs::for('backend.users.create', function (BreadcrumbsGenerator $trail) 
     $trail->parent('backend.users');
     $trail->push('Создать');
 });
+
+Breadcrumbs::for('backend.users.edit', function (BreadcrumbsGenerator $trail) {
+    $trail->parent('backend.users');
+    $trail->push('Редактировать');
+});
