@@ -9,3 +9,20 @@
 
 // iziToast
 @import '~izitoast/dist/css/iziToast.min.css';
+
+.active-nav-item {
+    color: black;
+    font-weight: 700;
+    cursor: default;
+    pointer-events: none;
+}
+
+.active-nav-item:before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -1px;
+    width: 4px;
+    content: "";
+    background-color: $primary;
+}

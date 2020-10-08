@@ -13,7 +13,14 @@
     <main class="container-fluid">
         @section('breadcrumbs', Breadcrumbs::render())
         @yield('breadcrumbs')
-        {{ $slot }}
+        <div class="row">
+            <div class="col-2">
+                <x-backend-left-sidebar></x-backend-left-sidebar>
+            </div>
+            <div class="col-10">
+                {{ $slot }}
+            </div>
+        </div>
     </main>
 </div>
 <script src="{{ mix('js/app.js', 'build') }}" defer></script>
