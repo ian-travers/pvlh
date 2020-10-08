@@ -19,7 +19,7 @@ class EditTest extends TestCase
 
         $this->signIn();
 
-        $this->patch('/a/users/{user}', [])
+        $this->patch('/a/users/1', [])
             ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
