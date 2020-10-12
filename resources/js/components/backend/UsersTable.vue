@@ -20,22 +20,8 @@
                     <td v-text="user.position"></td>
                     <td v-text="user.email"></td>
                     <td class="text-center">
-                        <button
-                            type="button"
-                            class="btn btn-sm">
-                    <span
-                        class="fab fa-chrome"
-                        :class="user.is_browser_notified ? 'text-success' : 'text-secondary'"
-                    ></span>
-                        </button>
-                        <button
-                            type="button"
-                            class="btn btn-sm">
-                    <span
-                        class="fa fa-at"
-                        :class="user.is_email_notified ? 'text-success' : 'text-secondary'"
-                    ></span>
-                        </button>
+                        <toggle-browser-notification :data="user"></toggle-browser-notification>
+                        <toggle-email-notification :data="user"></toggle-email-notification>
                     </td>
                     <td
                         class="text-center"
@@ -68,7 +54,8 @@
             </table>
             <nav v-if="hasPages">
                 <ul class="pagination">
-                    <li v-for="link in paginator.links" class="page-item" :class="(link.active || !link.url) ? 'disabled' : ''" >
+                    <li v-for="link in paginator.links" class="page-item"
+                        :class="(link.active || !link.url) ? 'disabled' : ''">
                         <a class="page-link" :href="link.url" v-html="linkText(link.label)"></a>
                     </li>
                 </ul>
@@ -79,31 +66,36 @@
 </template>
 
 <script>
-    export default {
-        props: ['data'],
+import ToggleBrowserNotification from "./User/ToggleBrowserNotification";
+import ToggleEmailNotification from "./User/ToggleEmailNotification";
 
-        data() {
-            return {
-                paginator: JSON.parse(this.data),
-            }
+export default {
+    props: ['data'],
+
+    components: { ToggleBrowserNotification, ToggleEmailNotification },
+
+    data() {
+        return {
+            paginator: JSON.parse(this.data),
+        }
+    },
+
+    computed: {
+        hasUsers() {
+            return !!this.paginator.total;
         },
 
-        computed: {
-            hasUsers() {
-                return !!this.paginator.total;
-            },
-
-            hasPages() {
-                return this.paginator.last_page > 1;
-            },
+        hasPages() {
+            return this.paginator.last_page > 1;
         },
+    },
 
-        methods: {
-            linkText(label) {
-                if (label === "Previous") return "&lsaquo;"
-                if (label === "Next") return "&rsaquo;"
-                return label;
-            }
+    methods: {
+        linkText(label) {
+            if (label === "Previous") return "&lsaquo;"
+            if (label === "Next") return "&rsaquo;"
+            return label;
         },
     }
+}
 </script>

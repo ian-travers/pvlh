@@ -51,6 +51,10 @@ Route::group([
                 Route::get('/{user}/edit', [App\Http\Controllers\Backend\UsersController::class, 'edit'])
                     ->name('.edit');
                 Route::patch('/{user}', [App\Http\Controllers\Backend\UsersController::class, 'update'])
-                    ->name('.update');
+                    ->name('update');
+                Route::patch('/{user}/toggle-bn', [App\Http\Controllers\Backend\UsersController::class, 'toggleBrowserNotification'])
+                    ->name('.toggle-bn');
+                Route::patch('/{user}/toggle-en', [App\Http\Controllers\Backend\UsersController::class, 'toggleEmailNotification'])
+                    ->name('.toggle-bn');
             });
     });

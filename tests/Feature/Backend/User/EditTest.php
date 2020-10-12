@@ -26,7 +26,6 @@ class EditTest extends TestCase
     /** @test */
     function authorized_users_can_edit_a_user()
     {
-        $this->withoutExceptionHandling();
         $this->signIn(User::factory()->admin()->create());
 
         /** @var User $user */
@@ -41,5 +40,35 @@ class EditTest extends TestCase
         $this->patch("/a/users/{$user->id}", $data);
 
         $this->assertDatabaseHas('users', $data);
+    }
+
+    /** @test */
+    function authorized_users_can_toggle_a_verified_user_browser_notifications()
+    {
+        $this->signIn(User::factory()->admin()->create());
+
+        /** @var User $user */
+        $user = User::factory()->verified()->create();
+
+        $this->assertFalse($user->hasBrowserNotifications());
+
+        $this->patch("/a/users/{$user->id}/toggle-bn");
+
+        $this->assertTrue($user->fresh()->hasBrowserNotifications());
+    }
+
+    /** @test */
+    function authorized_users_can_toggle_a_verified_user_email_notifications()
+    {
+        $this->signIn(User::factory()->admin()->create());
+
+        /** @var User $user */
+        $user = User::factory()->verified()->create();
+
+        $this->assertFalse($user->hasEmailNotifications());
+
+        $this->patch("/a/users/{$user->id}/toggle-en");
+
+        $this->assertTrue($user->fresh()->hasEmailNotifications());
     }
 }

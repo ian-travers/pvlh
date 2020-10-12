@@ -59,4 +59,42 @@ class UsersController extends Controller
 
         return redirect()->route('backend.users');
     }
+
+    public function toggleBrowserNotification(User $user)
+    {
+        $user->toggleBrowserNotification();
+
+        if (request()->wantsJson()) {
+            return $user->hasBrowserNotifications()
+                ? response([
+                    'title' => 'Выполнено!',
+                    'message' => 'Теперь пользователь будет получать уведомления в браузере.',
+                ])
+                : response([
+                    'title' => 'Выполнено!',
+                    'message' => 'Теперь пользователь не будет получать уведомления в браузере.',
+                ]);
+        }
+
+        return back();
+    }
+
+    public function toggleEmailNotification(User $user)
+    {
+        $user->toggleEmailNotification();
+
+        if (request()->wantsJson()) {
+            return $user->hasEmailNotifications()
+                ? response([
+                    'title' => 'Выполнено!',
+                    'message' => 'Теперь пользователь будет получать уведомления по электронной почте.',
+                ])
+                : response([
+                    'title' => 'Выполнено!',
+                    'message' => 'Теперь пользователь не будет получать уведомления по электронной почте.',
+                ]);
+        }
+
+        return back();
+    }
 }

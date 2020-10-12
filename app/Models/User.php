@@ -133,4 +133,18 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return $this;
     }
+
+    public function toggleBrowserNotification()
+    {
+        $this->update([
+            'is_browser_notified' => !$this->is_browser_notified
+        ]);
+    }
+
+    public function toggleEmailNotification()
+    {
+        $this->update([
+            'is_email_notified' => !$this->is_email_notified
+        ]);
+    }
 }
