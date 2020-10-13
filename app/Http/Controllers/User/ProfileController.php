@@ -4,7 +4,6 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Hash;
 use Illuminate\Http\Response;
 
 class ProfileController extends Controller
@@ -82,9 +81,7 @@ class ProfileController extends Controller
         /** @var User $user */
         $user = auth()->user();
 
-        $user->update([
-            'password' => Hash::make(request('password')),
-        ]);
+        $user->setPassword(request('password'));
 
         if (request()->wantsJson()) {
             return response([

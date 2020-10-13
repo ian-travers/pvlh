@@ -3,6 +3,7 @@
 namespace Tests\Feature\Backend\User;
 
 use App\Models\User;
+use Hash;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
 use Tests\TestCase;
@@ -70,5 +71,25 @@ class EditTest extends TestCase
         $this->patch("/a/users/{$user->id}/toggle-en");
 
         $this->assertTrue($user->fresh()->hasEmailNotifications());
+    }
+
+    /** @test */
+    function authorized_users_can_change_password()
+    {
+        $this->signIn(User::factory()->admin()->create());
+
+        /** @var User $user */
+        $user = User::factory()->verified()->create();
+
+        $newPassword = '12345678';
+
+        $formData = [
+            'password' => $newPassword,
+            'password_confirmation' => $newPassword,
+        ];
+
+        $this->patch("/a/users/{$user->id}/password", $formData);
+
+        $this->assertTrue(Hash::check($newPassword, $user->fresh()->password));
     }
 }

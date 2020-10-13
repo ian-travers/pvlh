@@ -147,4 +147,11 @@ class User extends Authenticatable implements MustVerifyEmail
             'is_email_notified' => !$this->is_email_notified
         ]);
     }
+
+    public function setPassword(string $password)
+    {
+        $this->update([
+            'password' => Hash::make($password)
+        ]);
+    }
 }

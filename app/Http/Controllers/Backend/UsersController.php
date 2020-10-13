@@ -97,4 +97,28 @@ class UsersController extends Controller
 
         return back();
     }
+
+    /**
+     * @param User $user
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function changePassword(User $user)
+    {
+        $this->validate(request(), [
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user->setPassword(request('password'));
+
+        if (request()->wantsJson()) {
+            return response([
+                'title' => 'Выполнено!',
+                'message' => 'Пароль изменен успешно.',
+            ]);
+        }
+
+        return back();
+    }
 }

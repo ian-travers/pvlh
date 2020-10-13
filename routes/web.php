@@ -56,5 +56,7 @@ Route::group([
                     ->name('.toggle-bn');
                 Route::patch('/{user}/toggle-en', [App\Http\Controllers\Backend\UsersController::class, 'toggleEmailNotification'])
                     ->name('.toggle-bn');
+                Route::patch('/{user}/password', [App\Http\Controllers\Backend\UsersController::class, 'changePassword'])
+                    ->name('.change-password');
             });
     });
