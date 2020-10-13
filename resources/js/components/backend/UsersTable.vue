@@ -50,6 +50,10 @@
                         ></button>
                         <button
                             type="button"
+                            data-toggle="modal"
+                            data-target="#passwordModal"
+                            v-bind:data-user-id="user.id"
+                            v-bind:data-user-name="user.name"
                             class="btn btn-sm btn-primary fa fa-unlock-alt"
                             title="Сменить пароль">
                         </button>

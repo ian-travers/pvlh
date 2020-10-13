@@ -104,12 +104,14 @@ class UsersController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function changePassword(User $user)
+    public function changePassword()
     {
         $this->validate(request(), [
-            'password' => 'required|string|min:8|confirmed',
+            'userId' => 'required',
+            'password' => 'required|string|min:8',
         ]);
 
+        $user = User::findOrFail(request('userId'));
         $user->setPassword(request('password'));
 
         if (request()->wantsJson()) {

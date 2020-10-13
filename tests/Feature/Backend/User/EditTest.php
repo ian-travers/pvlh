@@ -76,20 +76,19 @@ class EditTest extends TestCase
     /** @test */
     function authorized_users_can_change_password()
     {
+        $this->withoutExceptionHandling();
         $this->signIn(User::factory()->admin()->create());
 
         /** @var User $user */
         $user = User::factory()->verified()->create();
 
-        $newPassword = '12345678';
-
         $formData = [
-            'password' => $newPassword,
-            'password_confirmation' => $newPassword,
+            'password' => '12345678',
+            'userId' => $user->id,
         ];
 
-        $this->patch("/a/users/{$user->id}/password", $formData);
+        $this->post("/a/users/change-password", $formData);
 
-        $this->assertTrue(Hash::check($newPassword, $user->fresh()->password));
+        $this->assertTrue(Hash::check('12345678', $user->fresh()->password));
     }
 }
