@@ -2,7 +2,7 @@
     <button
         type="button"
         class="btn py-0"
-        @click="toggleEmailNotification"
+        @click="toggleNotification"
         :disabled="!hasVerifiedEmail"
     >
         <span
@@ -13,21 +13,21 @@
 
 <script>
 export default {
-    props: ['data'],
+    props: ['data', 'urlSuffix', 'isNotified', 'isVerifiedEmail'],
 
     data() {
         return {
             userId: this.data.id,
-            hasVerifiedEmail: this.data.email_verified_at,
-            hasEN: this.data.is_email_notified,
+            hasVerifiedEmail: this.isVerifiedEmail,
+            hasNotification: this.isNotified,
         }
     },
 
     methods: {
-        toggleEmailNotification() {
-            axios.patch(`/a/users/${this.userId}/toggle-en`)
+        toggleNotification() {
+            axios.patch(`/a/users/${this.userId}/${this.urlSuffix}`)
                 .then(response => {
-                    this.hasEN = !this.hasEN;
+                    this.hasNotification = !this.hasNotification;
                     iziToast.success({
                         title: response.data.title,
                         message: response.data.message,
@@ -38,7 +38,11 @@ export default {
 
     computed: {
         classes() {
-            return ['fa', 'fa-at', this.hasEN ? 'text-success' : 'text-secondary'];
+            if (this.urlSuffix === 'toggle-bn')
+                return ['fab fa-chrome', this.hasNotification ? 'text-success' : 'text-secondary'];
+
+            if (this.urlSuffix === 'toggle-en')
+                return ['fa fa-at', this.hasNotification ? 'text-success' : 'text-secondary'];
         }
     },
 }

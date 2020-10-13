@@ -20,8 +20,18 @@
                     <td v-text="user.position"></td>
                     <td v-text="user.email"></td>
                     <td class="text-center">
-                        <toggle-browser-notification :data="user"></toggle-browser-notification>
-                        <toggle-email-notification :data="user"></toggle-email-notification>
+                        <toggler
+                            :data="user"
+                            url-suffix="toggle-bn"
+                            :is-notified="user.is_browser_notified"
+                            :is-verified-email="user.email_verified_at"
+                        ></toggler>
+                        <toggler
+                            :data="user"
+                            url-suffix="toggle-en"
+                            :is-notified="user.is_email_notified"
+                            :is-verified-email="user.email_verified_at"
+                        ></toggler>
                     </td>
                     <td
                         class="text-center"
@@ -66,13 +76,12 @@
 </template>
 
 <script>
-import ToggleBrowserNotification from "./User/ToggleBrowserNotification";
-import ToggleEmailNotification from "./User/ToggleEmailNotification";
+import Toggler from "./User/Toggler";
 
 export default {
     props: ['data'],
 
-    components: { ToggleBrowserNotification, ToggleEmailNotification },
+    components: { Toggler },
 
     data() {
         return {
