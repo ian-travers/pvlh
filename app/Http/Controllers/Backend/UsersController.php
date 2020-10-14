@@ -14,7 +14,7 @@ class UsersController extends Controller
 
     public function create()
     {
-        return view('backend.users.create');
+        return view('backend.users.create', ['user' => new User()]);
     }
 
     /**
