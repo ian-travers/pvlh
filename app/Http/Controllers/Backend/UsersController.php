@@ -108,7 +108,7 @@ class UsersController extends Controller
     {
         $this->validate(request(), [
             'userId' => 'required',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:8|regex:/^\S*$/u',
         ]);
 
         $user = User::findOrFail(request('userId'));
