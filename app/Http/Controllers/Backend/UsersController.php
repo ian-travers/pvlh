@@ -38,6 +38,8 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
+        session()->put('url.intended', url()->previous());
+
         return view('backend.users.edit', compact('user'));
     }
 
@@ -57,7 +59,7 @@ class UsersController extends Controller
 
         $user->editByAdmin($data);
 
-        return redirect()->route('backend.users');
+        return redirect()->intended();
     }
 
     public function toggleBrowserNotification(User $user)

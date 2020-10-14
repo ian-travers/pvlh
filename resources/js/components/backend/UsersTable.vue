@@ -78,11 +78,11 @@
                         v-text="user.email_verified_at ? user.email_verified_at.substr(0, 10) : ''"
                     ></td>
                     <td class="text-center w-15">
-                        <a
-                            href="#"
+                        <button
                             class="btn btn-sm btn-primary fa fa-user-edit"
                             title="Редактировать"
-                        ></a>
+                            @click="edit(user)"
+                        ></button>
                         <button
                             type="button"
                             class="btn btn-sm btn-primary fa fa-user-check"
@@ -155,6 +155,10 @@ export default {
             if (label === "Previous") return "&lsaquo;"
             if (label === "Next") return "&rsaquo;"
             return label;
+        },
+
+        edit(user) {
+            window.location.href = `/a/users/${user.id}/edit`;
         },
 
         showPasswordWindow(id, name) {
