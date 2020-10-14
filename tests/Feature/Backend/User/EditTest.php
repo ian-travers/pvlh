@@ -13,7 +13,7 @@ class EditTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function unauthorized_users_cannot_edit_a_user()
+    function unauthorized_users_cannot_edit_an_user()
     {
         $this->patch('/a/users/{user}', [])
             ->assertRedirect('/login');
@@ -25,7 +25,7 @@ class EditTest extends TestCase
     }
 
     /** @test */
-    function authorized_users_can_edit_a_user()
+    function authorized_users_can_edit_an_user()
     {
         $this->signIn(User::factory()->admin()->create());
 
@@ -76,7 +76,6 @@ class EditTest extends TestCase
     /** @test */
     function authorized_users_can_change_password()
     {
-        $this->withoutExceptionHandling();
         $this->signIn(User::factory()->admin()->create());
 
         /** @var User $user */

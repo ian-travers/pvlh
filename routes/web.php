@@ -58,5 +58,7 @@ Route::group([
                     ->name('.toggle-bn');
                 Route::post('/change-password', [App\Http\Controllers\Backend\UsersController::class, 'changePassword'])
                     ->name('.change-password');
+                Route::post('/delete', [App\Http\Controllers\Backend\UsersController::class, 'remove'])
+                    ->name('.delete');
             });
     });

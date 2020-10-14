@@ -99,6 +99,7 @@
                             type="button"
                             class="btn btn-sm btn-danger fa fa-trash-alt"
                             title="Удалить"
+                            @click="deleteUser(user.id)"
                         ></button>
                     </td>
                 </tr>
@@ -159,6 +160,22 @@ export default {
 
         edit(user) {
             window.location.href = `/a/users/${user.id}/edit`;
+        },
+
+        deleteUser(id) {
+            if (confirm()) {
+                axios.post('/a/users/delete', {userId: id})
+                    .then(response => {
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        console.log(window.location.href);
+                        iziToast.warning({
+                            title: error.response.data.title,
+                            message: error.response.data.message,
+                        });
+                    });
+            }
         },
 
         showPasswordWindow(id, name) {

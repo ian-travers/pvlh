@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\Response;
 
 class UsersController extends Controller
 {
@@ -124,5 +125,23 @@ class UsersController extends Controller
         }
 
         return back();
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|Response
+     * @throws \Exception
+     */
+    public function remove()
+    {
+        /** @var User $user */
+        $user = User::findOrFail(request('userId'));
+
+        if ($user->isCanBeDeleted()) {
+            $user->delete();
+
+            return response(['title' => 'Выполнено!', 'message' => 'Пользователь удален успешно.']);
+        }
+
+        return response(['title' => 'Ошибка!', 'message' => 'Невозможно удалить учетную запись. Есть связанные объекты.'], Response::HTTP_CONFLICT);
     }
 }

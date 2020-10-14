@@ -12,7 +12,7 @@ class CreateTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function unauthorized_users_cannot_create_a_user()
+    function unauthorized_users_cannot_create_an_user()
     {
         $this->post('/a/users', [])
             ->assertRedirect('/login');
@@ -24,7 +24,7 @@ class CreateTest extends TestCase
     }
 
     /** @test */
-    function authorized_users_can_create_a_user()
+    function authorized_users_can_create_an_user()
     {
         $this->withoutExceptionHandling();
         $this->signIn(User::factory()->admin()->create());
