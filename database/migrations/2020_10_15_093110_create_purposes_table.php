@@ -10,7 +10,7 @@ class CreatePurposesTable extends Migration
     {
         Schema::create('purposes', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 40);
+            $table->string('name', 40)->unique();
         });
     }
 

@@ -46,4 +46,26 @@ class EditTest extends TestCase
 
         $this->assertEquals('UPD', $purpose->fresh()->name);
     }
+
+    /** @test */
+    function editing_purpose_name_must_be_unique()
+    {
+        Purpose::create([
+            'name' => 'solid'
+        ]);
+
+        /** @var Purpose $purpose */
+        $purpose = Purpose::create([
+            'name' => 'Some Purpose'
+        ]);
+
+        $this->signIn(User::factory()->admin()->create());
+
+        $data = [
+            'name' => 'solid',
+        ];
+
+        $this->patch("/a/purposes/{$purpose->id}", $data)
+            ->assertSessionHasErrors('name');
+    }
 }

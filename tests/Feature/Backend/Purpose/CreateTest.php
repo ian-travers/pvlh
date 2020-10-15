@@ -37,4 +37,24 @@ class CreateTest extends TestCase
         $this->assertDatabaseCount('purposes', 1);
         $this->assertDatabaseHas('purposes', $purpose);
     }
+
+    /** @test */
+    function purpose_name_must_be_unique()
+    {
+        $this->signIn(User::factory()->admin()->create());
+
+        $purpose = [
+            'name' => 'Same Purpose',
+        ];
+
+        $this->post('/a/purposes', $purpose);
+
+        $this->assertDatabaseHas('purposes', $purpose);
+
+        $this->post('/a/purposes', $purpose)
+            ->assertSessionHasErrors('name');
+
+        $this->assertDatabaseCount('purposes', 1);
+
+    }
 }

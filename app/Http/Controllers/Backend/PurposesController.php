@@ -25,7 +25,7 @@ class PurposesController extends Controller
     public function store()
     {
         $this->validate(request(), [
-            'name' => 'required|string|max:40',
+            'name' => 'required|string|max:40|unique:purposes',
         ]);
 
         Purpose::create([
@@ -50,7 +50,8 @@ class PurposesController extends Controller
     public function update(Purpose $purpose)
     {
         $this->validate(request(), [
-            'name' => 'required|string|max:40',
+//            'name' => 'required|string|max:40|unique:purposes,name,' . $purpose->id,
+            'name' => 'required|string|max:40|unique:purposes',
         ]);
 
         $purpose->update([
