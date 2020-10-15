@@ -14,12 +14,12 @@ class DeleteTest extends TestCase
     /** @test */
     function unauthorized_users_cannot_delete_an_user()
     {
-        $this->post('/a/users', [])
+        $this->post('/a/users/delete', [])
             ->assertRedirect('/login');
 
         $this->signIn();
 
-        $this->post('/a/users', [])
+        $this->post('/a/users/delete', [])
             ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 

@@ -61,4 +61,17 @@ Route::group([
                 Route::post('/delete', [App\Http\Controllers\Backend\UsersController::class, 'remove'])
                     ->name('.delete');
             });
+
+        Route::group([
+            'prefix' => 'purposes',
+            'as' => '.purposes'
+        ],
+            function () {
+                Route::post('/', [App\Http\Controllers\Backend\PurposesController::class, 'store'])
+                    ->name('.store');
+                Route::patch('/{purpose}', [App\Http\Controllers\Backend\PurposesController::class, 'update'])
+                    ->name('.edit');
+                Route::delete('/{purpose}', [App\Http\Controllers\Backend\PurposesController::class, 'remove'])
+                    ->name('.delete');
+            });
     });
