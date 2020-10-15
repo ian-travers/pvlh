@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
     public function show()
     {
-        return view('backend.dashboard');
+        $usersInfo = User::getUsersInfo();
+
+        return view('backend.dashboard', compact('usersInfo'));
     }
 }

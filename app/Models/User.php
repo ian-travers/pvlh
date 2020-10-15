@@ -154,4 +154,13 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => Hash::make($password)
         ]);
     }
+
+    // Info for dashboard
+    public static function getUsersInfo(): array
+    {
+        $countAll = User::count();
+        $countVerified = User::whereNotNull('email_verified_at')->count();
+
+        return compact('countAll', 'countVerified');
+    }
 }

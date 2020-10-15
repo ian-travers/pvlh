@@ -74,4 +74,17 @@ class UserTest extends TestCase
 
         $this->assertFalse($user->fresh()->isAdmin());
     }
+
+    /** @test */
+    function it_returns_info_for_dashboard()
+    {
+       User::factory()->create();
+       User::factory()->verified()->create();
+
+       $info = User::getUsersInfo();
+
+       $this->assertCount(2, $info);
+       $this->assertEquals(2, $info['countAll']);
+       $this->assertEquals(1, $info['countVerified']);
+    }
 }
