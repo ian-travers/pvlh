@@ -4,6 +4,7 @@
         class="btn py-0"
         @click="toggleNotification"
         :disabled="!hasVerifiedEmail"
+        :title="setTitle"
     >
         <span
             :class="classes"
@@ -43,6 +44,14 @@ export default {
 
             if (this.urlSuffix === 'toggle-en')
                 return ['fa fa-at', this.hasNotification ? 'text-success' : 'text-secondary'];
+        },
+
+        setTitle() {
+            if (this.urlSuffix === 'toggle-bn')
+                return 'Браузер';
+
+            if (this.urlSuffix === 'toggle-en')
+                return 'Электронная почта';
         }
     },
 }
