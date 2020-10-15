@@ -1,5 +1,3 @@
-@php /** @var \Illuminate\Contracts\Pagination\LengthAwarePaginator $users */ @endphp
-
 <x-layout-backend title="Пользователи">
     <div class="d-flex justify-content-between align-items-start mb-1">
         <h2>Пользователи системы</h2>

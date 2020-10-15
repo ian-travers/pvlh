@@ -67,10 +67,15 @@ Route::group([
             'as' => '.purposes'
         ],
             function () {
+                Route::get('/', [App\Http\Controllers\Backend\PurposesController::class, 'index']);
+                Route::get('/create', [App\Http\Controllers\Backend\PurposesController::class, 'create'])
+                    ->name('.create');
+                Route::get('/{purpose}/edit', [App\Http\Controllers\Backend\PurposesController::class, 'edit'])
+                    ->name('.edit');
                 Route::post('/', [App\Http\Controllers\Backend\PurposesController::class, 'store'])
                     ->name('.store');
                 Route::patch('/{purpose}', [App\Http\Controllers\Backend\PurposesController::class, 'update'])
-                    ->name('.edit');
+                    ->name('.update');
                 Route::delete('/{purpose}', [App\Http\Controllers\Backend\PurposesController::class, 'remove'])
                     ->name('.delete');
             });

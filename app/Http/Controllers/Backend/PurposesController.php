@@ -7,6 +7,18 @@ use App\Models\Purpose;
 
 class PurposesController extends Controller
 {
+    public function index()
+    {
+        $purposes = Purpose::paginate(10);
+
+        return view('backend.purposes.index', compact('purposes'));
+    }
+
+    public function create()
+    {
+        return view('backend.purposes.create', ['purpose' => $purpose = new Purpose()]);
+    }
+
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -19,6 +31,15 @@ class PurposesController extends Controller
         Purpose::create([
             'name' => request('name'),
         ]);
+
+        return redirect()->route('backend.purposes');
+    }
+
+    public function edit(Purpose $purpose)
+    {
+        session()->put('url.intended', url()->previous());
+
+        return view('backend.purposes.edit', compact('purpose'));
     }
 
     /**
@@ -35,6 +56,8 @@ class PurposesController extends Controller
         $purpose->update([
             'name' => request('name'),
         ]);
+
+        return redirect()->intended();
     }
 
     /**
@@ -44,6 +67,10 @@ class PurposesController extends Controller
      */
     public function remove(Purpose $purpose)
     {
+        session()->put('url.intended', url()->previous());
+
         $purpose->delete();
+
+        return redirect()->intended();
     }
 }
