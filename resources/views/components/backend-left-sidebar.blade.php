@@ -6,6 +6,9 @@
         <li class="list-group-item {{ $controller == 'PurposesController' ? 'active-nav-item' : '' }}">
             <a href="{{ route('backend.purposes') }}">Назначения</a>
         </li>
+        <li class="list-group-item {{ $controller == 'CustomersController' ? 'active-nav-item' : '' }}">
+            <a href="{{ route('backend.customers') }}">Заказчики</a>
+        </li>
         <li class="list-group-item {{ $controller == 'UsersController' ? 'active-nav-item' : '' }}">
             <a href="{{ route('backend.users') }}">Пользователи</a>
         </li>
@@ -28,6 +31,19 @@
                 </div>
                 <br>
                 Для редактирования или удаления назначения предназначены кнопки в колонке "Операции":
+                <div class="text-center mt-1">
+                    <button class="btn btn-sm btn-primary fa fa-edit mr-2" title="Редактировать"></button>
+                    <button class="btn btn-sm btn-danger fa fa-trash-alt" title="Удалить"></button>
+                </div>
+            @elseif($controller == 'CustomersController')
+                Этот раздел предназначен для создания, редактирования и, возможно, удаления организаций, формирующих заявки на локомотивы.
+                <br>
+                Для создания нового заказчика&nbsp;&mdash; кнопка
+                <div class="text-center mt-1">
+                    <button type="button" class="btn btn-success">Создать</button>
+                </div>
+                <br>
+                Для редактирования или, возможно, удаления заказчика предназначены кнопки в колонке "Операции":
                 <div class="text-center mt-1">
                     <button class="btn btn-sm btn-primary fa fa-edit mr-2" title="Редактировать"></button>
                     <button class="btn btn-sm btn-danger fa fa-trash-alt" title="Удалить"></button>

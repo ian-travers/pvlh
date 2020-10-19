@@ -7,6 +7,18 @@ use App\Models\Customer;
 
 class CustomersController extends Controller
 {
+    public function index()
+    {
+        $customers = Customer::orderBy('id')->paginate(10);
+
+        return view('backend.customers.index', compact('customers'));
+    }
+
+    public function create()
+    {
+        return view('backend.customers.create', ['customer' => $customer = new Customer()]);
+    }
+
     /**
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
@@ -22,6 +34,13 @@ class CustomersController extends Controller
         ]);
 
         return redirect()->route('backend.customers');
+    }
+
+    public function edit(Customer $customer)
+    {
+        session()->put('url.intended', url()->previous());
+
+        return view('backend.customers.edit', compact('customer'));
     }
 
     /**

@@ -43,3 +43,18 @@ Breadcrumbs::for('backend.purposes.edit', function (BreadcrumbsGenerator $trail)
     $trail->parent('backend.purposes');
     $trail->push('Редактировать');
 });
+
+Breadcrumbs::for('backend.customers', function (BreadcrumbsGenerator $trail) {
+    $trail->parent('backend');
+    $trail->push('Заказчики', route('backend.customers'));
+});
+
+Breadcrumbs::for('backend.customers.create', function (BreadcrumbsGenerator $trail) {
+    $trail->parent('backend.customers');
+    $trail->push('Создать');
+});
+
+Breadcrumbs::for('backend.customers.edit', function (BreadcrumbsGenerator $trail) {
+    $trail->parent('backend.customers');
+    $trail->push('Редактировать');
+});
