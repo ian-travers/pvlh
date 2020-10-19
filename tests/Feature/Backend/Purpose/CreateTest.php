@@ -12,7 +12,7 @@ class CreateTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function unauthorized_users_cannot_create_an_user()
+    function unauthorized_users_cannot_create_a_purpose()
     {
         $this->post('/a/purposes', [])
             ->assertRedirect('/login');
@@ -55,6 +55,5 @@ class CreateTest extends TestCase
             ->assertSessionHasErrors('name');
 
         $this->assertDatabaseCount('purposes', 1);
-
     }
 }
