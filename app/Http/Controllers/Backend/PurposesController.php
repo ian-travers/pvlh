@@ -50,8 +50,7 @@ class PurposesController extends Controller
     public function update(Purpose $purpose)
     {
         $this->validate(request(), [
-//            'name' => 'required|string|max:40|unique:purposes,name,' . $purpose->id,
-            'name' => 'required|string|max:40|unique:purposes',
+            'name' => 'required|string|max:40|unique:purposes,name,' . $purpose->id,
         ]);
 
         $purpose->update([
@@ -64,6 +63,7 @@ class PurposesController extends Controller
     /**
      * @param Purpose $purpose
      *
+     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
     public function remove(Purpose $purpose)
