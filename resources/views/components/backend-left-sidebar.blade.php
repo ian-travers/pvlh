@@ -9,6 +9,9 @@
         <li class="list-group-item {{ $controller == 'CustomersController' ? 'active-nav-item' : '' }}">
             <a href="{{ route('backend.customers') }}">Заказчики</a>
         </li>
+        <li class="list-group-item {{ $controller == 'DepotsController' ? 'active-nav-item' : '' }}">
+            <a href="{{ route('backend.depots') }}">Депо приписки</a>
+        </li>
         <li class="list-group-item {{ $controller == 'UsersController' ? 'active-nav-item' : '' }}">
             <a href="{{ route('backend.users') }}">Пользователи</a>
         </li>
@@ -44,6 +47,19 @@
                 </div>
                 <br>
                 Для редактирования или, возможно, удаления заказчика предназначены кнопки в колонке "Операции":
+                <div class="text-center mt-1">
+                    <button class="btn btn-sm btn-primary fa fa-edit mr-2" title="Редактировать"></button>
+                    <button class="btn btn-sm btn-danger fa fa-trash-alt" title="Удалить"></button>
+                </div>
+            @elseif($controller == 'DepotsController')
+                Этот раздел предназначен для создания, редактирования и, возможно, удаления депо приписки локомотивов.
+                <br>
+                Для создания нового депо приписки&nbsp;&mdash; кнопка
+                <div class="text-center mt-1">
+                    <button type="button" class="btn btn-success">Создать</button>
+                </div>
+                <br>
+                Для редактирования или, возможно, удаления депо приписки предназначены кнопки в колонке "Операции":
                 <div class="text-center mt-1">
                     <button class="btn btn-sm btn-primary fa fa-edit mr-2" title="Редактировать"></button>
                     <button class="btn btn-sm btn-danger fa fa-trash-alt" title="Удалить"></button>

@@ -97,4 +97,22 @@ Route::group([
                 Route::delete('/{customer}', [App\Http\Controllers\Backend\CustomersController::class, 'remove'])
                     ->name('.delete');
             });
+
+        Route::group([
+            'prefix' => 'depots',
+            'as' => '.depots'
+        ],
+            function () {
+                Route::get('/', [App\Http\Controllers\Backend\DepotsController::class, 'index']);
+                Route::get('/create', [App\Http\Controllers\Backend\DepotsController::class, 'create'])
+                    ->name('.create');
+                Route::get('/{depot}/edit', [App\Http\Controllers\Backend\DepotsController::class, 'edit'])
+                    ->name('.edit');
+                Route::post('/', [App\Http\Controllers\Backend\DepotsController::class, 'store'])
+                    ->name('.store');
+                Route::patch('/{depot}', [App\Http\Controllers\Backend\DepotsController::class, 'update'])
+                    ->name('.update');
+                Route::delete('/{depot}', [App\Http\Controllers\Backend\DepotsController::class, 'remove'])
+                    ->name('.delete');
+            });
     });

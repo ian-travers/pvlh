@@ -58,3 +58,18 @@ Breadcrumbs::for('backend.customers.edit', function (BreadcrumbsGenerator $trail
     $trail->parent('backend.customers');
     $trail->push('Редактировать');
 });
+
+Breadcrumbs::for('backend.depots', function (BreadcrumbsGenerator $trail) {
+    $trail->parent('backend');
+    $trail->push('Депо приписки', route('backend.depots'));
+});
+
+Breadcrumbs::for('backend.depots.create', function (BreadcrumbsGenerator $trail) {
+    $trail->parent('backend.depots');
+    $trail->push('Создать');
+});
+
+Breadcrumbs::for('backend.depots.edit', function (BreadcrumbsGenerator $trail) {
+    $trail->parent('backend.depots');
+    $trail->push('Редактировать');
+});
