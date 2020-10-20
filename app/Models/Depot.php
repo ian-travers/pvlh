@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,13 +11,12 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property string $name
- * @method static \Illuminate\Database\Eloquent\Builder|Depot newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Depot newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Depot query()
- * @method static \Illuminate\Database\Eloquent\Builder|Depot whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Depot whereName($value)
+ * @method static Builder|Depot newModelQuery()
+ * @method static Builder|Depot newQuery()
+ * @method static Builder|Depot query()
+ * @method static Builder|Depot whereId($value)
+ * @method static Builder|Depot whereName($value)
  * @mixin \Eloquent
- * @noinspection PhpFullyQualifiedNameUsageInspection
  */
 class Depot extends Model
 {

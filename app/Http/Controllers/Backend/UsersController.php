@@ -15,7 +15,10 @@ class UsersController extends Controller
 
     public function create()
     {
-        return view('backend.users.create', ['user' => new User()]);
+        $user = new User();
+        $roles = User::roles();
+
+        return view('backend.users.create', compact('user', 'roles'));
     }
 
     /**
@@ -24,8 +27,11 @@ class UsersController extends Controller
      */
     public function store()
     {
+        request()['roles'] = array_keys(User::roles());
+
         $data = $this->validate(request(), [
             'name' => 'required|string|max:255',
+            'role' => 'required|in_array:roles.*',
             'position' => 'required|string|max:50',
             'email' => 'required|string|email:filter|max:255|unique:users',
             'password' => 'required|string|min:8',
@@ -39,9 +45,11 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
+        $roles = User::roles();
+
         session()->put('url.intended', url()->previous());
 
-        return view('backend.users.edit', compact('user'));
+        return view('backend.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -52,8 +60,11 @@ class UsersController extends Controller
      */
     public function update(User $user)
     {
+        request()['roles'] = array_keys(User::roles());
+
         $data = $this->validate(request(), [
             'name' => 'required|string|max:255',
+            'role' => 'required|in_array:roles.*',
             'position' => 'required|string|max:50',
             'email' => 'required|string|email:filter|max:255|unique:users,email,' . $user->id,
         ]);

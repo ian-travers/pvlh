@@ -34,6 +34,7 @@ class EditTest extends TestCase
 
         $data = [
             'name' => 'Name UPD',
+            'role' => 'customer',
             'position' => 'Position UPD',
             'email' => $user->email,
         ];

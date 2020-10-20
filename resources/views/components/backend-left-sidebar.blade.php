@@ -72,7 +72,7 @@
                 К колонке "Операции" можно выполнить следующие действия:
                 <div>
                     <button class="btn btn-sm btn-primary fa fa-user-edit" title="Редактировать"></button>&nbsp;&mdash;
-                    редактировать ФИО, должность, адрес email.
+                    редактировать ФИО, должность, адрес email и роль.
                 </div>
                 <div>
                     <button class="btn btn-sm btn-primary fa fa-user-check" title="Верифицировать"></button>&nbsp;&mdash;

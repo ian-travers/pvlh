@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,13 +11,12 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property string $name
- * @method static \Illuminate\Database\Eloquent\Builder|Customer newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Customer newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Customer query()
- * @method static \Illuminate\Database\Eloquent\Builder|Customer whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Customer whereName($value)
+ * @method static Builder|Customer newModelQuery()
+ * @method static Builder|Customer newQuery()
+ * @method static Builder|Customer query()
+ * @method static Builder|Customer whereId($value)
+ * @method static Builder|Customer whereName($value)
  * @mixin \Eloquent
- * @noinspection PhpFullyQualifiedNameUsageInspection
  */
 class Customer extends Model
 {

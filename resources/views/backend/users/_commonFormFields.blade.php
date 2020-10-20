@@ -28,4 +28,28 @@
     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
     @enderror
 </div>
+<div class="form-group">
+    <label for="role">Роль</label>
+    <select id="role" type="text" name="role"
+            class="form-control @error('role') is-invalid @enderror"
+            required
+    >
+        @foreach($roles as $value => $name)
+
+            <option value="{{ $value }}"
+                    @isset($user->id)
+                    @if ($user->role == $value)
+                    selected="selected"
+                @endif
+                @endisset
+            >
+                {{ $name }}
+            </option>
+        @endforeach
+
+    </select>
+    @error('role')
+    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+    @enderror
+</div>
 

@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('role', 10)->default('user');
             $table->string('position', 50);
             $table->boolean('is_browser_notified')->default(false);
             $table->boolean('is_email_notified')->default(false);

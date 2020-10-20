@@ -15,6 +15,7 @@ use LasseRafn\Initials\Initials;
  *
  * @property int $id
  * @property string $name
+ * @property string $role
  * @property string $position
  * @property bool $is_browser_notified
  * @property bool $is_email_notified
@@ -42,6 +43,7 @@ use LasseRafn\Initials\Initials;
  * @method static Builder|User wherePassword($value)
  * @method static Builder|User wherePosition($value)
  * @method static Builder|User whereRememberToken($value)
+ * @method static Builder|User whereRole($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
@@ -49,8 +51,17 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
+    public const ROLE_USER = 'user';
+    public const ROLE_CUSTOMER = 'customer';
+    public const ROLE_SA = 'sa';
+    public const ROLE_NODSHP = 'nodshp';
+    public const ROLE_NODT = 'nodt';
+    public const ROLE_NODN = 'nodn';
+    public const ROLE_NODZ = 'nodz';
+
     protected $fillable = [
         'name',
+        'role',
         'position',
         'email',
         'password',
@@ -71,6 +82,19 @@ class User extends Authenticatable implements MustVerifyEmail
         'is_admin' => 'boolean',
     ];
 
+    public static function roles(): array
+    {
+        return [
+            self::ROLE_USER => 'Пользователь системы (просмотр заявок, отчетов)',
+            self::ROLE_CUSTOMER => 'Заказчик локомотивов (создание, редактирование, удаление заявок)',
+            self::ROLE_SA => 'Администратор системы (управление НСИ, пользователями, заявками)',
+            self::ROLE_NODSHP => 'Согласование заявок НОДШП',
+            self::ROLE_NODT => 'Согласование заявок НОДТ',
+            self::ROLE_NODN => 'Согласование заявок НОДН',
+            self::ROLE_NODZ => 'Утверждение заявок НОДЗ1',
+        ];
+    }
+
     public function hasBrowserNotifications()
     {
         return $this->email_verified_at ? $this->is_browser_notified : false;
@@ -84,6 +108,41 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isAdmin(): bool
     {
         return $this->is_admin;
+    }
+
+    public function isUser(): bool
+    {
+        return $this->role === self::ROLE_USER;
+    }
+
+    public function isCustomer(): bool
+    {
+        return $this->role === self::ROLE_CUSTOMER;
+    }
+
+    public function isSA(): bool
+    {
+        return $this->role === self::ROLE_SA;
+    }
+
+    public function isNodshp(): bool
+    {
+        return $this->role === self::ROLE_NODSHP;
+    }
+
+    public function isNodt(): bool
+    {
+        return $this->role === self::ROLE_NODT;
+    }
+
+    public function isNodn(): bool
+    {
+        return $this->role === self::ROLE_NODN;
+    }
+
+    public function isNodz(): bool
+    {
+        return $this->role === self::ROLE_NODZ;
     }
 
     public function setAdminRights(): void
@@ -117,6 +176,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $user = User::create([
             'name' => $data['name'],
+            'role' => $data['role'],
             'position' => $data['position'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),

@@ -24,6 +24,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
+            'role' => 'user',
             'position' => $this->faker->jobTitle,
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => null,
@@ -60,6 +61,34 @@ class UserFactory extends Factory
     {
         return $this->state([
             'is_admin' => true,
+        ]);
+    }
+
+    public function nodshp()
+    {
+        return $this->state([
+            'role' => User::ROLE_NODSHP,
+        ]);
+    }
+
+    public function nodt()
+    {
+        return $this->state([
+            'role' => User::ROLE_NODSHP,
+        ]);
+    }
+
+    public function nodn()
+    {
+        return $this->state([
+            'role' => User::ROLE_NODN,
+        ]);
+    }
+
+    public function nodz()
+    {
+        return $this->state([
+            'role' => User::ROLE_NODZ,
         ]);
     }
 }

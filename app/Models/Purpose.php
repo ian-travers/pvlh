@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,13 +11,12 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property string $name
- * @method static \Illuminate\Database\Eloquent\Builder|Purpose newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Purpose newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Purpose query()
- * @method static \Illuminate\Database\Eloquent\Builder|Purpose whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Purpose whereName($value)
+ * @method static Builder|Purpose newModelQuery()
+ * @method static Builder|Purpose newQuery()
+ * @method static Builder|Purpose query()
+ * @method static Builder|Purpose whereId($value)
+ * @method static Builder|Purpose whereName($value)
  * @mixin \Eloquent
- * @noinspection PhpFullyQualifiedNameUsageInspection
  */
 class Purpose extends Model
 {
