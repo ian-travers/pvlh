@@ -11,18 +11,13 @@
                 <div class="form-group required">
                     <label class="lead" for="sections">Секционность</label>
                     <select class="form-control" type="text" id="sections" name="sections" required>
-                        <option value="1"
-                                @if ($locomotiveApplication->sections == 1)
-                                selected="selected"
-                            @endif
-                        >Односекционный
-                        </option>
-                        <option value="2"
-                                @if ($locomotiveApplication->sections == 2)
-                                selected="selected"
-                            @endif
-                        >Двухсекционный
-                        </option>
+                        @foreach($sections as $id => $name)
+                            <option value="{{ $id }}"
+                                    @if ($locomotiveApplication->sections == $id)
+                                    selected="selected"
+                                @endif
+                            >{{ $name }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>

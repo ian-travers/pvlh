@@ -10,7 +10,7 @@ class LocomotiveApplicationsController extends Controller
 {
     public function index()
     {
-        $applications = LocomotiveApplication::paginate(10);
+        $applications = LocomotiveApplication::with(['depot', 'purpose'])->paginate(1);
 
         return view('locomotive-applications.index', compact('applications'));
     }
@@ -21,6 +21,7 @@ class LocomotiveApplicationsController extends Controller
             'locomotiveApplication' => new LocomotiveApplication(),
             'depots' => Depot::pluck('name', 'id'),
             'purposes' => Purpose::pluck('name', 'id'),
+            'sections' => LocomotiveApplication::sectionsList(),
         ]);
     }
 

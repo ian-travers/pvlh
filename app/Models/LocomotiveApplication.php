@@ -20,6 +20,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $depot_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Depot $depot
+ * @property-read \App\Models\Purpose $purpose
  * @method static Builder|LocomotiveApplication newModelQuery()
  * @method static Builder|LocomotiveApplication newQuery()
  * @method static Builder|LocomotiveApplication query()
@@ -40,7 +42,33 @@ class LocomotiveApplication extends Model
 {
     use HasFactory;
 
+    public const SECTIONS_ONE = 1;
+    public const SECTIONS_TWO = 2;
+
     protected $guarded = ['id'];
 
     protected $dates = ['on_date'];
+
+    public static function sectionsList()
+    {
+        return [
+            self::SECTIONS_ONE => 'Односекционный',
+            self::SECTIONS_TWO => 'Двухсекционный',
+        ];
+    }
+
+    public function depot()
+    {
+        return $this->belongsTo(Depot::class);
+    }
+
+    public function purpose()
+    {
+        return $this->belongsTo(Purpose::class);
+    }
+
+    public function sectionsName(): string
+    {
+        return self::sectionsList()[$this->sections];
+    }
 }
