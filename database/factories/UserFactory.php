@@ -64,6 +64,20 @@ class UserFactory extends Factory
         ]);
     }
 
+    public function customer()
+    {
+        return $this->state([
+            'role' => User::ROLE_CUSTOMER,
+        ]);
+    }
+
+    public function SA()
+    {
+        return $this->state([
+            'role' => User::ROLE_SA,
+        ]);
+    }
+
     public function nodshp()
     {
         return $this->state([

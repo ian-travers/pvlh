@@ -29,6 +29,22 @@ Route::group([
             ->name('.delete');
     });
 
+// Locomotive applications
+Route::group([
+    'prefix' => 'applications',
+    'as' => 'applications',
+    'middleware' => ['auth', 'verified'],
+],
+    function() {
+        Route::get('/', [App\Http\Controllers\LocomotiveApplicationsController::class, 'index']);
+        Route::get('/create', [App\Http\Controllers\LocomotiveApplicationsController::class, 'create'])
+            ->middleware(['can:create-app'])
+            ->name('.create');
+        Route::post('/', [App\Http\Controllers\LocomotiveApplicationsController::class, 'store'])
+            ->middleware(['can:create-app'])
+            ->name('.store');
+    });
+
 // Backend
 Route::group([
     'prefix' => 'a',

@@ -17,6 +17,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
+                @can('create-app')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('applications') }}">Заявки на локомотивы</a>
+                    </li>
+                @endcan
                 @if($user->isAdmin())
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('backend') }}">Панель управления</a>

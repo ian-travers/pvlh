@@ -34,3 +34,12 @@
     content: "";
     background-color: $primary;
 }
+
+.form-group.required label:after {
+    content: " *";
+    color: red;
+}
+
+span.required {
+    color: red;
+}
