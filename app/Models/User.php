@@ -82,6 +82,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'is_admin' => 'boolean',
     ];
 
+    protected $appends = ['fullRole'];
+
     public static function roles(): array
     {
         return [
@@ -169,6 +171,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getInitialsAttribute()
     {
         return $this->initials();
+    }
+
+    public function getFullRoleAttribute()
+    {
+        return self::roles()[$this->role];
     }
 
     // Administrator's actions

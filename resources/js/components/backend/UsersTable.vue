@@ -48,6 +48,7 @@
                     <th>ФИО</th>
                     <th>Должность</th>
                     <th>Адрес email</th>
+                    <th class="text-center">Роль</th>
                     <th class="text-center">Уведомления</th>
                     <th class="text-center w-10">Верификация</th>
                     <th class="text-center">Операции</th>
@@ -59,6 +60,7 @@
                     <td v-text="user.name"></td>
                     <td v-text="user.position"></td>
                     <td v-text="user.email"></td>
+                    <td class="text-center" v-text="user.fullRole"></td>
                     <td class="text-center">
                         <toggler
                             :id="user.id"
