@@ -138,6 +138,16 @@ class UsersController extends Controller
         return back();
     }
 
+    public function verify()
+    {
+        /** @var User $user */
+        $user = User::findOrFail(request('userId'));
+
+        $user->markEmailAsVerified();
+
+        return response(['title' => 'Выполнено!', 'message' => 'Пользователь успешно верифицирован.']);
+    }
+
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|Response
      * @throws \Exception

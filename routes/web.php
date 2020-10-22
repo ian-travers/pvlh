@@ -72,6 +72,8 @@ Route::group([
                     ->name('.toggle-bn');
                 Route::patch('/{user}/toggle-en', [App\Http\Controllers\Backend\UsersController::class, 'toggleEmailNotification'])
                     ->name('.toggle-bn');
+                Route::post('/verify', [App\Http\Controllers\Backend\UsersController::class, 'verify'])
+                    ->name('.verify');
                 Route::post('/change-password', [App\Http\Controllers\Backend\UsersController::class, 'changePassword'])
                     ->name('.change-password');
                 Route::post('/delete', [App\Http\Controllers\Backend\UsersController::class, 'remove'])

@@ -69,26 +69,8 @@
                 <div class="text-center mt-1">
                     <button class="btn btn-success">Создать</button>
                 </div>
-                К колонке "Операции" можно выполнить следующие действия:
-                <div>
-                    <button class="btn btn-sm btn-primary fa fa-user-edit" title="Редактировать"></button>&nbsp;&mdash;
-                    редактировать ФИО, должность, адрес email и роль.
-                </div>
-                <div>
-                    <button class="btn btn-sm btn-primary fa fa-user-check" title="Верифицировать"></button>&nbsp;&mdash;
-                    верифицировать, т.е. подтвердить правильность адреса email. Может пригодиться для получения
-                    уведомлений.
-                </div>
-                <div>
-                    <button class="btn btn-sm btn-primary fa fa-unlock-alt" title="Сменить пароль"></button>&nbsp;&mdash;
-                    смена пароля пользователя.
-                </div>
-                <div>
-                    <button class="btn btn-sm btn-danger fa fa-trash-alt" title="Удалить"></button>&nbsp;&mdash;
-                    удаление пользователя.
-                </div>
-                <div class="mt-1">
-                    В колонке "Уведомления" можно управлять настройками уведомлений для верифицированных пользователей.
+                <div class="mt-2">
+                    В колонке <strong>Уведомления</strong> можно управлять настройками уведомлений для верифицированных пользователей.
                     Уведомления бывают 2-х видов:<br>
                     <button class="btn p-1 fab fa-chrome text-success"></button>
                     - в браузере<br>
@@ -96,6 +78,26 @@
                     - по электронной почте.
                     Зеленый цвет означает, что уведомления включены. Серый - выключены. Клик по значку переключает
                     состояние.
+                </div>
+                <div class="mt-2">
+                    В колонке <strong>Верификация</strong> можно подтверждать email пользователей по кнопке
+                    <button class="btn p-0"><span class="fa fa-user-check text-primary"></span></button>
+                    <div>Знак <button class="btn p-0"><span class="fas fa-check-double text-success"></span></button> показывает, что адрес email подтвержден.</div>
+                </div>
+                <div class="mt-2">
+                    В колонке <strong>Операции</strong> можно выполнить следующие действия:
+                    <div>
+                        <button class="btn btn-sm btn-primary fa fa-user-edit" title="Редактировать"></button>&nbsp;&mdash;
+                        редактировать ФИО, должность, адрес email и роль.
+                    </div>
+                    <div>
+                        <button class="btn btn-sm btn-primary fa fa-unlock-alt" title="Сменить пароль"></button>&nbsp;&mdash;
+                        смена пароля.
+                    </div>
+                    <div>
+                        <button class="btn btn-sm btn-danger fa fa-trash-alt" title="Удалить"></button>&nbsp;&mdash;
+                        удаление.
+                    </div>
                 </div>
             @endif
         </div>

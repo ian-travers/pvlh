@@ -14,11 +14,11 @@
 
 <script>
 export default {
-    props: ['data', 'urlSuffix', 'isNotified', 'isVerifiedEmail'],
+    props: ['id', 'urlSuffix', 'isNotified', 'isVerifiedEmail'],
 
     data() {
         return {
-            userId: this.data.id,
+            userId: this.id,
             hasVerifiedEmail: this.isVerifiedEmail,
             hasNotification: this.isNotified,
         }
@@ -56,7 +56,3 @@ export default {
     },
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -75,6 +75,21 @@ class EditTest extends TestCase
     }
 
     /** @test */
+    function authorized_users_can_verify_an_user()
+    {
+        $this->signIn(User::factory()->admin()->create());
+
+        /** @var User $user */
+        $user = User::factory()->create();
+
+        $this->assertFalse($user->hasEmailNotifications());
+
+//        $this->patch("/a/users/{$user->id}/toggle-en");
+
+//        $this->assertTrue($user->fresh()->hasEmailNotifications());
+    }
+
+    /** @test */
     function authorized_users_can_change_password()
     {
         $this->signIn(User::factory()->admin()->create());

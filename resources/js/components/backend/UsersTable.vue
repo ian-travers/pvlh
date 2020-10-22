@@ -49,7 +49,7 @@
                     <th>Должность</th>
                     <th>Адрес email</th>
                     <th class="text-center">Уведомления</th>
-                    <th class="text-center">Верификация</th>
+                    <th class="text-center w-10">Верификация</th>
                     <th class="text-center">Операции</th>
                 </tr>
                 </thead>
@@ -61,33 +61,26 @@
                     <td v-text="user.email"></td>
                     <td class="text-center">
                         <toggler
-                            :data="user"
+                            :id="user.id"
                             url-suffix="toggle-bn"
                             :is-notified="user.is_browser_notified"
                             :is-verified-email="user.email_verified_at"
                         ></toggler>
                         <toggler
-                            :data="user"
+                            :id="user.id"
                             url-suffix="toggle-en"
                             :is-notified="user.is_email_notified"
                             :is-verified-email="user.email_verified_at"
                         ></toggler>
                     </td>
-                    <td
-                        class="text-center"
-                        v-text="user.email_verified_at ? user.email_verified_at.substr(0, 10) : ''"
-                    ></td>
+                    <td class="text-center">
+                        <verifier :id="user.id" :is-verified="user.email_verified_at"></verifier>
+                    </td>
                     <td class="text-center w-15">
                         <button
                             class="btn btn-sm btn-primary fa fa-user-edit"
                             title="Редактировать"
                             @click="edit(user)"
-                        ></button>
-                        <button
-                            type="button"
-                            class="btn btn-sm btn-primary fa fa-user-check"
-                            title="Верифицировать"
-                            :disabled="!!user.email_verified_at"
                         ></button>
                         <button
                             type="button"
@@ -120,11 +113,12 @@
 
 <script>
 import Toggler from "./User/Toggler";
+import Verifier from "./User/Verifier";
 
 export default {
     props: ['data'],
 
-    components: {Toggler},
+    components: {Toggler, Verifier},
 
     data() {
         return {
@@ -165,11 +159,10 @@ export default {
         deleteUser(id) {
             if (confirm()) {
                 axios.post('/a/users/delete', {userId: id})
-                    .then(response => {
+                    .then( () => {
                         window.location.reload();
                     })
                     .catch(error => {
-                        console.log(window.location.href);
                         iziToast.warning({
                             title: error.response.data.title,
                             message: error.response.data.message,
