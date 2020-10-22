@@ -14,10 +14,10 @@
         @section('breadcrumbs', Breadcrumbs::render())
         @yield('breadcrumbs')
         <div class="row">
-            <div class="col-2">
+            <div class="col-sm-2 col-12">
                 <x-backend-left-sidebar></x-backend-left-sidebar>
             </div>
-            <div class="col-10">
+            <div class="col-sm-10 col-12">
                 {{ $slot }}
             </div>
         </div>
