@@ -43,6 +43,12 @@ Route::group([
         Route::post('/', [App\Http\Controllers\LocomotiveApplicationsController::class, 'store'])
             ->middleware(['can:create-app'])
             ->name('.store');
+        Route::get('/{application}/edit', [App\Http\Controllers\LocomotiveApplicationsController::class, 'edit'])
+            ->middleware(['can:edit-app,application'])
+            ->name('.edit');
+        Route::patch('/{application}', [App\Http\Controllers\LocomotiveApplicationsController::class, 'update'])
+            ->middleware(['can:edit-app,application'])
+            ->name('.update');
     });
 
 // Backend

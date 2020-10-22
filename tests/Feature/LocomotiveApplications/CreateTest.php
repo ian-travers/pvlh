@@ -2,14 +2,13 @@
 
 namespace Tests\Feature\LocomotiveApplications;
 
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class CreateTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, PrepareLocomotiveApplication;
 
     /** @test */
     function unauthorized_users_cannot_create_an_application()
@@ -87,26 +86,5 @@ class CreateTest extends TestCase
     {
         $this->post('/applications', $this->prepareApplication(['description' => null]))
             ->assertSessionHasErrors('description');
-    }
-
-    protected function prepareApplication(array $overrides = []): array
-    {
-        $this->artisan('db:seed --class=PurposesTableSeeder');
-        $this->artisan('db:seed --class=DepotsTableSeeder');
-
-        $user = User::factory()->verified()->customer()->create();
-        $this->signIn($user);
-
-        $data = array_merge([
-            'sections' => 1,
-            'on_date' => now(),
-            'count' => 1,
-            'hours' => 6,
-            'purpose_id' => 1,
-            'depot_id' => 1,
-            'description' => 'workflow everywhere',
-        ], $overrides);
-
-        return $data;
     }
 }
