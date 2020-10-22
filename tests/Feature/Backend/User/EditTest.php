@@ -82,11 +82,11 @@ class EditTest extends TestCase
         /** @var User $user */
         $user = User::factory()->create();
 
-        $this->assertFalse($user->hasEmailNotifications());
+        $this->assertFalse($user->hasVerifiedEmail());
 
-//        $this->patch("/a/users/{$user->id}/toggle-en");
+        $this->post('/a/users/verify', ['userId' => $user->id]);
 
-//        $this->assertTrue($user->fresh()->hasEmailNotifications());
+        $this->assertTrue($user->fresh()->hasVerifiedEmail());
     }
 
     /** @test */
