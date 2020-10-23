@@ -22,7 +22,7 @@ class EditTest extends TestCase
     }
 
     /** @test */
-    function users_cannot_edit_other_users_applications()
+    function users_can_neither_edit_nor_update_other_users_applications()
     {
         $data = $this->prepareApplication();
 
@@ -31,23 +31,9 @@ class EditTest extends TestCase
         $application = LocomotiveApplication::findOrFail(1);
 
         $this->signIn(User::factory()->verified()->customer()->create());
-
 
         $this->get("/applications/{$application->id}/edit")
             ->assertStatus(Response::HTTP_FORBIDDEN);
-    }
-
-    /** @test */
-    function users_cannot_update_other_users_applications()
-    {
-        $data = $this->prepareApplication();
-
-        $this->post('/applications', $data);
-
-        $application = LocomotiveApplication::findOrFail(1);
-
-        $this->signIn(User::factory()->verified()->customer()->create());
-
 
         $this->patch("/applications/{$application->id}", [])
             ->assertStatus(Response::HTTP_FORBIDDEN);
