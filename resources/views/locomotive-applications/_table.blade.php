@@ -29,12 +29,13 @@
             <td>{{ $application->purpose->name }}</td>
             <td>{{ $application->depot->name }}</td>
             <td class="text-center" rowspan="2" style="vertical-align: middle">
+                @can('edit-app', $application)
                 <a
                     href="{{ route('applications.edit', $application) }}"
                     class="btn btn-sm btn-primary fa fa-edit mb-1"
                     title="Редактировать"
                 ></a>
-                <form action="#" method="post">
+                <form action="{{ route('applications.delete', $application) }}" method="post">
                     @csrf
                     @method('delete')
                     <button
@@ -44,6 +45,14 @@
                         title="Удалить"
                     ></button>
                 </form>
+                @else
+                    <button type="button"
+                            class="btn btn-primary btn-sm fa fa-edit mb-1 disabled"></button>
+                    <div>
+                        <button type="button"
+                                class="btn btn-danger btn-sm fa fa-trash disabled"></button>
+                    </div>
+                @endcan
             </td>
         </tr>
         <tr>

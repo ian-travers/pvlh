@@ -61,6 +61,7 @@ class UserFactory extends Factory
     {
         return $this->state([
             'is_admin' => true,
+            'email_verified_at' => now(),
         ]);
     }
 
@@ -68,6 +69,7 @@ class UserFactory extends Factory
     {
         return $this->state([
             'role' => User::ROLE_CUSTOMER,
+            'email_verified_at' => now(),
         ]);
     }
 
@@ -75,6 +77,7 @@ class UserFactory extends Factory
     {
         return $this->state([
             'role' => User::ROLE_SA,
+            'email_verified_at' => now(),
         ]);
     }
 
@@ -82,6 +85,7 @@ class UserFactory extends Factory
     {
         return $this->state([
             'role' => User::ROLE_NODSHP,
+            'email_verified_at' => now(),
         ]);
     }
 
@@ -89,6 +93,7 @@ class UserFactory extends Factory
     {
         return $this->state([
             'role' => User::ROLE_NODSHP,
+            'email_verified_at' => now(),
         ]);
     }
 
@@ -96,6 +101,7 @@ class UserFactory extends Factory
     {
         return $this->state([
             'role' => User::ROLE_NODN,
+            'email_verified_at' => now(),
         ]);
     }
 
@@ -103,6 +109,7 @@ class UserFactory extends Factory
     {
         return $this->state([
             'role' => User::ROLE_NODZ,
+            'email_verified_at' => now(),
         ]);
     }
 }

@@ -49,6 +49,9 @@ Route::group([
         Route::patch('/{application}', [App\Http\Controllers\LocomotiveApplicationsController::class, 'update'])
             ->middleware(['can:edit-app,application'])
             ->name('.update');
+        Route::delete('/{application}', [App\Http\Controllers\LocomotiveApplicationsController::class, 'remove'])
+            ->middleware(['can:edit-app,application'])
+            ->name('.delete');
     });
 
 // Backend

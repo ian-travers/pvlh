@@ -4,7 +4,7 @@
     <div class="col-md-6 col-12">
         <div class="form-group required">
             <label class="lead" for="on-date">Дата</label>
-            <input class="form-control" type="date" id="on-date" name="on_date" value="{{ old('on_date', $locApp->on_date->format('Y-m-d')) }}" required autofocus>
+            <input class="form-control" type="date" id="on-date" name="on_date" value="{{ old('on_date', $locApp->on_date ? $locApp->on_date->format('Y-m-d') : '') }}" required autofocus>
         </div>
         <div class="row">
             <div class="col-sm-8 col-12">

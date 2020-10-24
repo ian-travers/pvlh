@@ -55,6 +55,21 @@ class LocomotiveApplicationsController extends Controller
         return redirect()->intended();
     }
 
+    /**
+     * @param LocomotiveApplication $application
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function remove(LocomotiveApplication $application)
+    {
+        session()->put('url.intended', url()->previous());
+
+        $application->delete();
+
+        return redirect()->intended();
+    }
+
     protected function validateRequest()
     {
         request()['user_id'] = auth()->id();

@@ -25,7 +25,6 @@ class CreateTest extends TestCase
     /** @test */
     function authenticated_users_can_create_an_application()
     {
-        $this->withoutExceptionHandling();
         $data = $this->prepareApplication();
 
         $this->post('/applications', $data);
