@@ -38,4 +38,31 @@ class EditTest extends TestCase
         $this->patch("/applications/{$application->id}", [])
             ->assertStatus(Response::HTTP_FORBIDDEN);
     }
+
+    /** @test */
+    function authorized_users_can_update_applications()
+    {
+        $data = $this->prepareApplication();
+
+        $this->post('/applications', $data);
+
+        $application = LocomotiveApplication::findOrFail(1);
+
+        $this->get("/applications/{$application->id}/edit")
+            ->assertOk();
+
+        $data = [
+            'sections' => 2,
+            'on_date' => now(),
+            'count' => 2,
+            'hours' => 2,
+            'purpose_id' => 1,
+            'depot_id' => 1,
+            'description' => 'UPD',
+        ];
+
+        $this->patch("/applications/{$application->id}", $data);
+
+        $this->assertDatabaseHas('locomotive_applications', $data);
+    }
 }

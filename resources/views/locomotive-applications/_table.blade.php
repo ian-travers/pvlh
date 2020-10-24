@@ -10,6 +10,7 @@
         <th class="text-center">Кол-во часов</th>
         <th>Вид работ</th>
         <th>Депо приписки</th>
+        <th class="text-center" rowspan="2" style="vertical-align: middle">Операции</th>
     </tr>
     <tr>
         <th class="text-center" colspan="6">План выполнения работ</th>
@@ -27,6 +28,23 @@
             <td class="text-center">{{ $application->hours }}</td>
             <td>{{ $application->purpose->name }}</td>
             <td>{{ $application->depot->name }}</td>
+            <td class="text-center" rowspan="2" style="vertical-align: middle">
+                <a
+                    href="{{ route('applications.edit', $application) }}"
+                    class="btn btn-sm btn-primary fa fa-edit mb-1"
+                    title="Редактировать"
+                ></a>
+                <form action="#" method="post">
+                    @csrf
+                    @method('delete')
+                    <button
+                        type="submit"
+                        onclick="return confirm('Подтверждаете удаление?')"
+                        class="btn btn-danger btn-sm fa fa-trash"
+                        title="Удалить"
+                    ></button>
+                </form>
+            </td>
         </tr>
         <tr>
             <td colspan="6">{{ $application->description }}</td>

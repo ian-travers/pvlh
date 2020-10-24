@@ -18,7 +18,7 @@ class LocomotiveApplicationsController extends Controller
     public function create()
     {
         return view('locomotive-applications.create', [
-            'locomotiveApplication' => new LocomotiveApplication(),
+            'locApp' => new LocomotiveApplication(),
             'depots' => Depot::pluck('name', 'id'),
             'purposes' => Purpose::pluck('name', 'id'),
             'sections' => LocomotiveApplication::sectionsList(),
@@ -27,11 +27,41 @@ class LocomotiveApplicationsController extends Controller
 
     public function store()
     {
+        $data = $this->validateRequest();
+
+        LocomotiveApplication::create($data);
+
+        return redirect()->route('applications');
+    }
+
+    public function edit(LocomotiveApplication $application)
+    {
+        session()->put('url.intended', url()->previous());
+
+        return view('locomotive-applications.edit', [
+            'locApp' => $application,
+            'depots' => Depot::pluck('name', 'id'),
+            'purposes' => Purpose::pluck('name', 'id'),
+            'sections' => LocomotiveApplication::sectionsList(),
+        ]);
+    }
+
+    public function update(LocomotiveApplication $application)
+    {
+        $data = $this->validateRequest();
+
+        $application->update($data);
+
+        return redirect()->intended();
+    }
+
+    protected function validateRequest()
+    {
         request()['user_id'] = auth()->id();
         request()['depots'] = array_keys(Depot::pluck('name', 'id')->toArray());
         request()['purposes'] = array_keys(Purpose::pluck('name', 'id')->toArray());
 
-        $data = $this->validate(request(), [
+        return $this->validate(request(), [
             'user_id' => 'required',
             'on_date' => 'required|date',
             'sections' => 'required',
@@ -41,19 +71,5 @@ class LocomotiveApplicationsController extends Controller
             'purpose_id' => 'required|in_array:purposes.*',
             'depot_id' => 'required|in_array:depots.*',
         ]);
-
-        LocomotiveApplication::create($data);
-
-        return redirect()->route('applications');
-    }
-
-    public function edit(LocomotiveApplication $application)
-    {
-        return $application;
-    }
-
-    public function update(LocomotiveApplication $application)
-    {
-        return $application;
     }
 }

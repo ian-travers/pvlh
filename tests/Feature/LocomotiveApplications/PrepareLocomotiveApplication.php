@@ -13,7 +13,7 @@ trait PrepareLocomotiveApplication
 
         $this->signIn(User::factory()->verified()->customer()->create());
 
-        $data = array_merge([
+        return array_merge([
             'sections' => 1,
             'on_date' => now(),
             'count' => 1,
@@ -22,7 +22,5 @@ trait PrepareLocomotiveApplication
             'depot_id' => 1,
             'description' => 'workflow everywhere',
         ], $overrides);
-
-        return $data;
     }
 }

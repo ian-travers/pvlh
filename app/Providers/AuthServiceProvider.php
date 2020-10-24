@@ -32,7 +32,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('edit-app', function (User $user, LocomotiveApplication $application) {
-            return $user->id === $application->user_id || $user->isSA() || $user->isAdmin();
+            return $user->id == $application->user_id || $user->isSA() || $user->isAdmin();
         });
     }
 }
