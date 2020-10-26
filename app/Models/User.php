@@ -11,11 +11,12 @@ use Illuminate\Notifications\Notifiable;
 use LasseRafn\Initials\Initials;
 
 /**
- * App\Models\User
+ * \App\Models\User
  *
  * @property int $id
  * @property string $name
  * @property string $role
+ * @property int|null $customer_id
  * @property string $position
  * @property bool $is_browser_notified
  * @property bool $is_email_notified
@@ -34,6 +35,7 @@ use LasseRafn\Initials\Initials;
  * @method static Builder|User newQuery()
  * @method static Builder|User query()
  * @method static Builder|User whereCreatedAt($value)
+ * @method static Builder|User whereCustomerId($value)
  * @method static Builder|User whereEmail($value)
  * @method static Builder|User whereEmailVerifiedAt($value)
  * @method static Builder|User whereId($value)
@@ -63,6 +65,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'name',
         'role',
+        'customer_id',
         'position',
         'email',
         'password',
@@ -83,7 +86,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'is_admin' => 'boolean',
     ];
 
-    protected $appends = ['fullRole'];
+    protected $appends = ['fullRole', 'customer'];
 
     public static function roles(): array
     {
@@ -169,6 +172,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return (new Initials())->name($this->name)->generate();
     }
 
+    // Accessors
     public function getInitialsAttribute()
     {
         return $this->initials();
@@ -177,6 +181,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getFullRoleAttribute()
     {
         return self::roles()[$this->role];
+    }
+
+    public function getCustomerAttribute()
+    {
+        return $this->customer_id
+            ? Customer::findOrFail($this->customer_id)->name
+            : null;
     }
 
     // Administrator's actions

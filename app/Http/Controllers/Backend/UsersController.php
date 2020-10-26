@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Http\Response;
 
@@ -17,8 +18,9 @@ class UsersController extends Controller
     {
         $user = new User();
         $roles = User::roles();
+        $customers = Customer::pluck('name', 'id');
 
-        return view('backend.users.create', compact('user', 'roles'));
+        return view('backend.users.create', compact('user', 'roles', 'customers'));
     }
 
     /**
@@ -32,6 +34,7 @@ class UsersController extends Controller
         $data = $this->validate(request(), [
             'name' => 'required|string|max:255',
             'role' => 'required|in_array:roles.*',
+            'customer_id' => 'nullable|integer',
             'position' => 'required|string|max:50',
             'email' => 'required|string|email:filter|max:255|unique:users',
             'password' => 'required|string|min:8',
@@ -46,10 +49,11 @@ class UsersController extends Controller
     public function edit(User $user)
     {
         $roles = User::roles();
+        $customers = Customer::pluck('name', 'id');
 
         session()->put('url.intended', url()->previous());
 
-        return view('backend.users.edit', compact('user', 'roles'));
+        return view('backend.users.edit', compact('user', 'roles', 'customers'));
     }
 
     /**
@@ -65,6 +69,7 @@ class UsersController extends Controller
         $data = $this->validate(request(), [
             'name' => 'required|string|max:255',
             'role' => 'required|in_array:roles.*',
+            'customer_id' => 'nullable|integer',
             'position' => 'required|string|max:50',
             'email' => 'required|string|email:filter|max:255|unique:users,email,' . $user->id,
         ]);

@@ -12,6 +12,13 @@
                    class="form-control" v-model="data.position"
                    required autocomplete="position">
         </div>
+        <div class="form-group">
+            <label for="customer" class="font-weight-bolder">Предприятие</label>
+            <select class="form-control" name="customer_id" id="customer" v-model="data.customer_id">
+                <option value="">Нет</option>
+                <option v-for="(name, index) in options" :value="index" v-html="name"></option>
+            </select>
+        </div>
         <div class="border p-2 mb-3">
             <h3>Система уведомлений</h3>
             При создании, согласовании, утверждении заявки система может рассылать уведомления своим
@@ -41,11 +48,12 @@
     export default {
         name: "edit-profile-form",
 
-        props: ['user'],
+        props: ['user', 'customers'],
 
         data() {
             return {
                 data: this.user,
+                options: JSON.parse(this.customers),
             }
         },
 

@@ -12,7 +12,7 @@
                     <div class="col-md-7 col-sm12">
                         <div class="card">
                             <div class="card-body">
-                                <edit-profile-form :user="{{ auth()->user() }}"></edit-profile-form>
+                                <edit-profile-form :user="{{ $user }}" customers="{{ json_encode($customers) }}"></edit-profile-form>
                             </div>
                         </div>
                     </div>

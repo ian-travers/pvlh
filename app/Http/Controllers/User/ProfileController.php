@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Http\Response;
 
@@ -10,7 +11,10 @@ class ProfileController extends Controller
 {
     public function show()
     {
-        return view('user.profile', ['user' => auth()->user()]);
+        return view('user.profile', [
+            'user' => auth()->user(),
+            'customers' => Customer::pluck('name', 'id')
+        ]);
     }
 
     /**
@@ -21,6 +25,7 @@ class ProfileController extends Controller
         $data = $this->validate(request(), [
             'name' => 'required|string|max:255',
             'position' => 'required|string|max:50',
+            'customer_id' => 'nullable|integer',
             'is_browser_notified' => 'required|boolean',
             'is_email_notified' => 'required|boolean',
         ]);
