@@ -86,12 +86,12 @@ class LocomotiveApplicationsController extends Controller
         request()['purposes'] = array_keys(Purpose::pluck('name', 'id')->toArray());
 
         return $this->validate(request(), [
-            'user_id' => 'required',
-            'on_date' => 'required|date',
-            'sections' => 'required',
-            'hours' => 'required',
-            'count' => 'required',
-            'description' => 'required',
+            'user_id' => 'required|integer',
+            'on_date' => 'required|date|after:' . strtotime('2020-09-30'),
+            'sections' => 'required|integer',
+            'hours' => 'required|integer|max:23',
+            'count' => 'required|integer',
+            'description' => 'required|string',
             'purpose_id' => 'required|in_array:purposes.*',
             'depot_id' => 'required|in_array:depots.*',
         ]);

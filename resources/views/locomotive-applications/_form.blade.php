@@ -4,7 +4,12 @@
     <div class="col-md-6 col-12">
         <div class="form-group required">
             <label class="lead" for="on-date">Дата</label>
-            <input class="form-control" type="date" id="on-date" name="on_date" value="{{ old('on_date', $locApp->on_date ? $locApp->on_date->format('Y-m-d') : '') }}" required autofocus>
+            <input class="form-control @error('on_date') is-invalid @enderror" type="date" id="on-date" name="on_date"
+                   value="{{ old('on_date', $locApp->on_date ? $locApp->on_date->format('Y-m-d') : '') }}" required
+                   autofocus>
+            @error('on_date')
+            <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
         <div class="row">
             <div class="col-sm-8 col-12">
@@ -13,7 +18,7 @@
                     <select class="form-control" type="text" id="sections" name="sections" required>
                         @foreach($sections as $id => $name)
                             <option value="{{ $id }}"
-                                @if ($locApp->sections == $id)
+                                    @if ($locApp->sections == $id)
                                     selected="selected"
                                 @endif
                             >{{ $name }}</option>
@@ -24,7 +29,11 @@
             <div class="col-sm-4 col-12">
                 <div class="form-group required">
                     <label class="lead" for="count">Количество</label>
-                    <input class="form-control" id="count" name="count" value="{{ old('count', $locApp->count) }}" required>
+                    <input class="form-control @error('count') is-invalid @enderror" id="count" name="count" value="{{ old('count', $locApp->count) }}"
+                           required>
+                    @error('count')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
         </div>
@@ -32,7 +41,11 @@
             <div class="col-sm-6 col-12">
                 <div class="form-group required">
                     <label class="lead" for="hours">Время пользования, час.</label>
-                    <input class="form-control" id="hours" name="hours" value="{{ old('hours', $locApp->hours) }}" required>
+                    <input class="form-control @error('hours') is-invalid @enderror" id="hours" name="hours" value="{{ old('hours', $locApp->hours) }}"
+                           required>
+                    @error('hours')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
             <div class="col-sm-6 col-12">
@@ -41,7 +54,7 @@
                     <select class="form-control" type="text" id="depot" name="depot_id" required>
                         @foreach($depots as $id => $name)
                             <option value="{{ $id }}"
-                                @if ($locApp->depot_id == $id)
+                                    @if ($locApp->depot_id == $id)
                                     selected="selected"
                                 @endif
                             >{{ $name }}</option>
@@ -55,7 +68,7 @@
             <select class="form-control" type="text" id="purpose" name="purpose_id" required>
                 @foreach($purposes as $id => $name)
                     <option value="{{ $id }}"
-                        @if ($locApp->purpose_id == $id)
+                            @if ($locApp->purpose_id == $id)
                             selected="selected"
                         @endif
                     >{{ $name }}</option>
@@ -66,7 +79,11 @@
     <div class="col-md-6 col-12">
         <div class="form-group required">
             <label class="lead" for="desc">План</label>
-            <textarea class="form-control" id="desc" name="description" rows="13" required>{{ old('description', $locApp->description) }}</textarea>
+            <textarea class="form-control @error('description') is-invalid @enderror" id="desc" name="description" rows="13"
+                      required>{{ old('description', $locApp->description) }}</textarea>
+            @error('description')
+            <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
     </div>
 </div>
