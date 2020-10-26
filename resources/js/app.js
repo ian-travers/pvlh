@@ -21,6 +21,7 @@ window.Vue = require('vue');
 
 Vue.component('profile', require('./components/User/Profile').default);
 Vue.component('users-table', require('./components/backend/UsersTable').default);
+Vue.component('flash', require('./components/Flash').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

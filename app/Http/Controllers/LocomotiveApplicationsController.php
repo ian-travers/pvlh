@@ -31,7 +31,10 @@ class LocomotiveApplicationsController extends Controller
 
         LocomotiveApplication::create($data);
 
-        return redirect()->route('applications');
+        return redirect()->route('applications')->with('flash', json_encode([
+            'title' => 'Успех',
+            'message' => 'Сохранено'
+        ]));
     }
 
     public function edit(LocomotiveApplication $application)
@@ -52,7 +55,10 @@ class LocomotiveApplicationsController extends Controller
 
         $application->update($data);
 
-        return redirect()->intended();
+        return redirect()->intended()->with('flash', json_encode([
+            'title' => 'Успех',
+            'message' => 'Сохранено'
+        ]));
     }
 
     /**
@@ -67,7 +73,10 @@ class LocomotiveApplicationsController extends Controller
 
         $application->delete();
 
-        return redirect()->intended();
+        return redirect()->intended()->with('flash', json_encode([
+            'title' => 'Успех',
+            'message' => 'Удалено'
+        ]));
     }
 
     protected function validateRequest()
