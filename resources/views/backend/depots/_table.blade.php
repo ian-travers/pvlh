@@ -1,4 +1,4 @@
-@php /** @var \App\Models\Customer $depot */ @endphp
+@php /** @var \App\Models\Depot $depot */ @endphp
 
 <table class="table table-bordered">
     <thead>
