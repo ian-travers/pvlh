@@ -87,7 +87,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'is_admin' => 'boolean',
     ];
 
-    protected $appends = ['fullRole', 'customer'];
+    protected $appends = ['fullRole', 'customer', 'deletable'];
 
     public static function roles(): array
     {
@@ -100,6 +100,11 @@ class User extends Authenticatable implements MustVerifyEmail
             self::ROLE_NODN => 'Согласование заявок НОДН',
             self::ROLE_NODZ => 'Утверждение заявок НОДЗ1',
         ];
+    }
+
+    public function apps()
+    {
+        return $this->hasMany(LocomotiveApplication::class);
     }
 
     public function hasBrowserNotifications()
@@ -162,10 +167,14 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->update(['is_admin' => false]);
     }
 
-    public function isCanBeDeleted()
+    public function isCanBeDeleted(): bool
     {
-        // TODO: Check for everything that might interfere...
-        return true;
+        return !$this->apps->count();
+    }
+
+    public function getDeletableAttribute()
+    {
+        return $this->isCanBeDeleted();
     }
 
     public function initials(): string

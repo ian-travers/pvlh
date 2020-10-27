@@ -119,6 +119,6 @@ class ProfileController extends Controller
             return response(['title' => 'Успех!', 'message' => 'Учетная запись удалена.']);
         }
 
-        return response(['title' => 'Ошибка!', 'message' => 'Невозможно удалить учетную запись. Есть связанные объекты.'], Response::HTTP_CONFLICT);
+        return response(['title' => 'Ошибка!', 'message' => 'Невозможно удалить учетную запись. Есть связанные объекты (заявки на локомотивы).'], Response::HTTP_CONFLICT);
     }
 }

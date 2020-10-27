@@ -92,11 +92,15 @@
                             title="Сменить пароль"
                             @click="showPasswordWindow(user.id, user.name)"
                         ></button>
-                        <button
+                        <button v-if="user.deletable"
                             type="button"
                             class="btn btn-sm btn-danger fa fa-trash-alt"
                             title="Удалить"
                             @click="deleteUser(user.id)"
+                        ></button>
+                        <button v-else
+                                type="button"
+                                class="btn btn-sm btn-danger fa fa-trash-alt disabled"
                         ></button>
                     </td>
                 </tr>
