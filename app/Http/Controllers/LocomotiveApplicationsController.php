@@ -87,7 +87,7 @@ class LocomotiveApplicationsController extends Controller
 
         return $this->validate(request(), [
             'user_id' => 'required|integer',
-            'on_date' => 'required|date|after:' . strtotime('2020-09-30'),
+            'on_date' => 'required|date|after:2020-09-30',
             'sections' => 'required|integer',
             'hours' => 'required|integer|max:23',
             'count' => 'required|integer',
