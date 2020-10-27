@@ -19,16 +19,23 @@
                     class="btn btn-sm btn-primary fa fa-edit mr-2"
                     title="Редактировать"
                 ></a>
-                <form class="d-inline" action="{{ route('backend.purposes.delete', $purpose) }}" method="post">
-                    @csrf
-                    @method('delete')
+                @if($purpose->isDeletable())
+                    <form class="d-inline" action="{{ route('backend.purposes.delete', $purpose) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button
+                            type="submit"
+                            onclick="return confirm('Подтверждаете удаление?')"
+                            class="btn btn-danger btn-sm fa fa-trash"
+                            title="Удалить"
+                        ></button>
+                    </form>
+                @else
                     <button
-                        type="submit"
-                        onclick="return confirm('Подтверждаете удаление?')"
-                        class="btn btn-danger btn-sm fa fa-trash"
-                        title="Удалить"
+                        type="button"
+                        class="btn btn-danger btn-sm fa fa-trash disabled"
                     ></button>
-                </form>
+                @endif
             </td>
         </tr>
     @endforeach

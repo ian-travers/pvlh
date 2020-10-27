@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property string $name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\LocomotiveApplication[] $apps
+ * @property-read int|null $apps_count
  * @method static Builder|Purpose newModelQuery()
  * @method static Builder|Purpose newQuery()
  * @method static Builder|Purpose query()
@@ -25,4 +27,14 @@ class Purpose extends Model
     protected $guarded = ['id'];
 
     public $timestamps = false;
+
+    public function apps()
+    {
+        return $this->hasMany(LocomotiveApplication::class);
+    }
+
+    public function isDeletable(): bool
+    {
+        return !$this->apps->count();
+    }
 }

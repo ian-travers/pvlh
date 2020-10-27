@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property string $name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read int|null $users_count
  * @method static Builder|Customer newModelQuery()
  * @method static Builder|Customer newQuery()
  * @method static Builder|Customer query()
@@ -25,4 +27,14 @@ class Customer extends Model
     protected $guarded = ['id'];
 
     public $timestamps = false;
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function isDeletable(): bool
+    {
+        return !$this->users->count();
+    }
 }
