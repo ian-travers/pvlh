@@ -29,6 +29,19 @@ Route::group([
             ->name('.delete');
     });
 
+// User Notifications
+Route::group([
+    'prefix' => 'notifications',
+    'as' => 'notifications',
+    'middleware' => ['auth', 'verified']
+],
+    function () {
+        Route::get('/', [App\Http\Controllers\User\UserNotificationsController::class, 'index']);
+        Route::delete('/{notification}', [App\Http\Controllers\User\UserNotificationsController::class, 'remove'])
+            ->name('.delete');
+
+    });
+
 // Locomotive applications
 Route::group([
     'prefix' => 'applications',

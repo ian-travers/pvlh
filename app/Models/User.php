@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\LocomotiveApplicationCreated;
 use Hash;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
@@ -194,6 +195,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return self::where('is_email_notified', true)
             ->whereNotNull('email_verified')
             ->get();
+    }
+
+    public static function notifySubscribers(LocomotiveApplication $locApp)
+    {
+        foreach (self::browserNotified() as $subscriber) {
+            if ($subscriber->id != $locApp->user_id) {
+                $subscriber->notify(new LocomotiveApplicationCreated($locApp));
+            }
+        }
     }
 
     // Accessors

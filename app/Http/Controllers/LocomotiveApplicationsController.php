@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Depot;
 use App\Models\LocomotiveApplication;
 use App\Models\Purpose;
+use App\Models\User;
 
 class LocomotiveApplicationsController extends Controller
 {
@@ -25,11 +26,17 @@ class LocomotiveApplicationsController extends Controller
         ]);
     }
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function store()
     {
         $data = $this->validateRequest();
 
-        LocomotiveApplication::create($data);
+        $locApp = LocomotiveApplication::create($data);
+
+        User::notifySubscribers($locApp);
 
         return redirect()->route('applications')->with('flash', json_encode([
             'title' => 'Успех',
@@ -49,6 +56,11 @@ class LocomotiveApplicationsController extends Controller
         ]);
     }
 
+    /**
+     * @param LocomotiveApplication $application
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function update(LocomotiveApplication $application)
     {
         $data = $this->validateRequest();
@@ -79,6 +91,10 @@ class LocomotiveApplicationsController extends Controller
         ]));
     }
 
+    /**
+     * @return array
+     * @throws \Illuminate\Validation\ValidationException
+     */
     protected function validateRequest()
     {
         request()['user_id'] = auth()->id();
