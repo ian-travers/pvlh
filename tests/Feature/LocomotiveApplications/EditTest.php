@@ -6,6 +6,7 @@ use App\Models\LocomotiveApplication;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
+use Tests\PrepareLocomotiveApplication;
 use Tests\TestCase;
 
 class EditTest extends TestCase

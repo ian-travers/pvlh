@@ -5,6 +5,7 @@ namespace Tests\Feature\LocomotiveApplications;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
+use Tests\PrepareLocomotiveApplication;
 use Tests\TestCase;
 
 class DeleteTest extends TestCase

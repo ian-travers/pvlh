@@ -4,6 +4,7 @@ namespace Tests\Feature\LocomotiveApplications;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
+use Tests\PrepareLocomotiveApplication;
 use Tests\TestCase;
 
 class CreateTest extends TestCase

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\LocomotiveApplications;
+namespace Tests;
 
 use App\Models\User;
 
