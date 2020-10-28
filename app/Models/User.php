@@ -182,6 +182,20 @@ class User extends Authenticatable implements MustVerifyEmail
         return (new Initials())->name($this->name)->generate();
     }
 
+    public static function browserNotified()
+    {
+        return self::where('is_browser_notified', true)
+            ->whereNotNull('email_verified')
+            ->get();
+    }
+
+    public static function emailNotified()
+    {
+        return self::where('is_email_notified', true)
+            ->whereNotNull('email_verified')
+            ->get();
+    }
+
     // Accessors
     public function getInitialsAttribute()
     {

@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -86,5 +87,33 @@ class UserTest extends TestCase
        $this->assertCount(2, $info);
        $this->assertEquals(2, $info['countAll']);
        $this->assertEquals(1, $info['countVerified']);
+    }
+
+    /** @test */
+    function it_returns_browser_subscribers()
+    {
+        User::factory()->verified()->browserNotified()->count(2)->create();
+        User::factory()->verified()->count(1)->create();
+
+        $this->assertCount(3, User::all());
+
+        $browserSubscribers = User::browserNotified();
+
+        $this->assertCount(2, $browserSubscribers);
+        $this->assertInstanceOf(Collection::class, $browserSubscribers);
+    }
+
+    /** @test */
+    function it_returns_email_subscribers()
+    {
+        User::factory()->verified()->emailNotified()->count(2)->create();
+        User::factory()->verified()->count(1)->create();
+
+        $this->assertCount(3, User::all());
+
+        $emailSubscribers = User::emailNotified();
+
+        $this->assertCount(2, $emailSubscribers);
+        $this->assertInstanceOf(Collection::class, $emailSubscribers);
     }
 }
