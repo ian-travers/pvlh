@@ -31,7 +31,7 @@ class EditTest extends TestCase
 
         $application = LocomotiveApplication::findOrFail(1);
 
-        $this->signIn(User::factory()->verified()->customer()->create());
+        $this->signIn(User::factory()->customer()->create());
 
         $this->get("/applications/{$application->id}/edit")
             ->assertStatus(Response::HTTP_FORBIDDEN);
@@ -43,6 +43,7 @@ class EditTest extends TestCase
     /** @test */
     function authorized_users_can_update_applications()
     {
+        $this->withoutExceptionHandling();
         $data = $this->prepareApplication();
 
         $this->post('/applications', $data);
@@ -59,6 +60,7 @@ class EditTest extends TestCase
             'hours' => 2,
             'purpose_id' => 1,
             'depot_id' => 1,
+            'customer_id' => 1,
             'description' => 'UPD',
         ];
 

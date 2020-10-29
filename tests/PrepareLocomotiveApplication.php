@@ -10,8 +10,9 @@ trait PrepareLocomotiveApplication
     {
         $this->artisan('db:seed --class=PurposesTableSeeder');
         $this->artisan('db:seed --class=DepotsTableSeeder');
+        $this->artisan('db:seed --class=CustomersTableSeeder');
 
-        $this->signIn(User::factory()->verified()->customer()->create());
+        $this->signIn(User::factory()->customer()->create());
 
         return array_merge([
             'sections' => 1,
@@ -20,6 +21,7 @@ trait PrepareLocomotiveApplication
             'hours' => 6,
             'purpose_id' => 1,
             'depot_id' => 1,
+            'customer_id' => 1,
             'description' => 'workflow everywhere',
         ], $overrides);
     }

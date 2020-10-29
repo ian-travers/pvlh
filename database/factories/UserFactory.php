@@ -69,6 +69,7 @@ class UserFactory extends Factory
     {
         return $this->state([
             'role' => User::ROLE_CUSTOMER,
+            'customer_id' => 1,
             'email_verified_at' => now(),
         ]);
     }

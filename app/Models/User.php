@@ -133,7 +133,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isCustomer(): bool
     {
-        return $this->role === self::ROLE_CUSTOMER;
+        return $this->role === self::ROLE_CUSTOMER && isset($this->customer_id);
     }
 
     public function isSA(): bool

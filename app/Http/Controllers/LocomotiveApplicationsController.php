@@ -18,12 +18,7 @@ class LocomotiveApplicationsController extends Controller
 
     public function create()
     {
-        return view('locomotive-applications.create', [
-            'locApp' => new LocomotiveApplication(),
-            'depots' => Depot::pluck('name', 'id'),
-            'purposes' => Purpose::pluck('name', 'id'),
-            'sections' => LocomotiveApplication::sectionsList(),
-        ]);
+        return view('locomotive-applications.create', $this->prepareFormData(new LocomotiveApplication()));
     }
 
     /**
@@ -48,12 +43,7 @@ class LocomotiveApplicationsController extends Controller
     {
         session()->put('url.intended', url()->previous());
 
-        return view('locomotive-applications.edit', [
-            'locApp' => $application,
-            'depots' => Depot::pluck('name', 'id'),
-            'purposes' => Purpose::pluck('name', 'id'),
-            'sections' => LocomotiveApplication::sectionsList(),
-        ]);
+        return view('locomotive-applications.edit', $this->prepareFormData($application));
     }
 
     /**
@@ -104,6 +94,7 @@ class LocomotiveApplicationsController extends Controller
         return $this->validate(request(), [
             'user_id' => 'required|integer',
             'on_date' => 'required|date|after:2020-09-30',
+            'customer_id' => 'required|integer',
             'sections' => 'required|integer',
             'hours' => 'required|integer|max:23',
             'count' => 'required|integer',
@@ -111,5 +102,17 @@ class LocomotiveApplicationsController extends Controller
             'purpose_id' => 'required|in_array:purposes.*',
             'depot_id' => 'required|in_array:depots.*',
         ]);
+    }
+
+    protected function prepareFormData(LocomotiveApplication $application): array
+    {
+        return [
+            'locApp' => $application ,
+            'depots' => Depot::pluck('name', 'id'),
+            'purposes' => Purpose::pluck('name', 'id'),
+            'sections' => LocomotiveApplication::sectionsList(),
+            'isSA' => auth()->user()->isSA() || auth()->user()->isAdmin(),
+            'isCustomer' => auth()->user()->isCustomer(),
+        ];
     }
 }

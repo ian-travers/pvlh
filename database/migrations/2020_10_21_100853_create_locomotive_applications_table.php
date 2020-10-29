@@ -16,6 +16,7 @@ class CreateLocomotiveApplicationsTable extends Migration
         Schema::create('locomotive_applications', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('customer_id')->references('id')->on('customers');
             $table->unsignedTinyInteger('sections');
             $table->unsignedTinyInteger('hours');
             $table->unsignedTinyInteger('count');

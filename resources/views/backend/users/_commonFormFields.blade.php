@@ -29,7 +29,7 @@
     @enderror
 </div>
 <div class="form-group">
-    <label for="customer_id">Заказчик</label>
+    <label for="customer_id">Предприятие</label>
     <select id="customer_id" name="customer_id"
             class="form-control @error('role') is-invalid @enderror"
     >

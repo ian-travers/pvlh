@@ -49,7 +49,7 @@
                     <th>Должность</th>
                     <th>Адрес email</th>
                     <th class="text-center">Роль</th>
-                    <th>Заказчик</th>
+                    <th>Предприятие</th>
                     <th class="text-center">Уведомления</th>
                     <th class="text-center w-10">Верификация</th>
                     <th class="text-center">Операции</th>
