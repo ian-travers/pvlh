@@ -39,7 +39,6 @@ Route::group([
         Route::get('/', [App\Http\Controllers\User\UserNotificationsController::class, 'index']);
         Route::delete('/{notification}', [App\Http\Controllers\User\UserNotificationsController::class, 'remove'])
             ->name('.delete');
-
     });
 
 // Locomotive applications

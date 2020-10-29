@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Depot $depot
  * @property-read \App\Models\Purpose $purpose
+ * @property-read \App\Models\User $user
  * @method static Builder|LocomotiveApplication newModelQuery()
  * @method static Builder|LocomotiveApplication newQuery()
  * @method static Builder|LocomotiveApplication query()
@@ -65,6 +66,11 @@ class LocomotiveApplication extends Model
     public function purpose()
     {
         return $this->belongsTo(Purpose::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function sectionsName(): string

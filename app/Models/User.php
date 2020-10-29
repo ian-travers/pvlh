@@ -28,7 +28,10 @@ use LasseRafn\Initials\Initials;
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\LocomotiveApplication[] $apps
+ * @property-read int|null $apps_count
  * @property-read mixed $customer
+ * @property-read mixed $deletable
  * @property-read mixed $full_role
  * @property-read mixed $initials
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
@@ -186,14 +189,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public static function browserNotified()
     {
         return self::where('is_browser_notified', true)
-            ->whereNotNull('email_verified')
+            ->whereNotNull('email_verified_at')
             ->get();
     }
 
     public static function emailNotified()
     {
         return self::where('is_email_notified', true)
-            ->whereNotNull('email_verified')
+            ->whereNotNull('email_verified_at')
             ->get();
     }
 

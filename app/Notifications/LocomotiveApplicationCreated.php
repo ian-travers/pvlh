@@ -27,7 +27,10 @@ class LocomotiveApplicationCreated extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => 'Temporary placeholder',
+            'action' => 'Новая заявка',
+            'username' => $this->locApp->user->name,
+            'customer' => $this->locApp->user->customer,
+            'link' => '/applications', // TODO: create show page for locApp and link to it
         ];
     }
 }
