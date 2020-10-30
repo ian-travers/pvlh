@@ -64,6 +64,8 @@ Route::group([
         Route::delete('/{application}', [App\Http\Controllers\LocomotiveApplicationsController::class, 'remove'])
             ->middleware(['can:edit-app,application'])
             ->name('.delete');
+        Route::get('/{application}', [App\Http\Controllers\LocomotiveApplicationsController::class, 'show'])
+            ->name('.show');
     });
 
 // Backend

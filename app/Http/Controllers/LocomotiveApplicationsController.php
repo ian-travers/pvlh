@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Depot;
 use App\Models\LocomotiveApplication;
 use App\Models\Purpose;
@@ -81,6 +82,11 @@ class LocomotiveApplicationsController extends Controller
         ]));
     }
 
+    public function show(LocomotiveApplication $application)
+    {
+        return $application;
+    }
+
     /**
      * @return array
      * @throws \Illuminate\Validation\ValidationException
@@ -107,9 +113,10 @@ class LocomotiveApplicationsController extends Controller
     protected function prepareFormData(LocomotiveApplication $application): array
     {
         return [
-            'locApp' => $application ,
+            'locApp' => $application,
             'depots' => Depot::pluck('name', 'id'),
             'purposes' => Purpose::pluck('name', 'id'),
+            'customers' => Customer::pluck('name', 'id'),
             'sections' => LocomotiveApplication::sectionsList(),
             'isSA' => auth()->user()->isSA() || auth()->user()->isAdmin(),
             'isCustomer' => auth()->user()->isCustomer(),
