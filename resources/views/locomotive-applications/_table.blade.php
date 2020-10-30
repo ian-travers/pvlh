@@ -4,6 +4,7 @@
     <thead>
     <tr>
         <th class="text-center" rowspan="2" style="vertical-align: middle">#</th>
+        <th>Предприятие</th>
         <th class="text-center">Дата</th>
         <th>Секционность</th>
         <th class="text-center">Количество</th>
@@ -13,7 +14,7 @@
         <th class="text-center" rowspan="2" style="vertical-align: middle">Операции</th>
     </tr>
     <tr>
-        <th class="text-center" colspan="6">План выполнения работ</th>
+        <th class="text-center py-1" colspan="7">План выполнения работ</th>
     </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@
             <td class="text-center" rowspan="2" style="vertical-align: middle">
                 {{ (request('page')) ? (request('page') - 1) * $applications->perPage() + $loop->index + 1 : $loop->index + 1 }}
             </td>
+            <td>{{ $application->customer->name }}</td>
             <td class="text-center">{{ $application->on_date->format('d.m.Y') }}</td>
             <td>{{ $application->sectionsName() }}</td>
             <td class="text-center">{{ $application->count }}</td>
@@ -61,7 +63,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="6">{{ $application->description }}</td>
+            <td colspan="7">{{ $application->description }}</td>
         </tr>
     @endforeach
     </tbody>
