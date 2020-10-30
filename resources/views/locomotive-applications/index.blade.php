@@ -3,7 +3,9 @@
 <x-layout-app title="Заявки на локомотивы">
     <div class="d-flex justify-content-between align-items-start mb-1">
         <h2>Заявки на локомотивы</h2>
-        <a href="{{ route('applications.create') }}" class="btn btn-success">Создать</a>
+        @can('create-app')
+            <a href="{{ route('applications.create') }}" class="btn btn-success">Создать</a>
+        @endcan
     </div>
     @if($applications->total())
         @include('locomotive-applications._table')
