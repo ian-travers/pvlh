@@ -17,11 +17,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-                @can('create-app')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('applications') }}">Заявки на локомотивы</a>
-                    </li>
-                @endcan
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('applications') }}">Заявки на локомотивы</a>
+                </li>
                 @if($user->isAdmin())
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('backend') }}">Панель управления</a>
@@ -36,7 +34,8 @@
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        <div class="d-inline-block bg-secondary text-center text-light p-2 rounded-circle" style="min-width: 2.5rem">
+                        <div class="d-inline-block bg-secondary text-center text-light p-2 rounded-circle"
+                             style="min-width: 2.5rem">
                             <strong>{{ $user->initials }}</strong></div>
                     </a>
 

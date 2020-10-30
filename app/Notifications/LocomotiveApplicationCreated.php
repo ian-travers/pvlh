@@ -29,7 +29,7 @@ class LocomotiveApplicationCreated extends Notification
         return [
             'action' => 'Новая заявка',
             'username' => $this->locApp->user->name,
-            'customer' => $this->locApp->user->customer,
+            'customer' => $this->locApp->customer->name,
             'link' => "/applications/{$this->locApp->id}",
         ];
     }

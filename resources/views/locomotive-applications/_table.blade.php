@@ -29,6 +29,11 @@
             <td>{{ $application->purpose->name }}</td>
             <td>{{ $application->depot->name }}</td>
             <td class="text-center" rowspan="2" style="vertical-align: middle">
+                <a
+                    href="{{ route('applications.show', $application) }}"
+                    class="btn btn-sm btn-primary fa fa-eye mb-1"
+                    title="Редактировать"
+                ></a>
                 @can('edit-app', $application)
                 <a
                     href="{{ route('applications.edit', $application) }}"

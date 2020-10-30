@@ -84,7 +84,7 @@ class LocomotiveApplicationsController extends Controller
 
     public function show(LocomotiveApplication $application)
     {
-        return $application;
+        return view('locomotive-applications.show', ['locApp' => $application]);
     }
 
     /**

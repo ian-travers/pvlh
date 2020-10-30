@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property int $user_id
+ * @property int $customer_id
  * @property int $sections
  * @property int $hours
  * @property int $count
@@ -20,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $depot_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Customer $customer
  * @property-read \App\Models\Depot $depot
  * @property-read \App\Models\Purpose $purpose
  * @property-read \App\Models\User $user
@@ -28,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|LocomotiveApplication query()
  * @method static Builder|LocomotiveApplication whereCount($value)
  * @method static Builder|LocomotiveApplication whereCreatedAt($value)
+ * @method static Builder|LocomotiveApplication whereCustomerId($value)
  * @method static Builder|LocomotiveApplication whereDepotId($value)
  * @method static Builder|LocomotiveApplication whereDescription($value)
  * @method static Builder|LocomotiveApplication whereHours($value)
@@ -71,6 +74,11 @@ class LocomotiveApplication extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
     }
 
     public function sectionsName(): string
