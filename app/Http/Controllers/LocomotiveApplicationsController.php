@@ -12,7 +12,7 @@ class LocomotiveApplicationsController extends Controller
 {
     public function index()
     {
-        $applications = LocomotiveApplication::with(['depot', 'purpose'])->paginate(10);
+        $applications = LocomotiveApplication::with(['depot', 'purpose', 'customer', 'user'])->paginate(10);
 
         return view('locomotive-applications.index', compact('applications'));
     }
