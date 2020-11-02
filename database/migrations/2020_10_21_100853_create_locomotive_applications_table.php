@@ -24,6 +24,9 @@ class CreateLocomotiveApplicationsTable extends Migration
             $table->text('description');
             $table->unsignedBigInteger('purpose_id')->references('id')->on('purposes');
             $table->unsignedBigInteger('depot_id')->references('id')->on('depots');
+            $table->boolean('is_nodt')->default(false);
+            $table->boolean('is_nodn')->default(false);
+            $table->boolean('is_nodshp')->default(false);
             $table->timestamps();
         });
     }

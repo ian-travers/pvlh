@@ -26,6 +26,7 @@ class CreateTest extends TestCase
     /** @test */
     function authorized_users_can_create_an_user()
     {
+        $this->withoutExceptionHandling();
         $this->signIn(User::factory()->admin()->create());
 
         $user = [

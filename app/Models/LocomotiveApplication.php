@@ -19,6 +19,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $description
  * @property int $purpose_id
  * @property int $depot_id
+ * @property int $is_nodt
+ * @property int $is_nodn
+ * @property int $is_nodshp
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Customer $customer
@@ -35,6 +38,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|LocomotiveApplication whereDescription($value)
  * @method static Builder|LocomotiveApplication whereHours($value)
  * @method static Builder|LocomotiveApplication whereId($value)
+ * @method static Builder|LocomotiveApplication whereIsNodn($value)
+ * @method static Builder|LocomotiveApplication whereIsNodshp($value)
+ * @method static Builder|LocomotiveApplication whereIsNodt($value)
  * @method static Builder|LocomotiveApplication whereOnDate($value)
  * @method static Builder|LocomotiveApplication wherePurposeId($value)
  * @method static Builder|LocomotiveApplication whereSections($value)
@@ -52,6 +58,12 @@ class LocomotiveApplication extends Model
     protected $guarded = ['id'];
 
     protected $dates = ['on_date'];
+
+    protected $casts = [
+        'is_nodt' => 'boolean',
+        'is_nodn' => 'boolean',
+        'is_nodshp' => 'boolean',
+    ];
 
     public static function sectionsList()
     {
@@ -84,5 +96,20 @@ class LocomotiveApplication extends Model
     public function sectionsName(): string
     {
         return self::sectionsList()[$this->sections];
+    }
+
+    public function approvedNODT(): bool
+    {
+        return (bool)$this->is_nodt;
+    }
+
+    public function approvedNODN(): bool
+    {
+        return (bool)$this->is_nodn;
+    }
+
+    public function approvedNODSHP(): bool
+    {
+        return (bool)$this->is_nodshp;
     }
 }

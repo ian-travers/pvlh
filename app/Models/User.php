@@ -233,6 +233,7 @@ class User extends Authenticatable implements MustVerifyEmail
         $user = User::create([
             'name' => $data['name'],
             'role' => $data['role'],
+            'customer_id' => isset($data['customer_id']) ? $data['customer_id'] : null,
             'position' => $data['position'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
