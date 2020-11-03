@@ -78,7 +78,6 @@ Route::group([
         Route::patch('/{application}/toggle-nodshp', [App\Http\Controllers\LocomotiveApplicationsController::class, 'toggleNodshp'])
             ->middleware('can:approve-nodshp')
             ->name('.toggle-nodshp');
-
     });
 
 // Backend

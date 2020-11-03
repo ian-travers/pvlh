@@ -5,8 +5,8 @@
 
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-2">
     <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+        <a class="navbar-brand position-absolute" style="left: 2rem" href="{{ url('/') }}">
+            <span class="h1 fas fa-train"></span>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false"
