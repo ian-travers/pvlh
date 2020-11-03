@@ -93,7 +93,10 @@ class LocomotiveApplicationsController extends Controller
             'is_nodn' => !$application->is_nodn
         ]);
 
-        return view('locomotive-applications.show', ['locApp' => $application]);
+        return redirect()->route('applications.show', $application)->with('flash', json_encode([
+            'title' => 'Успех',
+            'message' => $application->approvedNODN() ? 'Согласовано НОДН' : 'Отменено согласование НОДН'
+        ]));
     }
 
     /**

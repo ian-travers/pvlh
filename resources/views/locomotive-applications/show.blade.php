@@ -2,6 +2,9 @@
 <x-layout-app title="Заявка на локомотив">
     <div class="card">
         <div class="card-header text-center">
+            <div class="position-absolute" style="top: .5rem; right: .75rem">
+                <a class="btn btn-secondary float-right" href="{{ route('applications') }}">Список заявок</a>
+            </div>
             <h2>Заявка на локомотив</h2>
             <p class="h2">
                 <span class="fas fa-calendar-alt"></span>
@@ -72,6 +75,16 @@
                             {{ $locApp->purpose->name }}
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-5 text-right">
+                            <em>Согласования:</em>
+                        </div>
+                        <div class="col-sm-7 ml-n3">
+                            <div>НОДН&nbsp;<span class="fas {{ $locApp->approvedNODN() ? 'fa-check text-success' : 'fa-times text-danger' }}"></span></div>
+                            <div>НОДТ&nbsp;<span class="fas {{ $locApp->approvedNODT() ? 'fa-check text-success' : 'fa-times text-danger' }}"></span></div>
+                            <div>НОДШП&nbsp;<span class="fas {{ $locApp->approvedNODSHP() ? 'fa-check text-success' : 'fa-times text-danger' }}"></span></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <div class="pb-2"><strong>План работ</strong></div>
@@ -81,25 +94,32 @@
         </div>
         <div class="card-footer">
             @can('edit-app', $locApp)
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <a class="btn btn-primary mr-2" href="{{ route('applications.edit', $locApp) }}">Редактировать</a>
-                        <form class="d-inline" action="{{ route('applications.delete', $locApp) }}" method="post">
-                            @csrf
-                            @method('delete')
-                            <button
-                                type="submit"
-                                onclick="return confirm('Подтверждаете удаление?')"
-                                class="btn btn-danger"
-                            >Удалить</button>
-                        </form>
-                    </div>
-                    <div>
-                        <a class="btn btn-secondary float-right" href="{{ route('applications') }}">Список заявок</a>
-                    </div>
+                <a class="btn btn-primary mr-2"
+                   href="{{ route('applications.edit', $locApp) }}">Редактировать</a>
+                <form class="d-inline" action="{{ route('applications.delete', $locApp) }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button
+                        type="submit"
+                        onclick="return confirm('Подтверждаете удаление?')"
+                        class="btn btn-danger"
+                    >Удалить
+                    </button>
+                </form>
+            @endcan
+
+            @can('approve-nodn', $locApp)
+                <div class="mt-2">
+                    <form action="{{ route('applications.toggle-nodn', $locApp) }}" method="post">
+                        @csrf
+                        @method('patch')
+                        <button
+                            type="submit"
+                            class="btn btn-secondary w-25"
+                        >{{ $locApp->approvedNODN() ? 'Отменить согласование' : 'Согласовать' }} НОДН
+                        </button>
+                    </form>
                 </div>
-            @else
-                <a class="btn btn-secondary float-right" href="{{ route('applications') }}">Список заявок</a>
             @endcan
         </div>
     </div>
