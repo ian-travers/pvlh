@@ -22,6 +22,7 @@ class LocomotiveApplicationFactory extends Factory
             'hours' => 6,
             'purpose_id' => 1,
             'depot_id' => 1,
+            'customer_id' => 1,
             'description' => 'workflow everywhere',
         ];
     }

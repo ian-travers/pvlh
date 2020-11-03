@@ -25,6 +25,7 @@ class UserFactory extends Factory
         return [
             'name' => $this->faker->name,
             'role' => 'user',
+            'customer_id' => null,
             'position' => $this->faker->jobTitle,
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => null,

@@ -34,5 +34,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('edit-app', function (User $user, LocomotiveApplication $application) {
             return $user->id == $application->user_id || $user->isSA() || $user->isAdmin();
         });
+
+        Gate::define('approve-nodn', function (User $user) {
+            return $user->isNodn() || $user->isSA() || $user->isAdmin();
+        });
     }
 }

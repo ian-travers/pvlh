@@ -66,6 +66,9 @@ Route::group([
             ->name('.delete');
         Route::get('/{application}', [App\Http\Controllers\LocomotiveApplicationsController::class, 'show'])
             ->name('.show');
+        Route::patch('/{application}/toggle-nodn', [App\Http\Controllers\LocomotiveApplicationsController::class, 'toggleNodn'])
+            ->middleware('can:approve-nodn')
+            ->name('.toggle-nodn');
     });
 
 // Backend

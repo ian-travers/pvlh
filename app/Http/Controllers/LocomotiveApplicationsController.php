@@ -87,6 +87,15 @@ class LocomotiveApplicationsController extends Controller
         return view('locomotive-applications.show', ['locApp' => $application]);
     }
 
+    public function toggleNodn(LocomotiveApplication $application)
+    {
+        $application->update([
+            'is_nodn' => !$application->is_nodn
+        ]);
+
+        return view('locomotive-applications.show', ['locApp' => $application]);
+    }
+
     /**
      * @return array
      * @throws \Illuminate\Validation\ValidationException
