@@ -99,6 +99,30 @@ class LocomotiveApplicationsController extends Controller
         ]));
     }
 
+    public function toggleNodt(LocomotiveApplication $application)
+    {
+        $application->update([
+            'is_nodt' => !$application->is_nodt
+        ]);
+
+        return redirect()->route('applications.show', $application)->with('flash', json_encode([
+            'title' => 'Успех',
+            'message' => $application->approvedNODT() ? 'Согласовано НОДТ' : 'Отменено согласование НОДТ'
+        ]));
+    }
+
+    public function toggleNodshp(LocomotiveApplication $application)
+    {
+        $application->update([
+            'is_nodshp' => !$application->is_nodshp
+        ]);
+
+        return redirect()->route('applications.show', $application)->with('flash', json_encode([
+            'title' => 'Успех',
+            'message' => $application->approvedNODSHP() ? 'Согласовано НОДШП' : 'Отменено согласование НОДШП'
+        ]));
+    }
+
     /**
      * @return array
      * @throws \Illuminate\Validation\ValidationException

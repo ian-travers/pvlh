@@ -80,9 +80,15 @@
                             <em>Согласования:</em>
                         </div>
                         <div class="col-sm-7 ml-n3">
-                            <div>НОДН&nbsp;<span class="fas {{ $locApp->approvedNODN() ? 'fa-check text-success' : 'fa-times text-danger' }}"></span></div>
-                            <div>НОДТ&nbsp;<span class="fas {{ $locApp->approvedNODT() ? 'fa-check text-success' : 'fa-times text-danger' }}"></span></div>
-                            <div>НОДШП&nbsp;<span class="fas {{ $locApp->approvedNODSHP() ? 'fa-check text-success' : 'fa-times text-danger' }}"></span></div>
+                            <div>НОДН&nbsp;<span
+                                    class="fas {{ $locApp->approvedNODN() ? 'fa-check text-success' : 'fa-times text-danger' }}"></span>
+                            </div>
+                            <div>НОДТ&nbsp;<span
+                                    class="fas {{ $locApp->approvedNODT() ? 'fa-check text-success' : 'fa-times text-danger' }}"></span>
+                            </div>
+                            <div>НОДШП&nbsp;<span
+                                    class="fas {{ $locApp->approvedNODSHP() ? 'fa-check text-success' : 'fa-times text-danger' }}"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -109,17 +115,39 @@
             @endcan
 
             @can('approve-nodn', $locApp)
-                <div class="mt-2">
-                    <form action="{{ route('applications.toggle-nodn', $locApp) }}" method="post">
-                        @csrf
-                        @method('patch')
-                        <button
-                            type="submit"
-                            class="btn btn-secondary w-25"
-                        >{{ $locApp->approvedNODN() ? 'Отменить согласование' : 'Согласовать' }} НОДН
-                        </button>
-                    </form>
-                </div>
+                <form class="d-inline " action="{{ route('applications.toggle-nodn', $locApp) }}" method="post">
+                    @csrf
+                    @method('patch')
+                    <button
+                        type="submit"
+                        class="btn btn-secondary w-25"
+                    >{{ $locApp->approvedNODN() ? 'Отменить согласование' : 'Согласовать' }} НОДН
+                    </button>
+                </form>
+            @endcan
+
+            @can('approve-nodt', $locApp)
+                <form class="d-inline" action="{{ route('applications.toggle-nodt', $locApp) }}" method="post">
+                    @csrf
+                    @method('patch')
+                    <button
+                        type="submit"
+                        class="btn btn-secondary w-25"
+                    >{{ $locApp->approvedNODT() ? 'Отменить согласование' : 'Согласовать' }} НОДТ
+                    </button>
+                </form>
+            @endcan
+
+            @can('approve-nodshp', $locApp)
+                <form class="d-inline" action="{{ route('applications.toggle-nodshp', $locApp) }}" method="post">
+                    @csrf
+                    @method('patch')
+                    <button
+                        type="submit"
+                        class="btn btn-secondary w-25"
+                    >{{ $locApp->approvedNODSHP() ? 'Отменить согласование' : 'Согласовать' }} НОДШП
+                    </button>
+                </form>
             @endcan
         </div>
     </div>

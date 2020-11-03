@@ -47,7 +47,7 @@ Route::group([
     'as' => 'applications',
     'middleware' => ['auth', 'verified'],
 ],
-    function() {
+    function () {
         Route::get('/', [App\Http\Controllers\LocomotiveApplicationsController::class, 'index']);
         Route::get('/create', [App\Http\Controllers\LocomotiveApplicationsController::class, 'create'])
             ->middleware(['can:create-app'])
@@ -66,9 +66,19 @@ Route::group([
             ->name('.delete');
         Route::get('/{application}', [App\Http\Controllers\LocomotiveApplicationsController::class, 'show'])
             ->name('.show');
+
         Route::patch('/{application}/toggle-nodn', [App\Http\Controllers\LocomotiveApplicationsController::class, 'toggleNodn'])
             ->middleware('can:approve-nodn')
             ->name('.toggle-nodn');
+
+        Route::patch('/{application}/toggle-nodt', [App\Http\Controllers\LocomotiveApplicationsController::class, 'toggleNodt'])
+            ->middleware('can:approve-nodt')
+            ->name('.toggle-nodt');
+
+        Route::patch('/{application}/toggle-nodshp', [App\Http\Controllers\LocomotiveApplicationsController::class, 'toggleNodshp'])
+            ->middleware('can:approve-nodshp')
+            ->name('.toggle-nodshp');
+
     });
 
 // Backend

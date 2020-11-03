@@ -94,7 +94,7 @@ class UserFactory extends Factory
     public function nodt()
     {
         return $this->state([
-            'role' => User::ROLE_NODSHP,
+            'role' => User::ROLE_NODT,
             'email_verified_at' => now(),
         ]);
     }

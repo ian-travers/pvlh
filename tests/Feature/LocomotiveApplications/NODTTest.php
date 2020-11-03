@@ -9,14 +9,14 @@ use Illuminate\Http\Response;
 use Tests\PrepareLocomotiveApplication;
 use Tests\TestCase;
 
-class NODNTest extends TestCase
+class NODTTest extends TestCase
 {
     use RefreshDatabase, PrepareLocomotiveApplication;
 
     /** @test */
-    function unauthorized_users_cannot_toggle_nodn_approved()
+    function unauthorized_users_cannot_toggle_nodt_approved()
     {
-        $this->patch('/applications/1/toggle-nodn')
+        $this->patch('/applications/1/toggle-nodt')
             ->assertRedirect('/login');
 
         $data = $this->prepareApplication();
@@ -26,74 +26,74 @@ class NODNTest extends TestCase
         // Verified user
         $this->signIn(User::factory()->verified()->create());
 
-        $this->patch("/applications/1/toggle-nodn")
+        $this->patch("/applications/1/toggle-nodt")
             ->assertStatus(Response::HTTP_FORBIDDEN);
 
         // Customer
         $this->signIn(User::factory()->customer()->create());
 
-        $this->patch("/applications/1/toggle-nodn")
+        $this->patch("/applications/1/toggle-nodt")
             ->assertStatus(Response::HTTP_FORBIDDEN);
 
-        // NODT
-        $this->signIn(User::factory()->nodt()->create());
+        // NODN
+        $this->signIn(User::factory()->nodn()->create());
 
-        $this->patch("/applications/1/toggle-nodn")
+        $this->patch("/applications/1/toggle-nodt")
             ->assertStatus(Response::HTTP_FORBIDDEN);
 
         // NODSHP
         $this->signIn(User::factory()->nodshp()->create());
 
-        $this->patch("/applications/1/toggle-nodn")
+        $this->patch("/applications/1/toggle-nodt")
             ->assertStatus(Response::HTTP_FORBIDDEN);
 
         // NODZ
         $this->signIn(User::factory()->nodz()->create());
 
-        $this->patch("/applications/1/toggle-nodn")
+        $this->patch("/applications/1/toggle-nodt")
             ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
-    function authorized_users_can_toggle_nodn_approved()
+    function authorized_users_can_toggle_nodt_approved()
     {
         $data = $this->prepareApplication();
 
         $this->post('/applications', $data);
 
-        // NODN
-        $this->signIn(User::factory()->nodn()->create());
+        // NODT
+        $this->signIn(User::factory()->nodt()->create());
 
-        $this->patch("/applications/1/toggle-nodn");
+        $this->patch("/applications/1/toggle-nodt");
 
         $locApp = LocomotiveApplication::find(1);
 
-        $this->assertTrue($locApp->approvedNODN());
+        $this->assertTrue($locApp->fresh()->approvedNODT());
 
-        $this->patch("/applications/1/toggle-nodn");
+        $this->patch("/applications/1/toggle-nodt");
 
-        $this->assertFalse($locApp->fresh()->approvedNODN());
+        $this->assertFalse($locApp->fresh()->approvedNODT());
 
         // SA
         $this->signIn(User::factory()->SA()->create());
 
-        $this->patch("/applications/1/toggle-nodn");
+        $this->patch("/applications/1/toggle-nodt");
 
-        $this->assertTrue($locApp->approvedNODN());
+        $this->assertTrue($locApp->approvedNODT());
 
-        $this->patch("/applications/1/toggle-nodn");
+        $this->patch("/applications/1/toggle-nodt");
 
-        $this->assertFalse($locApp->fresh()->approvedNODN());
+        $this->assertFalse($locApp->fresh()->approvedNODT());
 
         // admin
         $this->signIn(User::factory()->admin()->create());
 
-        $this->patch("/applications/1/toggle-nodn");
+        $this->patch("/applications/1/toggle-nodt");
 
-        $this->assertTrue($locApp->approvedNODN());
+        $this->assertTrue($locApp->approvedNODT());
 
-        $this->patch("/applications/1/toggle-nodn");
+        $this->patch("/applications/1/toggle-nodt");
 
-        $this->assertFalse($locApp->fresh()->approvedNODN());
+        $this->assertFalse($locApp->fresh()->approvedNODT());
     }
 }
