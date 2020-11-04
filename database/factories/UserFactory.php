@@ -70,6 +70,7 @@ class UserFactory extends Factory
     {
         return $this->state([
             'role' => User::ROLE_CUSTOMER,
+            'is_browser_notified' => true,
             'customer_id' => 1,
             'email_verified_at' => now(),
         ]);

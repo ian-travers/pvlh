@@ -93,6 +93,10 @@ class LocomotiveApplicationsController extends Controller
             'is_nodn' => !$application->is_nodn
         ]);
 
+        $application->approvedNODN()
+            ? User::notifyOwnerApproved($application, 'НОДН')
+            : User::notifyOwnerNotApproved($application, 'НОДН');
+
         return redirect()->route('applications.show', $application)->with('flash', json_encode([
             'title' => 'Успех',
             'message' => $application->approvedNODN() ? 'Согласовано НОДН' : 'Отменено согласование НОДН'
@@ -105,6 +109,10 @@ class LocomotiveApplicationsController extends Controller
             'is_nodt' => !$application->is_nodt
         ]);
 
+        $application->approvedNODT()
+            ? User::notifyOwnerApproved($application, 'НОДТ')
+            : User::notifyOwnerNotApproved($application, 'НОДТ');
+
         return redirect()->route('applications.show', $application)->with('flash', json_encode([
             'title' => 'Успех',
             'message' => $application->approvedNODT() ? 'Согласовано НОДТ' : 'Отменено согласование НОДТ'
@@ -116,6 +124,10 @@ class LocomotiveApplicationsController extends Controller
         $application->update([
             'is_nodshp' => !$application->is_nodshp
         ]);
+
+        $application->approvedNODSHP()
+            ? User::notifyOwnerApproved($application, 'НОДШП')
+            : User::notifyOwnerNotApproved($application, 'НОДШП');
 
         return redirect()->route('applications.show', $application)->with('flash', json_encode([
             'title' => 'Успех',

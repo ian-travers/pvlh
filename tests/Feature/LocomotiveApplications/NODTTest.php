@@ -4,6 +4,8 @@ namespace Tests\Feature\LocomotiveApplications;
 
 use App\Models\LocomotiveApplication;
 use App\Models\User;
+use App\Notifications\LocomotiveApplicationApproved;
+use App\Notifications\LocomotiveApplicationNotApproved;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
 use Tests\PrepareLocomotiveApplication;
@@ -95,5 +97,29 @@ class NODTTest extends TestCase
         $this->patch("/applications/1/toggle-nodt");
 
         $this->assertFalse($locApp->fresh()->approvedNODT());
+    }
+
+    /** @test */
+    function owner_with_browser_notifying_receives_a_valid_notification()
+    {
+        $data = $this->prepareApplication();
+
+        $this->post('/applications', $data);
+
+        $owner = auth()->user();
+
+        $this->signIn(User::factory()->nodt()->create());
+
+        // toggle to approved
+        $this->patch("/applications/1/toggle-nodt");
+
+        $this->assertCount(1, $owner->notifications);
+
+        $this->assertEquals(LocomotiveApplicationApproved::class, $owner->notifications->last()->toArray()['type']);
+
+        // toggle to not approved
+        $this->patch("/applications/1/toggle-nodt");
+
+        $this->assertEquals(LocomotiveApplicationNotApproved::class, $owner->fresh()->notifications->last()->toArray()['type']);
     }
 }

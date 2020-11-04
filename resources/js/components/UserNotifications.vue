@@ -14,11 +14,14 @@
                     @click="markAsRead(notification)"
                 >
                     <div class="text-center lead" v-text="notification.data.action"></div>
-                    <div>
+                    <div v-if="notification.data.customer">
                         <span class="fas fa-building"></span>
                         <span v-text="notification.data.customer"></span>
                         <span class="fas fa-address-card"></span>
                         <span v-text="notification.data.username"></span>
+                    </div>
+                    <div class="text-center" v-if="notification.data.department">
+                        <span class="lead" v-text="notification.data.department"></span>
                     </div>
                 </a>
             </div>

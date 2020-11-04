@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Notifications\LocomotiveApplicationApproved;
 use App\Notifications\LocomotiveApplicationCreated;
+use App\Notifications\LocomotiveApplicationNotApproved;
 use Hash;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
@@ -173,7 +175,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isCanBeDeleted(): bool
     {
-        return !$this->apps->count();
+        return !$this->apps()->count();
     }
 
     public function getDeletableAttribute()
@@ -206,6 +208,24 @@ class User extends Authenticatable implements MustVerifyEmail
             if ($subscriber->id != $locApp->user_id) {
                 $subscriber->notify(new LocomotiveApplicationCreated($locApp));
             }
+        }
+    }
+
+    public static function notifyOwnerApproved(LocomotiveApplication $locApp, $department)
+    {
+        $user = $locApp->user;
+
+        if ($user->hasBrowserNotifications()) {
+            $user->notify(new LocomotiveApplicationApproved($locApp, $department));
+        }
+    }
+
+    public static function notifyOwnerNotApproved(LocomotiveApplication $locApp, $department)
+    {
+        $user = $locApp->user;
+
+        if ($user->hasBrowserNotifications()) {
+            $user->notify(new LocomotiveApplicationNotApproved($locApp, $department));
         }
     }
 
