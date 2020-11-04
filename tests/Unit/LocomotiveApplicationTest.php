@@ -16,4 +16,18 @@ class LocomotiveApplicationTest extends TestCase
         $this->assertEquals('Односекционный', LocomotiveApplication::sectionsList()[1]);
         $this->assertEquals('Двухсекционный', LocomotiveApplication::sectionsList()[2]);
     }
+
+    /** @test */
+    function it_returns_valid_editable_status()
+    {
+        $locApp = LocomotiveApplication::factory()->create();
+
+        $this->assertTrue($locApp->editable());
+
+        $locApp->update([
+            'is_nodt' => true,
+        ]);
+
+        $this->assertFalse($locApp->editable());
+    }
 }

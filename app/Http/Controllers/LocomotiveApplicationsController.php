@@ -42,9 +42,17 @@ class LocomotiveApplicationsController extends Controller
 
     public function edit(LocomotiveApplication $application)
     {
-        session()->put('url.intended', url()->previous());
+        if ($application->editable()) {
+            session()->put('url.intended', url()->previous());
 
-        return view('locomotive-applications.edit', $this->prepareFormData($application));
+            return view('locomotive-applications.edit', $this->prepareFormData($application));
+        }
+
+        return back()->with('flash', json_encode([
+            'level' => 'warning',
+            'title' => 'Предупреждение',
+            'message' => 'Заявка уже имеет согласование одного или нескольких отделов НОД. Редактирование запрещено!'
+        ]));
     }
 
     /**
@@ -54,6 +62,14 @@ class LocomotiveApplicationsController extends Controller
      */
     public function update(LocomotiveApplication $application)
     {
+        if (!$application->editable()) {
+            return back()->with('flash', json_encode([
+                'level' => 'warning',
+                'title' => 'Предупреждение',
+                'message' => 'Заявка уже имеет согласование одного или нескольких отделов НОД. Редактирование запрещено!'
+            ]));
+        }
+
         $data = $this->validateRequest();
 
         $application->update($data);

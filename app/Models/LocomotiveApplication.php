@@ -112,4 +112,9 @@ class LocomotiveApplication extends Model
     {
         return (bool)$this->is_nodshp;
     }
+
+    public function editable(): bool
+    {
+        return !$this->approvedNODN() && !$this->approvedNODT() && !$this->approvedNODSHP();
+    }
 }

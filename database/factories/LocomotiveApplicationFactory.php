@@ -23,6 +23,9 @@ class LocomotiveApplicationFactory extends Factory
             'purpose_id' => 1,
             'depot_id' => 1,
             'customer_id' => 1,
+            'is_nodn' => 0,
+            'is_nodt' => 0,
+            'is_nodshp' => 0,
             'description' => 'workflow everywhere',
         ];
     }
