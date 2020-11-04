@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Notifications\LocomotiveApplicationApproved;
 use App\Notifications\LocomotiveApplicationCreated;
+use App\Notifications\LocomotiveApplicationCreatedEmail;
 use App\Notifications\LocomotiveApplicationNotApproved;
 use Hash;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -207,6 +208,12 @@ class User extends Authenticatable implements MustVerifyEmail
         foreach (self::browserNotified() as $subscriber) {
             if ($subscriber->id != $locApp->user_id) {
                 $subscriber->notify(new LocomotiveApplicationCreated($locApp));
+            }
+        }
+
+        foreach (self::emailNotified() as $subscriber) {
+            if ($subscriber->id != $locApp->user_id) {
+                $subscriber->notify(new LocomotiveApplicationCreatedEmail($locApp));
             }
         }
     }
