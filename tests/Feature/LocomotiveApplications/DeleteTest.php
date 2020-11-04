@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\LocomotiveApplications;
 
+use App\Models\LocomotiveApplication;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
@@ -83,5 +84,23 @@ class DeleteTest extends TestCase
         $this->delete('/applications/1');
 
         $this->assertDatabaseCount('locomotive_applications', 0);
+    }
+
+    /** @test */
+    function approved_locApp_cannot_be_deleted()
+    {
+        $data = $this->prepareApplication();
+
+        $this->post('/applications', $data);
+
+        $locApp = LocomotiveApplication::findOrFail(1);
+
+        $locApp->update([
+            'is_nodn' => true,
+        ]);
+
+        $this->delete("/applications/{$locApp->id}")
+            ->assertSessionHas('flash');
+        $this->assertDatabaseHas('locomotive_applications', $locApp->getAttributes());
     }
 }

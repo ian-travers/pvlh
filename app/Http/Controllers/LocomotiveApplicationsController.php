@@ -88,6 +88,14 @@ class LocomotiveApplicationsController extends Controller
      */
     public function remove(LocomotiveApplication $application)
     {
+        if (!$application->editable()) {
+            return back()->with('flash', json_encode([
+                'level' => 'warning',
+                'title' => 'Предупреждение',
+                'message' => 'Заявка уже имеет согласование одного или нескольких отделов НОД. Удаление запрещено!'
+            ]));
+        }
+
         session()->put('url.intended', url()->previous());
 
         $application->delete();
