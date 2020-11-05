@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Notifications\Auth\QueuedVerifyEmail;
+use App\Jobs\QueuedVerifyEmailJob;
 use App\Notifications\LocomotiveApplicationApproved;
 use App\Notifications\LocomotiveApplicationCreated;
 use App\Notifications\LocomotiveApplicationCreatedEmail;
@@ -240,7 +240,7 @@ class User extends Authenticatable implements MustVerifyEmail
     // Overrides
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new QueuedVerifyEmail());
+        QueuedVerifyEmailJob::dispatch($this);
     }
 
     // Accessors
