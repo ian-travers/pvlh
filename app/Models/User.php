@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Jobs\QueuedPasswordResetJob;
 use App\Jobs\QueuedVerifyEmailJob;
 use App\Notifications\LocomotiveApplicationApproved;
 use App\Notifications\LocomotiveApplicationCreated;
@@ -241,6 +242,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendEmailVerificationNotification()
     {
         QueuedVerifyEmailJob::dispatch($this);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        QueuedPasswordResetJob::dispatch($this, $token);
     }
 
     // Accessors
