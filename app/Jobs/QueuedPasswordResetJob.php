@@ -25,6 +25,6 @@ class QueuedPasswordResetJob implements ShouldQueue
 
     public function handle()
     {
-        $this->user->notify(new  ResetPassword($this->token));
+        $this->user->notify(new ResetPassword($this->token));
     }
 }
