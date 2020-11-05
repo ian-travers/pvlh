@@ -6,8 +6,8 @@
             <div class="position-absolute bg-danger text-center text-light rounded-circle"
                  style="min-width: 1.5rem; top: 4px; right: 4px" v-text="notifications.length"></div>
         </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <div v-for="notification in notifications">
+        <div class="dropdown-menu dropdown-menu-right py-0" style="min-width: 12rem" aria-labelledby="navbarDropdown">
+            <div v-for="(notification, index) in notifications" class="">
                 <a
                     class="dropdown-item"
                     :href="notification.data.link"
@@ -23,13 +23,17 @@
                     <div class="text-center" v-if="notification.data.department">
                         <span class="lead" v-text="notification.data.department"></span>
                     </div>
+                    <div class="small my-1 text-right" v-text="appDate(notification.created_at)"></div>
                 </a>
+                <hr v-if="index < notifications.length - 1" class="my-0">
             </div>
         </div>
     </li>
 </template>
 
 <script>
+    import moment from 'moment';
+
     export default {
         props: [],
 
@@ -49,6 +53,11 @@
         methods: {
             markAsRead(notification) {
                 axios.delete(`/notifications/${notification.id}`);
+            },
+
+            appDate(qdate) {
+                moment.locale('ru');
+                return moment(qdate).fromNow();
             },
         },
     }
