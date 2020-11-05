@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\Auth\QueuedVerifyEmail;
 use App\Notifications\LocomotiveApplicationApproved;
 use App\Notifications\LocomotiveApplicationCreated;
 use App\Notifications\LocomotiveApplicationCreatedEmail;
@@ -234,6 +235,12 @@ class User extends Authenticatable implements MustVerifyEmail
         if ($user->hasBrowserNotifications()) {
             $user->notify(new LocomotiveApplicationNotApproved($locApp, $department));
         }
+    }
+
+    // Overrides
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new QueuedVerifyEmail());
     }
 
     // Accessors
