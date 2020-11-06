@@ -4,16 +4,26 @@
            data-toggle="dropdown">
             <div class="d-inline-block px-2" style="padding-top: .15rem"><span class="h1 fas fa-bell"></span></div>
             <div class="position-absolute bg-danger text-center text-light rounded-circle"
-                 style="min-width: 1.5rem; top: 4px; right: 4px" v-text="notifications.length"></div>
+                 style="min-width: 1.5rem; top: 4px; right: 4px" v-text="notifications.length < 10 ? notifications.length : '9+'"></div>
         </a>
         <div class="dropdown-menu dropdown-menu-right py-0" style="min-width: 12rem" aria-labelledby="navbarDropdown">
-            <div v-for="(notification, index) in notifications" class="">
+            <div v-if="notifications.length > 9" class="text-center">
+                <a
+
+                    href="/notifications"
+                    class="dropdown-item text-primary font-weight-bold"
+                >
+                    Все уведомления
+                </a>
+                <hr class="my-0">
+            </div>
+            <div v-for="(notification, index) in notifications">
                 <a
                     class="dropdown-item"
                     :href="notification.data.link"
                     @click="markAsRead(notification)"
                 >
-                    <div class="text-center lead" v-text="notification.data.action"></div>
+                    <div class="text-center" v-text="notification.data.action"></div>
                     <div v-if="notification.data.customer">
                         <span class="fas fa-building"></span>
                         <span v-text="notification.data.customer"></span>
@@ -21,9 +31,9 @@
                         <span v-text="notification.data.username"></span>
                     </div>
                     <div class="text-center" v-if="notification.data.department">
-                        <span class="lead" v-text="notification.data.department"></span>
+                        <span v-text="notification.data.department"></span>
                     </div>
-                    <div class="small my-1 text-right" v-text="appDate(notification.created_at)"></div>
+                    <div class="small text-right" v-text="appDate(notification.created_at)"></div>
                 </a>
                 <hr v-if="index < notifications.length - 1" class="my-0">
             </div>

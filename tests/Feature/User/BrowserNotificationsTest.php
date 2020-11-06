@@ -53,7 +53,7 @@ class BrowserNotificationsTest extends TestCase
 
         $this->signIn($subscriber);
 
-        $response = $this->get('/notifications')->json();
+        $response = $this->getJson('/notifications')->json();
 
         $this->assertCount(1, $response);
     }
