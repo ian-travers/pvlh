@@ -8,6 +8,7 @@ use App\Notifications\LocomotiveApplicationApproved;
 use App\Notifications\LocomotiveApplicationNotApproved;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Notification;
 use Tests\PrepareLocomotiveApplication;
 use Tests\TestCase;
 
@@ -121,5 +122,34 @@ class NODNTest extends TestCase
         $this->patch("/applications/1/toggle-nodn");
 
         $this->assertEquals(LocomotiveApplicationNotApproved::class, $owner->fresh()->notifications->last()->toArray()['type']);
+    }
+
+    /** @test */
+    function nodn_notify_locApp_owner_if_subscribed()
+    {
+        $data = $this->prepareApplication();
+
+        $this->post('/applications', $data);
+
+        Notification::fake();
+
+        /** @var User $owner */
+        $owner = auth()->user();
+
+        $owner->update(['is_browser_notified' => true]);
+
+        $this->assertCount(0, $owner->notifications);
+
+        $this->signIn(User::factory()->nodn()->create());
+
+        // toggle to approved
+        $this->patch("/applications/1/toggle-nodn");
+
+        Notification::assertSentTo($owner, LocomotiveApplicationApproved::class);
+
+        // toggle to non approved
+        $this->patch("/applications/1/toggle-nodn");
+
+        Notification::assertSentTo($owner, LocomotiveApplicationNotApproved::class);
     }
 }
