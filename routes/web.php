@@ -85,6 +85,16 @@ Route::group([
             ->name('.toggle-nodshp');
     });
 
+Route::group([
+    'prefix' => 'reports',
+    'as' => 'reports',
+    'middleware' => ['auth'],
+],
+    function () {
+        Route::get('/monthly-report', [App\Http\Controllers\ReportsController::class, 'monthlyReport'])
+            ->name('.monthly-report');
+    });
+
 // Backend
 Route::group([
     'prefix' => 'a',

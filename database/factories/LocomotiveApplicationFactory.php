@@ -16,17 +16,26 @@ class LocomotiveApplicationFactory extends Factory
 
         return [
             'user_id' => $user->id,
-            'sections' => 1,
-            'on_date' => now(),
-            'count' => 1,
-            'hours' => 6,
-            'purpose_id' => 1,
-            'depot_id' => 1,
-            'customer_id' => 1,
+            'sections' => rand(1, 2),
+            'on_date' => now()->addDays(rand(0, 30)),
+            'count' => rand(1, 3),
+            'hours' => rand(1, 8),
+            'purpose_id' => rand(1, 5),
+            'depot_id' => rand(1, 3),
+            'customer_id' => rand(1, 4),
             'is_nodn' => 0,
             'is_nodt' => 0,
             'is_nodshp' => 0,
             'description' => 'workflow everywhere',
         ];
+    }
+
+    public function approved()
+    {
+        return $this->state([
+            'is_nodn' => 1,
+            'is_nodt' => 1,
+            'is_nodshp' => 1,
+        ]);
     }
 }
