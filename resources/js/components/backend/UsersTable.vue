@@ -93,10 +93,10 @@
                             @click="showPasswordWindow(user.id, user.name)"
                         ></button>
                         <button v-if="user.deletable"
-                            type="button"
-                            class="btn btn-sm btn-danger fa fa-trash-alt"
-                            title="Удалить"
-                            @click="deleteUser(user.id)"
+                                type="button"
+                                class="btn btn-sm btn-danger fa fa-trash-alt"
+                                title="Удалить"
+                                @click="deleteUser(user.id)"
                         ></button>
                         <button v-else
                                 type="button"
@@ -120,97 +120,102 @@
 </template>
 
 <script>
-import Toggler from "./User/Toggler";
-import Verifier from "./User/Verifier";
+    import Toggler from "./User/Toggler";
+    import Verifier from "./User/Verifier";
 
-export default {
-    props: ['data'],
+    export default {
+        props: ['data'],
 
-    components: {Toggler, Verifier},
+        components: {Toggler, Verifier},
 
-    data() {
-        return {
-            paginator: JSON.parse(this.data),
-            userId: null,
-            username: null,
-            password: '',
-        }
-    },
-
-    mounted() {
-        $('#pwdModal').on('show.bs.modal', function () {
-            $('#password').removeClass('is-invalid');
-        });
-    },
-
-    computed: {
-        hasUsers() {
-            return !!this.paginator.total;
-        },
-
-        hasPages() {
-            return this.paginator.last_page > 1;
-        },
-    },
-
-    methods: {
-        linkText(label) {
-            if (label === "Previous") return "&lsaquo;"
-            if (label === "Next") return "&rsaquo;"
-            return label;
-        },
-
-        edit(user) {
-            window.location.href = `/a/users/${user.id}/edit`;
-        },
-
-        deleteUser(id) {
-            if (confirm()) {
-                axios.post('/a/users/delete', {userId: id})
-                    .then( () => {
-                        window.location.reload();
-                    })
-                    .catch(error => {
-                        iziToast.warning({
-                            title: error.response.data.title,
-                            message: error.response.data.message,
-                        });
-                    });
+        data() {
+            return {
+                paginator: JSON.parse(this.data),
+                userId: null,
+                username: null,
+                password: '',
             }
         },
 
-        showPasswordWindow(id, name) {
-            this.userId = id;
-            this.username = name;
-
-            $('#pwdModal').modal('show');
+        mounted() {
+            $('#pwdModal').on('show.bs.modal', function () {
+                $('#password').removeClass('is-invalid');
+            });
         },
 
-        changePassword() {
-            axios.post("/a/users/change-password", {
-                userId: this.userId,
-                password: this.password,
-            })
-                .then(response => {
-                    $('#pwdModal').modal('hide');
-                    iziToast.success({title: response.data.title, message: response.data.message});
+        computed: {
+            hasUsers() {
+                return !!this.paginator.total;
+            },
+
+            hasPages() {
+                return this.paginator.last_page > 1;
+            },
+        },
+
+        methods: {
+            linkText(label) {
+                if (label === "Previous") return "&lsaquo;"
+                if (label === "Next") return "&rsaquo;"
+                return label;
+            },
+
+            edit(user) {
+                window.location.href = `/a/users/${user.id}/edit`;
+            },
+
+            deleteUser(id) {
+                if (confirm()) {
+                    axios.post('/a/users/delete', {userId: id})
+                        .then(() => {
+                            window.location.reload();
+                        })
+                        .catch(error => {
+                            iziToast.warning({
+                                title: error.response.data.title,
+                                message: error.response.data.message,
+                            });
+                        });
+                }
+            },
+
+            showPasswordWindow(id, name) {
+                this.userId = id;
+                this.username = name;
+
+                $('#pwdModal').modal('show');
+            },
+
+            changePassword() {
+                axios.post("/a/users/change-password", {
+                    userId: this.userId,
+                    password: this.password,
                 })
-                .catch(error => {
-                    // console.log(error.response.data.errors);
-                    let passwordCheck = $('#password');
-                    let passwordCheckErrorMessage = $('#password-check-error-message');
+                    .then(response => {
+                        $('#pwdModal').modal('hide');
+                        iziToast.success({title: response.data.title, message: response.data.message});
+                    })
+                    .catch(error => {
+                        console.log(error.response.data);
+                        let passwordCheck = $('#password');
+                        let passwordCheckErrorMessage = $('#password-check-error-message');
 
-                    if ('password' in error.response.data.errors) {
-                        passwordCheck.addClass('is-invalid');
-                        passwordCheckErrorMessage.html(error.response.data.errors.password[0]);
-                    }
+                        if (error.response.data.errors) {
+                            passwordCheck.addClass('is-invalid');
+                            passwordCheckErrorMessage.html(error.response.data.errors.password[0]);
 
-                    iziToast.warning({
-                        title: "Предупреждение",
-                        message: error.response.data.errors.password[0]
+                            iziToast.warning({
+                                title: "Предупреждение",
+                                message: error.response.data.errors.password[0]
+                            });
+                        } else {
+                            iziToast.warning({
+                                title: error.response.data.title,
+                                message: error.response.data.message,
+                            });
+                        }
                     });
-                });
-        },
+            },
+        }
     }
-}
 </script>

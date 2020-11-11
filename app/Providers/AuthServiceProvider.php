@@ -46,5 +46,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('approve-nodshp', function (User $user) {
             return $user->isNodshp() || $user->isSA() || $user->isAdmin();
         });
+
+        Gate::define('sysadmin', function (User $user) {
+            return $user->isSA() || $user->isAdmin();
+        });
     }
 }

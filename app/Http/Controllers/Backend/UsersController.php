@@ -48,6 +48,14 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
+        if ($user->isAdmin() and auth()->id() != $user->id) {
+            return back()->with('flash', json_encode([
+                'level' => 'warning',
+                'title' => 'Предупреждение',
+                'message' => 'Недостаточно прав на редактирование этого пользователя.'
+            ]));
+        }
+
         $roles = User::roles();
         $customers = Customer::pluck('name', 'id');
 
@@ -81,6 +89,13 @@ class UsersController extends Controller
 
     public function toggleBrowserNotification(User $user)
     {
+        if ($user->isAdmin() and auth()->id() != $user->id) {
+            return response([
+                'title' => 'Не выполнено!',
+                'message' => 'Вы не можете изменять настройки этого пользователя.',
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         $user->toggleBrowserNotification();
 
         if (request()->wantsJson()) {
@@ -100,6 +115,13 @@ class UsersController extends Controller
 
     public function toggleEmailNotification(User $user)
     {
+        if ($user->isAdmin() and auth()->id() != $user->id) {
+            return response([
+                'title' => 'Не выполнено!',
+                'message' => 'Вы не можете изменять настройки этого пользователя.',
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         $user->toggleEmailNotification();
 
         if (request()->wantsJson()) {
@@ -131,6 +153,14 @@ class UsersController extends Controller
         ]);
 
         $user = User::findOrFail(request('userId'));
+
+        if ($user->isAdmin() and auth()->id() != $user->id) {
+            return response([
+                'title' => 'Не выполнено!',
+                'message' => 'Вы не можете сменить пароль этого пользователя.',
+            ], Response::HTTP_LOCKED);
+        }
+
         $user->setPassword(request('password'));
 
         if (request()->wantsJson()) {
@@ -154,7 +184,7 @@ class UsersController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|Response
      * @throws \Exception
      */
     public function remove()

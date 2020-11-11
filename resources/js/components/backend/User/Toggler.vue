@@ -33,6 +33,12 @@ export default {
                         title: response.data.title,
                         message: response.data.message,
                     });
+                })
+                .catch(error => {
+                    iziToast.warning({
+                        title: error.response.data.title,
+                        message: error.response.data.message,
+                    })
                 });
         },
     },

@@ -99,7 +99,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
      * @throws \Illuminate\Validation\ValidationException
      */
     public function remove()
@@ -119,6 +119,6 @@ class ProfileController extends Controller
             return response(['title' => 'Успех!', 'message' => 'Учетная запись удалена.']);
         }
 
-        return response(['title' => 'Ошибка!', 'message' => 'Невозможно удалить учетную запись. Есть связанные объекты (заявки на локомотивы).'], Response::HTTP_CONFLICT);
+        return response(['title' => 'Ошибка!', 'message' => 'Невозможно удалить учетную запись. Есть связанные объекты или у пользователя права администратора.'], Response::HTTP_CONFLICT);
     }
 }

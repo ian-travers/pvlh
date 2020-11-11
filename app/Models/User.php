@@ -178,7 +178,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isCanBeDeleted(): bool
     {
-        return !$this->apps()->count();
+        return !($this->isAdmin() || $this->isSA() || $this->apps()->count());
     }
 
     public function getDeletableAttribute()

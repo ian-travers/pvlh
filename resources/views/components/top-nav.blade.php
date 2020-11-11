@@ -29,11 +29,11 @@
                         <button type="button" class="dropdown-item" data-toggle="modal" data-target="#monthly-report-form">Отчет за месяц</button>
                     </div>
                 </li>
-                @if($user->isAdmin())
+                @can('sysadmin', $user)
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('backend') }}">Панель управления</a>
                     </li>
-                @endif
+                @endcan
             </ul>
 
             <!-- Right Side Of Navbar -->

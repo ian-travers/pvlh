@@ -85,6 +85,7 @@ Route::group([
             ->name('.toggle-nodshp');
     });
 
+// Reports
 Route::group([
     'prefix' => 'reports',
     'as' => 'reports',

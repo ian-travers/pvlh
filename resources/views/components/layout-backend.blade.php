@@ -10,6 +10,7 @@
 <body class="login-page">
 <div id="app">
     <x-top-nav></x-top-nav>
+    <flash data="{{ session('flash') }}"></flash>
     <main class="container-fluid">
         @section('breadcrumbs', Breadcrumbs::render())
         @yield('breadcrumbs')
