@@ -117,4 +117,13 @@ class LocomotiveApplication extends Model
     {
         return !$this->approvedNODN() && !$this->approvedNODT() && !$this->approvedNODSHP();
     }
+
+    // Info for dashboard
+    public static function getLocAppsInfo(): array
+    {
+        $countAll = self::count();
+        $countApproved = self::where('is_nodn', 1)->where('is_nodt', 1)->where('is_nodshp', 1)->count();
+
+        return compact('countAll', 'countApproved');
+    }
 }
