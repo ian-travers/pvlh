@@ -26,8 +26,7 @@
                         Отчеты
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('reports.monthly-report') }}">Отчет за месяц</a>
-                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#monthly-report-form">123</button>
+                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#monthly-report-form">Отчет за месяц</button>
                     </div>
                 </li>
                 @if($user->isAdmin())
@@ -93,8 +92,8 @@
                 <form action="{{ route('reports.monthly-report') }}" method="get">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="loc-type">Тип локомотивов</label>
-                            <select class="form-control" id="loc-type" name="locType" required>
+                            <label for="sections">Тип локомотивов</label>
+                            <select class="form-control" id="sections" name="sections" required>
                                 <option value="1">Односекционный</option>
                                 <option value="2">Двухсекционный</option>
                             </select>
