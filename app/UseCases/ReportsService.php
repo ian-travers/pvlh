@@ -2,10 +2,12 @@
 
 namespace App\UseCases;
 
+use App\Reports\MonthlyReport;
+
 class ReportsService
 {
-    public function monthlyReport()
+    public function monthlyReport(int $sections, int $month, int $year)
     {
-        return request()->all();
+        return (new MonthlyReport($sections, $month, $year))->generateData();
     }
 }
