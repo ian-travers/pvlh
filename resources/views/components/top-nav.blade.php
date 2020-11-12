@@ -5,7 +5,7 @@
 
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-2">
     <div class="container">
-        <a class="navbar-brand position-absolute" style="left: 2rem" href="{{ url('/') }}">
+        <a class="navbar-brand position-absolute" style="left: 2rem" href="{{ route('applications') }}">
             <span class="h1 fas fa-train"></span>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -26,20 +26,22 @@
                         Отчеты
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#monthly-report-form">Отчет за месяц</button>
+                        <button type="button" class="dropdown-item" data-toggle="modal"
+                                data-target="#monthly-report-form">Отчет за месяц
+                        </button>
                     </div>
                 </li>
                 @can('sysadmin', $user)
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('backend') }}">Панель управления</a>
+                    <li class="nav-item ml-4">
+                        <a class="btn btn-outline-secondary" href="{{ route('backend') }}">Панель управления системой</a>
                     </li>
                 @endcan
             </ul>
 
             <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto">
-                <!-- Authentication Links -->
+            <ul class="navbar-nav">
                 <user-notifications></user-notifications>
+                <!-- Authentication Links -->
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

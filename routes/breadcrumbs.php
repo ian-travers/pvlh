@@ -5,7 +5,7 @@
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
 
 Breadcrumbs::for('root', function (BreadcrumbsGenerator $trail) {
-    $trail->push('Главная', route('root'));
+    $trail->push('Главная', route('applications'));
 });
 
 // Backend stuff
