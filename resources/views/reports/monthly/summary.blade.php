@@ -10,7 +10,7 @@
         @foreach($depotsNames as $name)
             <td class="text-center w-20">{{ $name }}</td>
         @endforeach
-        <th class=" text-center w-20 font-weight-bolder">Всего по "П"</th>
+        <th class="text-center w-20 font-weight-bolder">Всего по "П"</th>
     </tr>
     </thead>
     <tbody>
@@ -23,7 +23,7 @@
         </tr>
     @endforeach
     <tr>
-        <td>Всего по "Т"</td>
+        <td class="font-weight-bolder">Всего по "Т"</td>
         @foreach($summaryDepots as $count)
             <td class="text-right font-weight-bolder">{{ $count }}</td>
         @endforeach
