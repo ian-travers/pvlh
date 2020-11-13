@@ -3,6 +3,7 @@
 namespace App\Reports;
 
 use App\Models\Customer;
+use App\Models\Depot;
 use DB;
 
 class MonthlyReport
@@ -18,11 +19,51 @@ class MonthlyReport
         $this->year = $year;
     }
 
-    public function generateData(): array
+    public function datesReport(): array
     {
         for ($day = 1; $day <= $this->daysInMonth(); $day++) {
             $data[$day] = $this->getDayData($day);
             $data[$day]['depots_total'] = $this->getDayDataGroupedByDepot($day);
+        }
+
+        return $data ?? [];
+    }
+
+    public function summaryMatrix(): array
+    {
+        $customerIds = Customer::orderBy('id')->pluck('name', 'id');
+        $depots = Depot::orderBy('id')->pluck('name', 'id');
+
+        foreach ($customerIds as $customerId => $customerName) {
+            $data[$customerName] = $this->getSummaryCustomerDepotMatrix($customerId, $depots);
+        }
+
+        return $data ?? [];
+    }
+
+    public function summaryByDepots(): array
+    {
+        $depots = Depot::orderBy('id')->pluck('name', 'id');
+
+        foreach ($depots as $id => $name) {
+            $data[$name] = DB::select('
+select sum(`count`) as `count`
+from `locomotive_applications`
+where is_nodn = 1
+  and is_nodt = 1
+  and is_nodshp = 1
+  and MONTH(on_date) = :month
+  and YEAR(on_date) = :year
+  and sections = :sections
+  and depot_id = :depot_id
+        ',
+                [
+                    'month' => $this->month,
+                    'year' => $this->year,
+                    'sections' => $this->sections,
+                    'depot_id' => $id,
+                ]
+            )[0]->count;
         }
 
         return $data ?? [];
@@ -35,6 +76,37 @@ class MonthlyReport
         }
 
         return $data ?? [];
+    }
+
+    protected function getSummaryCustomerDepotMatrix(int $customerId, $depots): array
+    {
+        foreach ($depots as $depotId => $name) {
+            // if the query returns nothing insert something like this ['ПЧ-10', 12] otherwise ['ПЧ-10', null]
+            $data[$name] = DB::select('
+select sum(`count`) as `count`
+from `locomotive_applications`
+where is_nodn = 1
+  and is_nodt = 1
+  and is_nodshp = 1
+  and MONTH(on_date) = :month
+  and YEAR(on_date) = :year
+  and sections = :sections
+  and customer_id = :customer_id
+  and depot_id = :depot_id
+        ',
+                    [
+                        'month' => $this->month,
+                        'year' => $this->year,
+                        'sections' => $this->sections,
+                        'customer_id' => $customerId,
+                        'depot_id' => $depotId,
+                    ]
+                )[0]->count;
+        }
+
+        $data['total'] = array_sum($data ?? []);
+
+        return $data;
     }
 
     protected function getDayDataByCustomer(int $day, int $customerId)

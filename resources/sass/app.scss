@@ -43,3 +43,7 @@
 span.required {
     color: red;
 }
+
+.responsive-oblique-line {
+    background: linear-gradient(to top right, #f8fafc calc(50% - 1px), #dee2e6, #f8fafc calc(50% + 1px) )
+}

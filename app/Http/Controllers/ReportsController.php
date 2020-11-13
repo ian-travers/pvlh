@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Depot;
 use App\UseCases\ReportsService;
 
 class ReportsController extends Controller
@@ -29,11 +30,14 @@ class ReportsController extends Controller
 
         return view('reports.monthly.show', [
             'report' => $report,
+            'summaryMatrix' => $this->reportsService->monthlySummaryMatrixReport(request('sections'), request('month'), request('year')),
+            'summaryDepots' => $this->reportsService->monthlySummaryDepots(request('sections'), request('month'), request('year')),
             'sections' => request('sections'),
             'month' => monthName(request('month')),
             'year' => request('year'),
             'customersCount' => count($report[1]) - 1,
             'customersNames' => array_keys(array_slice($report[1], 0, -1)),
+            'depotsNames' => Depot::orderBy('id')->pluck('name')->toArray(),
         ]);
     }
 }

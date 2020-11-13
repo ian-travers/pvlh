@@ -8,4 +8,5 @@
         работы
     </h5>
     @include('reports.monthly.table')
+    @include('reports.monthly.summary')
 </x-layout-reports>
