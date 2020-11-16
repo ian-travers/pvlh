@@ -40,7 +40,7 @@
                 <a
                     href="{{ route('applications.show', $application) }}"
                     class="btn btn-sm btn-primary fa fa-eye mb-1"
-                    title="Редактировать"
+                    title="Посмотреть"
                 ></a>
                 @can('edit-app', $application)
                 <a
