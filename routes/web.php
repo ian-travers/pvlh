@@ -85,6 +85,9 @@ Route::group([
             ->name('.toggle-nodshp');
     });
 
+// Calendar
+Route::get('/calendar', [\App\Http\Controllers\CalendarController::class, 'show'])->middleware('auth')->name('calendar');
+
 // Reports
 Route::group([
     'prefix' => 'reports',
