@@ -1,5 +1,14 @@
 <x-layout-app title="Календарь">
-<h3>{{ $monthAsText }} {{ $yearAsText }}</h3>
+    <div class="d-flex justify-content-center align-items-start mt-3 mb-2">
+        <a href="#">
+            <button class="btn bnt-sm btn-outline-secondary fas fa-chevron-left"></button>
+        </a>
+        <h3 class="mx-4">{{ $monthAsText }} {{ $yearAsText }}</h3>
+        <a href="#">
+            <button class="btn bnt-sm btn-outline-secondary fas fa-chevron-right"></button>
+        </a>
+    </div>
+
     <div class="overflow-auto">
         <table class="table table-bordered">
             @foreach(array_chunk($dates, 7) as $chunk)

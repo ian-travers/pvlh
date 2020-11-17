@@ -9,10 +9,14 @@ class CalendarController extends Controller
 {
     public function show()
     {
+        $this->validate(request(), [
+            'm' => 'nullable|int|min:1|max:12',
+            'y' => 'nullable|int|min:2020',
+        ]);
+
         $now = new \DateTimeImmutable();
 
         $query = Query::createFromDate($now);
-
         $calendar = new CalendarFetcher($query);
 
         $calendarData = $calendar->byMonth();
