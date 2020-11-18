@@ -20,6 +20,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('applications') }}">Заявки на локомотивы</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('calendar') }}">Календарь</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

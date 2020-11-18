@@ -4,15 +4,24 @@ namespace App\Http\Controllers;
 
 use App\ReadModel\Calendar\CalendarFetcher;
 use App\ReadModel\Calendar\Query\Query;
+use Illuminate\Validation\ValidationException;
 
 class CalendarController extends Controller
 {
     public function show()
     {
-        $this->validate(request(), [
-            'm' => 'nullable|int|min:1|max:12',
-            'y' => 'nullable|int|min:2020',
-        ]);
+        try {
+            $this->validate(request(), [
+                'm' => 'nullable|int|min:1|max:12',
+                'y' => 'nullable|int|min:2020',
+            ]);
+        } catch (ValidationException $e) {
+            return back()->with('flash', json_encode([
+                'level' => 'error',
+                'title' => 'Ошибка выбора периода!',
+                'message' => 'Месяц или год календаря выбраны неверно, либо указан период ранее 2020 года.'
+            ]));
+        }
 
         $query = (request()->has('m') && request()->has('y'))
             ? new Query(request('y'), request('m'))
