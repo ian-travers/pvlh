@@ -21,9 +21,9 @@ class CalendarFetcher
         // Add 5 rows per 7 days + 1 day
         $lastCalDay = $start->modify('+35 days');
 
-        // It must be between 1 and 7 when we have 5 rows in the calendar sheet
+        // It must be between less then 28 when we have 5 rows in the calendar sheet
         // Otherwise we need to add one more row to the calendar sheet
-        (int)$lastCalDay->format('d') > 7
+        (int)$lastCalDay->format('d') > 28
             ? $end = $start->modify('+41 days')->setTime(23, 59, 59)
             : $end = $start->modify('+34 days')->setTime(23, 59, 59);
 

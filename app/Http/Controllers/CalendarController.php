@@ -14,9 +14,13 @@ class CalendarController extends Controller
             'y' => 'nullable|int|min:2020',
         ]);
 
-        $now = new \DateTimeImmutable();
+        $query = (request()->has('m') && request()->has('y'))
+            ? new Query(request('y'), request('m'))
+            : Query::createFromDate(new \DateTimeImmutable());
 
-        $query = Query::createFromDate($now);
+//        $now = new \DateTimeImmutable();
+//
+//        $query = Query::createFromDate($now);
         $calendar = new CalendarFetcher($query);
 
         $calendarData = $calendar->byMonth();
@@ -26,7 +30,9 @@ class CalendarController extends Controller
             'yearAsText' => $calendarData->month->format('Y'),
             'dates' => iterator_to_array(new \DatePeriod($calendarData->start, new \DateInterval('P1D'), $calendarData->end)),
             'now' => now(),
-            'currentMonth' => $calendarData->month
+            'currentMonth' => $calendarData->month,
+            'previousLink' => '/calendar?m=' . $query->previousMonth() . '&y=' . $query->previousYear(),
+            'nextLink' => '/calendar?m=' . $query->nextMonth() . '&y=' . $query->nextYear(),
         ]);
     }
 }
