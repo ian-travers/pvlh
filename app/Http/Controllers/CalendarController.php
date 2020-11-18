@@ -27,17 +27,16 @@ class CalendarController extends Controller
             ? new Query(request('y'), request('m'))
             : Query::createFromDate(new \DateTimeImmutable());
 
-//        $now = new \DateTimeImmutable();
-//
-//        $query = Query::createFromDate($now);
         $calendar = new CalendarFetcher($query);
 
         $calendarData = $calendar->byMonth();
 
+//        return ;
         return view('calendar.show', [
             'monthAsText' => mb_convert_case(monthName($calendarData->month->format('n')), MB_CASE_TITLE_SIMPLE),
             'yearAsText' => $calendarData->month->format('Y'),
             'dates' => iterator_to_array(new \DatePeriod($calendarData->start, new \DateInterval('P1D'), $calendarData->end)),
+            'locApps' => $calendarData->items,
             'now' => now(),
             'currentMonth' => $calendarData->month,
             'previousLink' => '/calendar?m=' . $query->previousMonth() . '&y=' . $query->previousYear(),

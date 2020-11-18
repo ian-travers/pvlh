@@ -47,3 +47,22 @@ span.required {
 .responsive-oblique-line {
     background: linear-gradient(to top right, #f8fafc calc(50% - 1px), #dee2e6, #f8fafc calc(50% + 1px) )
 }
+
+.calendar-link {
+    text-decoration: none;
+    color: $body-color;
+    cursor: pointer;
+
+    @include hover() {
+        text-decoration: none;
+    }
+
+    &:focus,
+    &.focus {
+        text-decoration: none;
+    }
+}
+
+.current-day {
+    background-color: $orange-light;
+}

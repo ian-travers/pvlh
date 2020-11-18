@@ -3,6 +3,7 @@
 namespace App\ReadModel\Calendar;
 
 use App\ReadModel\Calendar\Query\Query;
+use Illuminate\Support\Facades\DB;
 
 class CalendarFetcher
 {
@@ -27,7 +28,17 @@ class CalendarFetcher
             ? $end = $start->modify('+41 days')->setTime(23, 59, 59)
             : $end = $start->modify('+34 days')->setTime(23, 59, 59);
 
-        return new CalendarData([], $start, $end, $month);
+        $items = DB::select('
+select locomotive_applications.id, on_date, customers.name as customer, depots.name as depot, sections, is_nodn, is_nodt, is_nodshp
+from locomotive_applications
+join customers on customer_id = customers.id
+join depots on depot_id = depots.id
+where on_date between :start and :end',
+            [
+                'start' => $start,
+                'end' => $end,
+            ]);
+        return new CalendarData($items, $start, $end, $month);
     }
 
     private static function calcFirstDayOfWeek(\DateTimeImmutable $date)

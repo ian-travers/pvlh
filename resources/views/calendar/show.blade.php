@@ -16,7 +16,7 @@
                 <tr>
                     @foreach($chunk as $date)
                         <td
-                            class="text-center {{ $date->format('Y-m-d') == $now->format('Y-m-d') ? 'h4 text-primary' : '' }} {{ $date->format('m') !== $currentMonth->format('m') ? 'bg-light text-muted small' : '' }}"
+                            class="text-center {{ $date->format('Y-m-d') == $now->format('Y-m-d') ? 'current-day' : '' }} {{ $date->format('m') !== $currentMonth->format('m') ? 'bg-light text-muted small' : '' }}"
                             style="width: calc(100%/7)"
                         >
                             {{ $date->format('d') }}
@@ -25,10 +25,28 @@
                 </tr>
                 <tr>
                     @foreach($chunk as $date)
+                        @php $thisDay = $date->format('Y-m-d H:i:s') @endphp
                         <td
-                            class="{{ $date->format('m') !== $currentMonth->format('m') ? 'bg-light text-muted small' : '' }}"
+                            class="{{ $date->format('Y-m-d') == $now->format('Y-m-d') ? 'current-day' : '' }} {{ $date->format('m') !== $currentMonth->format('m') ? 'bg-light text-muted small' : '' }}"
                         >
-                            Data of this day
+                            @foreach($locApps as $locApp)
+                                @if($locApp->on_date == $thisDay)
+                                    <a class="calendar-link" href="{{ route('applications.show', $locApp->id) }}">
+                                        <div class="border rounded mx-n1 mb-1 px-1">
+                                            <div class="text-center">{{ $locApp->customer }}</div>
+                                            <div class="text-center">
+                                                <span class="small">{{ $locApp->depot }}</span>
+                                                <span class="badge badge-pill badge-info">{{ $locApp->sections }}</span>
+                                            </div>
+                                            <div class="text-center small">
+                                                <span class="badge badge-pill {{ $locApp->is_nodn ? 'badge-success' : 'badge-danger'}}">Н</span>
+                                                <span class="badge badge-pill {{ $locApp->is_nodt ? 'badge-success' : 'badge-danger'}}">Т</span>
+                                                <span class="badge badge-pill {{ $locApp->is_nodshp ? 'badge-success' : 'badge-danger'}}">ШП</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endif
+                            @endforeach
                         </td>
                     @endforeach
                 </tr>
