@@ -38,6 +38,7 @@ where on_date between :start and :end',
                 'start' => $start,
                 'end' => $end,
             ]);
+
         return new CalendarData($items, $start, $end, $month);
     }
 
