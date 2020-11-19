@@ -11,7 +11,7 @@
         <th class="text-center">Кол-во часов</th>
         <th>Вид работ</th>
         <th>Депо приписки</th>
-        <th class="text-center" rowspan="2" style="vertical-align: middle">Согл.</th>
+        <th class="text-center w-10" rowspan="2" style="vertical-align: middle">Согл.</th>
         <th class="text-center" rowspan="2" style="vertical-align: middle">Операции</th>
     </tr>
     <tr>
@@ -32,9 +32,9 @@
             <td>{{ $application->purpose->name }}</td>
             <td>{{ $application->depot->name }}</td>
             <td class="text-center" rowspan="2" style="vertical-align: middle">
-                <span class="w-80 badge {{ $application->approvedNODN() ? 'badge-success' : 'badge-danger' }}">НОДН</span>
-                <span class="w-80 badge {{ $application->approvedNODT() ? 'badge-success' : 'badge-danger' }}">НОДТ</span>
-                <span class="w-80 badge {{ $application->approvedNODSHP() ? 'badge-success' : 'badge-danger' }}">НОДШП</span>
+                <span class="w-80 text-center badge {{ $application->approvedNODN() ? 'badge-success' : 'badge-danger' }}">НОДН</span>
+                <span class="w-80 text-center badge {{ $application->approvedNODT() ? 'badge-success' : 'badge-danger' }}">НОДТ</span>
+                <span class="w-80 text-center badge {{ $application->approvedNODSHP() ? 'badge-success' : 'badge-danger' }}">НОДШП</span>
             </td>
             <td class="text-center" rowspan="2" style="vertical-align: middle">
                 <a
