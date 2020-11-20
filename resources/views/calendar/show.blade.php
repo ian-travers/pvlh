@@ -1,11 +1,11 @@
 <x-layout-app title="Календарь">
     <div class="d-flex justify-content-center align-items-start mt-3 mb-2">
         <a href="{{ $previousLink }}">
-            <button class="btn bnt-sm btn-outline-secondary fas fa-chevron-left"></button>
+            <button class="btn bnt-sm btn-outline-secondary fas fa-chevron-left" title="Предыдущий месяц"></button>
         </a>
         <h3 class="mx-4">{{ $monthAsText }} {{ $yearAsText }}</h3>
         <a href="{{ $nextLink }}">
-            <button class="btn bnt-sm btn-outline-secondary fas fa-chevron-right"></button>
+            <button class="btn bnt-sm btn-outline-secondary fas fa-chevron-right" title="Следующий месяц"></button>
         </a>
     </div>
 
