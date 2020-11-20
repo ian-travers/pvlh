@@ -3,17 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Depot;
-use App\UseCases\ReportsService;
+use App\Reports\MonthlyReport;
 
 class ReportsController extends Controller
 {
-    protected $reportsService;
-
-    public function __construct(ReportsService $reportsService)
-    {
-        $this->reportsService = $reportsService;
-    }
-
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      * @throws \Illuminate\Validation\ValidationException
@@ -26,12 +19,13 @@ class ReportsController extends Controller
             'year' => 'required|int|min:2020',
         ]);
 
-        $report = $this->reportsService->monthlyReport(request('sections'), request('month'), request('year'));
+        $reportModel = new MonthlyReport(request('sections'), request('month'), request('year'));
+        $report = $reportModel->datesReport();
 
         return view('reports.monthly.show', [
             'report' => $report,
-            'summaryMatrix' => $this->reportsService->monthlySummaryMatrixReport(request('sections'), request('month'), request('year')),
-            'summaryDepots' => $this->reportsService->monthlySummaryDepots(request('sections'), request('month'), request('year')),
+            'summaryMatrix' => $reportModel->summaryMatrix(),
+            'summaryDepots' => $reportModel->summaryByDepots(),
             'sections' => request('sections'),
             'month' => monthName(request('month')),
             'year' => request('year'),
