@@ -11,14 +11,22 @@
 
     <div class="overflow-auto">
         <table class="table table-bordered">
+            <tr>
+                <td class="text-center py-0" style="width: calc(100%/7)">Понедельник</td>
+                <td class="text-center py-0" style="width: calc(100%/7)">Вторник</td>
+                <td class="text-center py-0" style="width: calc(100%/7)">Среда</td>
+                <td class="text-center py-0" style="width: calc(100%/7)">Четверг</td>
+                <td class="text-center py-0" style="width: calc(100%/7)">Пятница</td>
+                <td class="text-center py-0" style="width: calc(100%/7)">Суббота</td>
+                <td class="text-center py-0" style="width: calc(100%/7)">Воскресенье</td>
+            </tr>
             @foreach(array_chunk($dates, 7) as $chunk)
                 <tbody>
                 <tr>
+
                     @foreach($chunk as $date)
                         <td
-                            class="text-center {{ $date->format('Y-m-d') == $now->format('Y-m-d') ? 'current-day' : '' }} {{ $date->format('m') !== $currentMonth->format('m') ? 'bg-light text-muted small' : '' }}"
-                            style="width: calc(100%/7)"
-                        >
+                            class="text-center py-1 {{ $date->format('Y-m-d') == $now->format('Y-m-d') ? 'current-day' : '' }} {{ $date->format('m') !== $currentMonth->format('m') ? 'bg-light text-muted small' : '' }}">
                             {{ $date->format('d') }}
                         </td>
                     @endforeach

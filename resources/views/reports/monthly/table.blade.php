@@ -8,7 +8,7 @@
     </tr>
     <tr>
         @foreach($customersNames as $name)
-            <th class="text-center" colspan="4">{{ $name }}</th>
+            <th class="text-center" colspan="4" style="width: calc(100% / 4)">{{ $name }}</th>
         @endforeach
     </tr>
     <tr>
