@@ -23,7 +23,7 @@
                 </a>
             </td>
             <td class="text-center">{{ $notification->created_at->format('d.m.y H:i') }}</td>
-            <td class="text-center">{{ $notification->read_at ? $notification->read_at->format('d.m.y H:i') : '' }}</td>
+            <td class="text-center">{{ optional($notification->read_at)->format('d.m.y H:i') }}</td>
             <td>
                 <div class="d-flex justify-content-center align-items-end">
                     <form
