@@ -27,25 +27,31 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Gate::before(function (User $user) {
+            if ($user->isSA() || $user->isAdmin()) {
+                return true;
+            }
+        });
+
         Gate::define('create-app', function (User $user) {
-            return $user->isCustomer() || $user->isSA() || $user->isAdmin();
+            return $user->isCustomer();
         });
 
         Gate::define('edit-app', function (User $user, LocomotiveApplication $application) {
-            return $user->id == $application->user_id || $user->isSA() || $user->isAdmin();
+            return $application->user->is($user);
         });
 
         Gate::define('approve-nodn', function (User $user) {
-            return $user->isNodn() || $user->isSA() || $user->isAdmin();
+            return $user->isNodn();
         });
 
         Gate::define('approve-nodt', function (User $user) {
-            return $user->isNodt() || $user->isSA() || $user->isAdmin();
+            return $user->isNodt();
         });
 
-        Gate::define('approve-nodshp', function (User $user) {
-            return $user->isNodshp() || $user->isSA() || $user->isAdmin();
-        });
+        Gate::define(function (User $user) {
+            return $user->isNodshp();
+        }, 'approve-nodshp');
 
         Gate::define('sysadmin', function (User $user) {
             return $user->isSA() || $user->isAdmin();
