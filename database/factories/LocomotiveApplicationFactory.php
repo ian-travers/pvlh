@@ -12,10 +12,8 @@ class LocomotiveApplicationFactory extends Factory
 
     public function definition()
     {
-        $user = User::factory()->create();
-
         return [
-            'user_id' => $user->id,
+            'user_id' => User::factory(),
             'sections' => rand(1, 2),
             'on_date' => today()->addDays(rand(0, 30)),
             'count' => rand(1, 3),
