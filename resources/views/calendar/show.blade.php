@@ -33,12 +33,12 @@
                 </tr>
                 <tr>
                     @foreach($chunk as $date)
-                        @php $thisDay = $date->format('Y-m-d H:i:s') @endphp
+                        @php $thisDay = $date->format('Y-m-d') @endphp
                         <td
                             class="{{ $date->format('Y-m-d') == $now->format('Y-m-d') ? 'current-day' : '' }} {{ $date->format('m') !== $currentMonth->format('m') ? 'bg-light text-muted small' : '' }}"
                         >
                             @foreach($locApps as $locApp)
-                                @if($locApp->on_date == $thisDay)
+                                @if(substr($locApp->on_date, 0, 10) == $thisDay)
                                     <a class="calendar-link" href="{{ route('applications.show', $locApp->id) }}">
                                         <div class="border rounded mx-n1 mb-1 px-1">
                                             <div class="text-center">{{ $locApp->customer }}</div>
