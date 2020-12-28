@@ -2,7 +2,7 @@ version: '3'
 services:
   # Node
   node:
-    image: node:current-alpine
+    image: node:14-alpine
     volumes:
       - ./:/var/www
       - /etc/timezone:/etc/timezone:ro
