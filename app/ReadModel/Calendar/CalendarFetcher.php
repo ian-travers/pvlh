@@ -29,7 +29,7 @@ class CalendarFetcher
             : $end = $start->modify('+34 days')->setTime(23, 59, 59);
 
         $items = DB::select('
-select locomotive_applications.id, on_date, customers.name as customer, depots.name as depot, sections, is_nodn, is_nodt, is_nodshp
+select locomotive_applications.id, on_date, customers.name as customer, depots.name as depot, sections, is_nodn, is_nodt, is_nodshp, purpose_id
 from locomotive_applications
 join customers on customer_id = customers.id
 join depots on depot_id = depots.id

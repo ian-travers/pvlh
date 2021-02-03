@@ -40,7 +40,7 @@
                             @foreach($locApps as $locApp)
                                 @if(substr($locApp->on_date, 0, 10) == $thisDay)
                                     <a class="calendar-link" href="{{ route('applications.show', $locApp->id) }}">
-                                        <div class="border rounded mx-n1 mb-1 px-1">
+                                        <div class="border {{ $locApp->purpose_id == 13 ? 'border-success' : '' }} {{ $locApp->purpose_id == 14 ? 'border-danger' : '' }} rounded mx-n1 mb-1 px-1">
                                             <div class="text-center">{{ $locApp->customer }}</div>
                                             <div class="text-center">
                                                 <span class="small">{{ $locApp->depot }}</span>
