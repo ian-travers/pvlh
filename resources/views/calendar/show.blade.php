@@ -46,7 +46,7 @@
                                                 <span class="small">{{ $locApp->depot }}</span>
                                                 @if($locApp->sections == 2)
                                                 <svg
-                                                    width="18" height="18" viewBox="0 0 1200 1280"
+                                                    width="16" height="16" viewBox="0 0 1200 1280"
                                                 >
                                                     <g transform="translate(0.000000,1119.000000) scale(0.100000,-0.100000)"
                                                        fill="#000000" stroke="none">
@@ -78,7 +78,7 @@ l-51 77 380 0 380 0 0 595 c0 588 0 595 -20 595 -20 0 -20 7 -20 3340 l0 3340
                                                 </svg>
                                                 @endif
                                                 <svg style="transform: scale(-1,1)"
-                                                    width="18" height="18" viewBox="0 0 1200 1280"
+                                                    width="16" height="16" viewBox="0 0 1200 1280"
                                                 >
                                                     <g transform="translate(0.000000,1119.000000) scale(0.100000,-0.100000)"
                                                        fill="#000000" stroke="none">
