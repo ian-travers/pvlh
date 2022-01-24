@@ -19,9 +19,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $description
  * @property int $purpose_id
  * @property int $depot_id
- * @property int $is_nodt
- * @property int $is_nodn
- * @property int $is_nodshp
+ * @property bool $is_nodt
+ * @property bool $is_nodn
+ * @property bool $is_nodshp
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Customer $customer
